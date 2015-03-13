@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project name="" company="" manager="" phase="" project-start="20150309T000000Z" mrproject-version="2" calendar="1">
+<project name="" company="" manager="" phase="" project-start="20150302T000000Z" mrproject-version="2" calendar="1">
   <properties/>
   <phases/>
   <calendars>
@@ -20,23 +20,64 @@
     </calendar>
   </calendars>
   <tasks>
-    <task id="1" name="Create Rails web application" note="" work="345600" start="20150309T000000Z" end="20150309T170000Z" work-start="20150309T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <task id="2" name="Create MVC scheme" note="" work="28800" start="20150309T000000Z" end="20150309T170000Z" work-start="20150309T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-      <task id="3" name="Linode server deployment process" note="" work="28800" start="20150309T000000Z" end="20150309T170000Z" work-start="20150309T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-      <task id="4" name="Integrate Amazon RDS" note="" work="28800" start="20150309T000000Z" end="20150309T170000Z" work-start="20150309T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-      <task id="5" name="Create Animation edit view" note="" work="144000" start="20150309T000000Z" end="20150309T170000Z" work-start="20150309T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <task id="6" name="Create drawing canvas" note="" work="28800" start="20150309T000000Z" end="20150309T170000Z" work-start="20150309T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-        <task id="7" name="Create Firehose chatroom" note="" work="28800" start="20150309T000000Z" end="20150309T170000Z" work-start="20150309T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-        <task id="8" name="Collaborative drawing" note="" work="28800" start="20150309T000000Z" end="20150309T170000Z" work-start="20150309T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-        <task id="9" name="Render canvas as new image frame" note="" work="28800" start="20150309T000000Z" end="20150309T170000Z" work-start="20150309T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-        <task id="10" name="Store frames on S3" note="" work="28800" start="20150309T000000Z" end="20150309T170000Z" work-start="20150309T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+    <task id="1" name="Create Rails web application" note="" work="2390400" start="20150302T000000Z" end="20150424T170000Z" work-start="20150302T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="2" name="Generate new rails application" note="" work="86400" start="20150302T000000Z" end="20150304T170000Z" work-start="20150302T080000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="3" name="Create MVC scheme" note="" work="144000" start="20150304T170000Z" end="20150311T170000Z" work-start="20150305T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="2" type="FS"/>
+        </predecessors>
       </task>
-      <task id="11" name="Create new animation view" note="" work="28800" start="20150309T000000Z" end="20150309T170000Z" work-start="20150309T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-      <task id="12" name="Create animation show view" note="" work="28800" start="20150309T000000Z" end="20150309T170000Z" work-start="20150309T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-      <task id="13" name="Create animation index (gallery) view" note="" work="28800" start="20150309T000000Z" end="20150309T170000Z" work-start="20150309T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-      <task id="14" name="Send invite notifications" note="" work="28800" start="20150309T000000Z" end="20150309T170000Z" work-start="20150309T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="4" name="Linode server deployment process" note="" work="144000" start="20150316T000000Z" end="20150320T170000Z" work-start="20150316T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <constraint type="must-start-on" time="20150316T000000Z"/>
+      </task>
+      <task id="5" name="Integrate Amazon RDS" note="" work="144000" start="20150311T170000Z" end="20150318T170000Z" work-start="20150312T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="3" type="FS"/>
+        </predecessors>
+      </task>
+      <task id="6" name="Create Animation edit view" note="" work="720000" start="20150309T000000Z" end="20150410T170000Z" work-start="20150309T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="7" name="Create drawing canvas" note="" work="144000" start="20150309T000000Z" end="20150313T170000Z" work-start="20150309T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <constraint type="must-start-on" time="20150309T000000Z"/>
+        </task>
+        <task id="8" name="Create Firehose chatroom" note="" work="144000" start="20150316T000000Z" end="20150320T170000Z" work-start="20150316T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <constraint type="must-start-on" time="20150316T000000Z"/>
+        </task>
+        <task id="9" name="Collaborative drawing" note="" work="288000" start="20150320T170000Z" end="20150403T170000Z" work-start="20150323T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <predecessors>
+            <predecessor id="1" predecessor-id="8" type="FS"/>
+          </predecessors>
+        </task>
+        <task id="10" name="Render canvas as new image frame" note="" work="86400" start="20150403T170000Z" end="20150408T170000Z" work-start="20150406T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <predecessors>
+            <predecessor id="1" predecessor-id="9" type="FS"/>
+          </predecessors>
+        </task>
+        <task id="11" name="Store frames on S3" note="" work="57600" start="20150408T170000Z" end="20150410T170000Z" work-start="20150409T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <predecessors>
+            <predecessor id="1" predecessor-id="10" type="FS"/>
+          </predecessors>
+        </task>
+      </task>
+      <task id="12" name="Create new animation view" note="" work="288000" start="20150310T000000Z" end="20150323T170000Z" work-start="20150310T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <constraint type="must-start-on" time="20150310T000000Z"/>
+      </task>
+      <task id="13" name="Create animation show view" note="" work="288000" start="20150410T170000Z" end="20150424T170000Z" work-start="20150413T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="11" type="FS"/>
+        </predecessors>
+      </task>
+      <task id="14" name="Create animation index (gallery) view" note="" work="288000" start="20150410T170000Z" end="20150424T170000Z" work-start="20150413T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="13" type="SS"/>
+        </predecessors>
+      </task>
+      <task id="15" name="Send invite notifications" note="" work="288000" start="20150324T000000Z" end="20150406T170000Z" work-start="20150324T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <constraint type="must-start-on" time="20150324T000000Z"/>
+      </task>
     </task>
-    <task id="15" name="Create image-video transcoder" note="" work="28800" start="20150309T000000Z" end="20150309T170000Z" work-start="20150309T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+    <task id="16" name="Create image-video transcoder" note="" work="288000" start="20150324T000000Z" end="20150406T170000Z" work-start="20150324T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <constraint type="must-start-on" time="20150324T000000Z"/>
+    </task>
   </tasks>
   <resource-groups>
     <group id="1" name="Developers" admin-name="" admin-phone="" admin-email=""/>
