@@ -11,16 +11,17 @@ class RoomsController < ApplicationController
 
   def create
     @room = Room.new(room_params)
+    @room.password = SecureRandom.urlsafe_base64ssword
 
     @room.save
-    redirect_to @room
+    redirect_to controller: 'rooms', action: 'show', id: @room.id, p: @room.password
   end
 
   def edit
   end
 
   def show
-    if params[:id] == "public"
+    if params[:id] == 'public'
       @room = Room.find(1)
     else
       @room = Room.find(params[:id])
@@ -30,15 +31,12 @@ class RoomsController < ApplicationController
   private
 
     def authenticate
-      if params[:id] != "public"
-        authenticate_or_request_with_http_basic do |username, password|
-          @username = username
-          password == Room.find(params[:id]).password
-        end
+      if params[:id] != 'public' && params[:p] != Room.find(params[:id]).password
+        render plain: 'Invalid password'
       end
     end
 
     def room_params
-      params.require(:room).permit(:name, :password)
+      params.require(:room).permit(:name)
     end
 end
