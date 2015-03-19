@@ -32,7 +32,7 @@ class RoomsController < ApplicationController
 
     def authenticate
       if params[:id] != 'public' && params[:p] != Room.find(params[:id]).password
-        render plain: 'Invalid password'
+        render plain: 'Invalid password', status: :forbidden
       end
     end
 

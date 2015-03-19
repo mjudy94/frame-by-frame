@@ -1,1 +1,15 @@
 <h1><%= @room.name %></h1>
+<div>
+  This is the private URL for this room. Share it with others to give them access to the room.
+</div>
+
+<textarea id="room_url" readonly style="width:<%= request.original_url.length %>ch"><%= request.original_url %></textarea>
+
+<div>
+  <button id="invite_button">Send Invite</button>
+  <button id="copy_button">Copy Link</button>
+</div>
+
+<span id="copy_message">
+  Press CTRL+C or CMD+C to copy the selected URL.
+</span>
