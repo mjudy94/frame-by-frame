@@ -11,7 +11,7 @@ class RoomsController < ApplicationController
 
   def create
     @room = Room.new(room_params)
-    @room.password = SecureRandom.urlsafe_base64
+    @room.password = params[:room][:private] == '1' ? SecureRandom.urlsafe_base64 : nil
 
     @room.save
     redirect_to controller: 'rooms', action: 'show', id: @room.id, p: @room.password

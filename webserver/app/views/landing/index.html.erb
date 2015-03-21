@@ -1,8 +1,8 @@
-<h1>Landing Page</h1>
+<h1><%= t :landing_title %></h1>
 <p>This page will serve as the launching point of the application. The user should be able to select
   whether they want to join the public sketch room, create a private sketch room, or view the
   public animation gallery.</p>
 
-<%= button_to "Join Public Room", edit_room_path(:public), :method => :get %>
-<%= button_to "Create Private Room", new_room_path, :method => :get %>
-<%= button_to "View Public Gallery", rooms_path, :method => :get %>
+<%= button_to t(:public_room_button), edit_room_path(:public), :method => :get %>
+<%= button_to t(:new_room_button), new_room_path, :method => :get %>
+<%= button_to t(:view_gallery_button), rooms_path, :method => :get %>

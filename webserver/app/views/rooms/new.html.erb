@@ -1,4 +1,4 @@
-<h1>Create a new room</h1>
+<h1><%=t '.title' %></h1>
 
 <%= form_for :room, url: rooms_path do |f| %>
   <p>
@@ -6,5 +6,11 @@
     <%= f.text_field :name %>
   </p>
 
-  <%= f.submit "Create room" %>
+  <p>
+    <%= f.label :private %>
+    <%= f.check_box :private, checked: true %>
+    <span>(<%= t '.private_notice' %>)</span>
+  </p>
+
+  <%= f.submit t '.submit' %>
 <% end %>

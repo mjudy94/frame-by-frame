@@ -20,4 +20,22 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  landing_title: "Landing Page"
+  public_room_button: "Join Public Room"
+  new_room_button: "Create New Room"
+  view_gallery_button: "View Gallery"
+
+  rooms:
+    index:
+      title: "List of all rooms"
+
+    new:
+      title: "Create a new room"
+      private_notice: "Password required for access"
+      submit: "Create room"
+
+    show:
+      share_notice: "This is the private URL for this room. Share it with others to give them access to the room."
+      copy_message: "Press CTRL+C or CMD+C to copy the selected URL."
+      invite_button: "Send Invite"
+      copy_button: "Copy Link"

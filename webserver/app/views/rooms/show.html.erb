@@ -1,15 +1,11 @@
 <h1><%= @room.name %></h1>
-<div>
-  This is the private URL for this room. Share it with others to give them access to the room.
-</div>
+<div><%= t '.share_notice' %></div>
 
 <textarea id="room_url" readonly style="width:<%= request.original_url.length %>ch"><%= request.original_url %></textarea>
 
 <div>
-  <button id="invite_button">Send Invite</button>
-  <button id="copy_button">Copy Link</button>
+  <button id="invite_button"><%= t '.invite_button' %></button>
+  <button id="copy_button"><%= t '.copy_button' %></button>
 </div>
 
-<span id="copy_message">
-  Press CTRL+C or CMD+C to copy the selected URL.
-</span>
+<span id="copy_message"><%= t '.copy_message' %></span>
