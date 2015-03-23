@@ -1,57 +1,57 @@
 /*
 * Enables the user to draw on the canvas
-*3/12/15
+* 3/12/15
 * Multiple colors and tools have not been implemented
 * Basic groundwork for the UI is laid- will refine it a good deal
 * Will incorporate a 'clear canvas' function very soon
 */
 
+var context;
 
 
 var mouseClicked = false;
+
+// Previous frame's mouse position
 var recentX;
 var recentY;
-var context;
+
 
 function initialize() {
     context = document.getElementById("frameCanvas").getContext("2d");
 
     /*
-    * 4 vital mouse events that allow the user to interact with the canvas
+    * Mouse input events
     */
 
-
-     /*
-    * 3rd parameter set to 0 as user has not yet dragged the mouse to begin sketching
-    */
-
-    $("#frameCanvas").mousedown(function (down) {
+    // Mouse pressed down on the canvas
+    $("#frameCanvas").mousedown(function(e) {
         mouseClicked = true;
-        var xPos = down.pageX - $(this).offset().left;
-        var yPos = down.pageY - $(this).offset().top;
+        var xPos = e.pageX - $(this).offset().left;
+        var yPos = e.pageY - $(this).offset().top;
 
-        sketch(xPos, yPos, 0);
+        sketch(xPos, yPos, false);
     });
 
-    /*
-    * 3rd parameter set to 1 to reflect the fact that the mouse is clicked and moving around
-    */
-    $("#frameCanvas").mousemove(function (move) {
+    // Mouse moves on the canvas
+    $("#frameCanvas").mousemove(function(e) {
         if (mouseClicked) {
-            sketch(move.pageX - $(this).offset().left, move.pageY - $(this).offset().top, 1);
+            sketch(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
         }
     });
 
-    $("#frameCanvas").mouseup(function (up) {
+    // Mouse un-press
+    $("#frameCanvas").mouseup(function(e) {
         mouseClicked = false;
     });
-	    $("#frameCanvas").mouseleave(function (leave) {
+
+    // Mouse goes off the canvas
+    $("#frameCanvas").mouseleave(function(e) {
         mouseClicked = false;
     });
 }
 
-function sketch(x, y, condition) {
-    if (condition == 1) {
+function sketch(x, y, drawing) {
+    if(drawing) {
         context.beginPath();
         context.strokeStyle = "#00CCFF";
         context.lineWidth = 5;
@@ -60,5 +60,6 @@ function sketch(x, y, condition) {
         context.closePath();
         context.stroke();
     }
-    recentX = x; recentY = y;
+    recentX = x;
+    recentY = y;
 }
