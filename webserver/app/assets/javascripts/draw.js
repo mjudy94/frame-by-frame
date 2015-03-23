@@ -16,6 +16,8 @@ var recentX;
 var recentY;
 
 
+var drawColor = "rgb(0, 0, 0)";
+
 function initialize() {
     context = document.getElementById("frameCanvas").getContext("2d");
 
@@ -48,12 +50,18 @@ function initialize() {
     $("#frameCanvas").mouseleave(function(e) {
         mouseClicked = false;
     });
+
+
+    // Color pickers
+    $(".color-picker").click(function(e) {
+        drawColor = $(this).css("background-color");
+    });
 }
 
 function sketch(x, y, drawing) {
     if(drawing) {
         context.beginPath();
-        context.strokeStyle = "#00CCFF";
+        context.strokeStyle = drawColor;
         context.lineWidth = 5;
         context.moveTo(recentX, recentY);
         context.lineTo(x, y);
