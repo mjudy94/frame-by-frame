@@ -1,0 +1,14 @@
+<h1><%= @room.name %></h1>
+
+<%= link_to t('.edit_button'), edit_room_path(:p => @room.password) %>
+
+<!== Sharing invitation bar ==>
+<div>
+  <div><%= t '.share_notice' %></div>
+  <textarea id="room_url" readonly style="width:<%= request.original_url.length %>ch"><%= request.original_url %></textarea>
+  <div>
+    <button id="invite_button"><%= t '.invite_button' %></button>
+    <button id="copy_button"><%= t '.copy_button' %></button>
+  </div>
+  <span id="copy_message"><%= t '.copy_message' %></span>
+</div>

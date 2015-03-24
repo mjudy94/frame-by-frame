@@ -15,7 +15,6 @@ var mouseClicked = false;
 var recentX;
 var recentY;
 
-
 var drawColor = "rgb(0, 0, 0)";
 
 function initialize() {

@@ -1,3 +1,13 @@
 // Place all the styles related to the rooms controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#room_url {
+  height: 1.5em;
+  resize: none;
+  padding: 0.25em 1em 0 1em;
+}
+
+#copy_message {
+  background: #fffb83;
+}
