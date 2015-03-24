@@ -1,0 +1,16 @@
+<%= form_for @room do |f| %>
+  <%= hidden_field_tag :p, params[:p] %>
+
+  <p>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </p>
+
+  <p>
+    <%= f.label :private %>
+    <%= f.check_box :private, checked: params[:p] != nil %>
+    <span>(<%= t '.private_notice' %>)</span>
+  </p>
+
+  <%= f.submit %>
+<% end %>

@@ -1,23 +1,37 @@
 class RoomsController < ApplicationController
 
-  before_action :authenticate, only: [:show, :edit]
+  before_action :authenticate, only: [:edit, :update, :show]
 
   def index
     @rooms = Room.all
   end
 
   def new
+    @room = Room.new
   end
 
   def create
     @room = Room.new(room_params)
-    @room.password = params[:room][:private] == '1' ? SecureRandom.urlsafe_base64 : nil
 
-    @room.save
-    redirect_to controller: 'rooms', action: 'show', id: @room.id, p: @room.password
+    if @room.save
+      redirect_to_room :show
+    else
+      render :new
+    end
   end
 
   def edit
+    @room = Room.find(params[:id])
+  end
+
+  def update
+    @room = Room.find(params[:id])
+
+    if @room.update(room_params)
+      redirect_to_room :show
+    else
+      redirect_to_room :edit
+    end
   end
 
   def show
@@ -31,12 +45,29 @@ class RoomsController < ApplicationController
   private
 
     def authenticate
-      if params[:id] != 'public' && params[:p] != Room.find(params[:id]).password
-        render plain: 'Invalid password', status: :forbidden
+      if params[:id] != 'public'
+        expected_password = Room.find(params[:id]).password
+        if expected_password && expected_password != params[:p]
+          render plain: 'Invalid password', status: :forbidden
+        end
       end
     end
 
     def room_params
-      params.require(:room).permit(:name)
+      p = params.require(:room).permit(:name)
+
+      if params[:room][:private] == '1'
+        if !(@room && @room.password)
+          p[:password] = SecureRandom.urlsafe_base64
+        end
+      else
+        p[:password] = nil
+      end
+
+      return p
+    end
+
+    def redirect_to_room action
+      redirect_to :controller => :rooms, :action => action, :id => @room.id, :p => @room.password
     end
 end

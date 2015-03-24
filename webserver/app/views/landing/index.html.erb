@@ -3,6 +3,6 @@
   whether they want to join the public sketch room, create a private sketch room, or view the
   public animation gallery.</p>
 
-<%= button_to t(:public_room_button), edit_room_path(:public), :method => :get %>
+<%= button_to t(:public_room_button), room_path(:public), :method => :get %>
 <%= button_to t(:new_room_button), new_room_path, :method => :get %>
 <%= button_to t(:view_gallery_button), rooms_path, :method => :get %>
