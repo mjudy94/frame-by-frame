@@ -3,8 +3,6 @@ class RoomsController < ApplicationController
 
   before_action :authenticate, only: [:edit, :update, :show]
 
-  
-
   def index
     @rooms = Room.all
   end
