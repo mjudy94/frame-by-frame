@@ -5,3 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+# Public room and animation
+Room.create name: 'Public Room'
+# TODO Create first animation that goes with this room?

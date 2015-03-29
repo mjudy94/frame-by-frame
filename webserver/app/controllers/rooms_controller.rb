@@ -22,10 +22,12 @@ class RoomsController < ApplicationController
   end
 
   def edit
+    render_access_forbidden and return if is_global_room
     @room = Room.find(params[:id])
   end
 
   def update
+    render_access_forbidden and return if is_global_room
     @room = Room.find(params[:id])
 
     if @room.update(room_params)
@@ -49,7 +51,7 @@ class RoomsController < ApplicationController
       if params[:id] != 'public'
         expected_password = Room.find(params[:id]).password
         if expected_password && expected_password != params[:p]
-          render plain: 'Invalid password', status: :forbidden
+          render_access_forbidden
         end
       end
     end
@@ -68,7 +70,16 @@ class RoomsController < ApplicationController
       return p
     end
 
-    def redirect_to_room action
+    def redirect_to_room(action)
       redirect_to :controller => :rooms, :action => action, :id => @room.id, :p => @room.password
+    end
+
+    def render_access_forbidden
+      render plain: 'Access forbidden', status: :forbidden
+    end
+
+    def is_global_room
+      id = params[:id]
+      id == 'public' || id == 1
     end
 end
