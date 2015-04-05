@@ -1,83 +1,150 @@
 <head>
-	<style>
+    <style>
 
-	a {position:relative; bottom: 570px; left:670px;}
-	span {position:absolute; top:180px; left:250px;}
-	section {position:absolute; top:180px; left:275px;}
-	</style>
+    html {
+    background: url(background.png) no-repeat center center fixed;
+    background-size: cover;
+    } 
+    a {position:absolute; top:70px; left:875px;}
+    a:link
+    {
+        color: #1E90FF;
+    }
+    a:hover
+    {
+        color: #FF0000;
+    }
+
+    h2{font-family: arial}
+    span {position:absolute; top:180px; left:215px;}
+    section {position:absolute; top:180px; left:255px;}
+    #pencil {position:absolute; top:100px; left:220px;}
+    #eraser {position:absolute; top:100px; left:245px;}
+    #brush {position:absolute; top:130px; left:210px;}
+    #bucket {position:absolute; top:130px; left:240px;}
+    #textbox {position:absolute; top:100px; left:275px;}
+    #zoom {position:absolute; top:130px; left:270px;}
+    #canvasDiv {position:absolute; left:335px;}
+    #frameCanvas {background-color: white}
+    button {position: absolute; top:60px; left: 330px;}
+    #galleryButton {
+    -moz-box-shadow: 0px 0px 0px 2px #9fb4f2;
+    -webkit-box-shadow: 0px 0px 0px 2px #9fb4f2;
+    box-shadow: 0px 0px 0px 2px #9fb4f2;
+    background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #7892c2), color-stop(1, #476e9e));
+    background:-moz-linear-gradient(top, #7892c2 5%, #476e9e 100%);
+    background:-webkit-linear-gradient(top, #7892c2 5%, #476e9e 100%);
+    background:-o-linear-gradient(top, #7892c2 5%, #476e9e 100%);
+    background:-ms-linear-gradient(top, #7892c2 5%, #476e9e 100%);
+    background:linear-gradient(to bottom, #7892c2 5%, #476e9e 100%);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#7892c2', endColorstr='#476e9e',GradientType=0);
+    background-color:#7892c2;
+    -moz-border-radius:31px;
+    -webkit-border-radius:31px;
+    border-radius:31px;
+    border:4px solid #4e6096;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-family:arial;
+    font-size:17px;
+    padding:7px 5px;
+    text-decoration:none;
+}
+
+}
+
+    </style>
 
 
 </head>
 <body onload="initialize();">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-    <script type="text/javascript" src="draw.js"></script>
+    <script type="text/javascript" src="htmlDraw.js"></script>
     <div align="center">
-    	<h2 "title"> Frame by Frame </h2>
-    	<h4 id="countdown"> 9:34 until the next frame </h4>
-    	<a href = "#"> Make a Private Room </a>
-    	
-    
-    	<span>
+        <h2 "title"> Frame by Frame </h2>
+        <h4 id="countdown"> 9:34 until the next frame </h4>
+        <a href = "#"> Make a Private Room </a>
+        <img src="pencil.png" id="pencil" height="25" width="25"></img>
+        <img src="eraser.png" id="eraser" height="25" width="25"></img>
+        <img src="paintbrush.png" id="brush" height="25" width="25"></img>
+        <img src="bucket.png" id="bucket" height="25" width="25"></img>
+        <img src="textbox.png" id="textbox" height="25" width="25"></img>
+        <img src="zoom.png" id="zoom" height="25" width="25"></img>
+        <button type="button" id="galleryButton">View Gallery</button> 
 
-    	<div id="blackColor" class="color-picker" style="background-color:black; height:20px; width: 25px">
-    	</div>
+        
 
-    	<div id="lightGrayColor" class="color-picker" style="background-color:lightgray; height:20px; width: 25px">
-    	</div>
+        <!-- Left column of colors -->
+        <span>
 
-    	<div id="grayColor" class="color-picker" style="background-color:gray; height:20px; width: 25px">
-    	</div>
+        <div id="seashell" class="color-picker" style="background-color:seashell; height:40px; width: 40px">
+        </div>
 
-    	<div id="sandyBrown" class="color-picker" style="background-color:sandyBrown; height:20px; width: 25px">
-    	</div>
+        <div id="lightGrayColor" class="color-picker" style="background-color:lightgray; height:40px; width: 40px">
+        </div>
 
-    	<div id="khaki" class="color-picker" style="background-color:khaki; height:20px; width: 25px">
-    	</div>
+        <div id="sandyBrown" class="color-picker" style="background-color:sandyBrown; height:40px; width: 40px">
+        </div>
 
-    	<div id="lightCorral" class="color-picker" style="background-color:lightCorral; height:20px; width: 25px">
-    	</div>
+        <div id="pink" class="color-picker" style="background-color:pink; height:40px; width: 40px">
+        </div>
 
-    	<div id="lightYellow" class="color-picker" style="background-color:lightyellow; height:20px; width: 25px">
-    	</div>
+        <div id="orange" class="color-picker" style="background-color:orange; height:40px; width: 40px">
+        </div>
 
-    	<div id="lightGreen" class="color-picker" style="background-color:lightgreen; height:20px; width: 25px">
-    	</div>
+        <div id="lightYellow" class="color-picker" style="background-color:lightyellow; height:40px; width: 40px">
+        </div>
 
-    	<div id="lightBlue" class="color-picker" style="background-color:lightblue; height:20px; width: 25px">
-    	</div>
+        <div id="lightGreen" class="color-picker" style="background-color:lightgreen; height:40px; width: 40px">
+        </div>
 
-    	</span>
+        <div id="lightBlue" class="color-picker" style="background-color:lightblue; height:40px; width: 40px">
+        </div>
 
-    	<section>
+        <div id="mediumPurple" class="color-picker" style="background-color:mediumpurple; height:40px; width: 40px">
+        </div>
+        
+        </span>
 
-		<div id="brown" class="color-picker" style="background-color:brown; height:20px; width: 25px">
-    	</div>
+        <!-- Right column of colors -->
+        <section>
 
-    	<div id="red" class="color-picker" style="background-color:red; height:20px; width: 25px">
-    	</div>
+        <div id="black" class="color-picker" style="background-color:black; height:40px; width: 40px">
+        </div>
 
-    	<div id="brown" class="color-picker" style="background-color:brown; height:20px; width: 25px">
-    	</div>
+        <div id="gray" class="color-picker" style="background-color:gray; height:40px; width: 40px">
+        </div>
 
-    	<div id="pink" class="color-picker" style="background-color:pink; height:20px; width: 25px">
-    	</div>
+        <div id="brown" class="color-picker" style="background-color:brown; height:40px; width: 40px">
+        </div>
+        
+        <div id="red" class="color-picker" style="background-color:red; height:40px; width: 40px">
+        </div>
 
-    	<div id="orange" class="color-picker" style="background-color:orange; height:20px; width: 25px">
-    	</div>
+        <div id="darkorange" class="color-picker" style="background-color:darkorange; height:40px; width: 40px">
+        </div>
 
-    	<div id="yellow" class="color-picker" style="background-color:yellow; height:20px; width: 25px">
-    	</div>
+        <div id="yellow" class="color-picker" style="background-color:yellow; height:40px; width: 40px">
+        </div>
 
-    	<div id="Green" class="color-picker" style="background-color:green; height:20px; width: 25px">
-    	</div>
+        <div id="green" class="color-picker" style="background-color:green; height:40px; width: 40px">
+        </div>
 
-    	<div id="Blue" class="color-picker" style="background-color:blue; height:20px; width: 25px">
-    	</div>
+        <div id="blue" class="color-picker" style="background-color:blue; height:40px; width: 40px">
+        </div>
 
-    	</section>
-    	<canvas id="frameCanvas" width="780" height="540" style="border:3px solid black"></canvas>
-    
+        <div id="purple" class="color-picker" style="background-color: purple; height:40px; width: 40px">
+        </div>
+        </section>
+        <div id="canvasDiv">
+            <canvas id="frameCanvas" width="675" height="540" style="border:3px solid black"></canvas>
+        </div>
+          
 
     </div>
+
+   
+
 </body>
 
