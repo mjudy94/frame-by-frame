@@ -1,0 +1,13 @@
+<% content_for :head do %>
+  <%= javascript_include_tag "http://localhost:9292/faye/faye.js" %>
+<% end %>
+
+<div class="chat">
+  <div>
+    <p>Welcome to the chatroom!</p>
+  </div>
+  <form>
+    <input type="text">
+    <input type="submit">
+  </form>
+</div>
