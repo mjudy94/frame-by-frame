@@ -12,7 +12,7 @@ var drawColor = "rgb(0, 0, 0)";
 
 var lineWidth = 5;
 
-function initialize() {
+$(function() {
     context = document.getElementById("frameCanvas").getContext("2d");
 
     $("#pencil").click(function(){
@@ -79,7 +79,7 @@ function initialize() {
     $(".color-picker").click(function(e) {
         drawColor = $(this).css("background-color");
     });
-}
+});
 
 function sketch(x, y, drawing) {
     if(drawing) {
@@ -114,10 +114,3 @@ function checkifC(e) {
         context.clearRect(0, 0, 780, 540);
     }
 }
-
-
-
-
-
-
-
