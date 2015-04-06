@@ -4,12 +4,17 @@
 
 @import "canvas";
 
-#room_url {
-  height: 1.5em;
-  resize: none;
-  padding: 0.25em 1em 0 1em;
-}
+#share_dialog {
+  textarea {
+    height: 1.5em;
+    resize: none;
+    padding: 0.5ch 0 0 1ch;
+    width: 350px;
+    overflow: hidden;
+    white-space: nowrap;
+  }
 
-#copy_message {
-  background: #fffb83;
+  span {
+    background: #fffb83;
+  }
 }
