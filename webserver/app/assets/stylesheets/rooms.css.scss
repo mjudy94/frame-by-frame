@@ -2,6 +2,8 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@import "canvas";
+
 #room_url {
   height: 1.5em;
   resize: none;

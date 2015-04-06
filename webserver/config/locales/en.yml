@@ -39,8 +39,10 @@ en:
       private_notice: "Only people with the unique URL can access"
 
     show:
+      edit_link: "Edit room"
+
+    share:
       share_notice: "This is the private URL for this room. Share it with others to give them access to the room."
       copy_message: "Press CTRL+C or CMD+C to copy the selected URL."
       invite_button: "Send Invite"
       copy_button: "Copy Link"
-      edit_button: "Edit room"
