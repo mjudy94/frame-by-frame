@@ -5,4 +5,6 @@
   <%= render "share" %>
 <% end %>
 
-<%= render "canvas" %>
+<% if @room.animation %>
+  <%= render "canvas" %>
+<% end %>
