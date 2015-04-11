@@ -21,7 +21,9 @@ test:
   database: db/test.sqlite3
 
 production:
+  <<: *default
+  database: frame_by_frame_db
   adapter: mysql
-  pool: 5
-  timeout: 5000
   database: frame_by_frame_app
+  username: <%= CREDENTIALS["db"]["username"] %>
+  password: <%= CREDENTIALS["db"]["password"] %>
