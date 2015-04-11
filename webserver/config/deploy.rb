@@ -4,7 +4,7 @@ lock '3.4.0'
 set :application, 'frame_by_frame_app'
 set :repo_url, 'git@github.com:mjudy94/frame-by-frame.git'
 set :repo_tree, 'webserver'
-set :branch, 'master' # If we are developing on master we may want to make a deploy branch
+ask :branch, "master"
 set :deploy_to, '/var/www/frame_by_frame_app'
 set :passenger_restart_command, -> { "passenger-config restart-app #{fetch(:deploy_to)}" }
 
