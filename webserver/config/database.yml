@@ -25,5 +25,5 @@ production:
   database: frame_by_frame_db
   adapter: mysql
   database: frame_by_frame_app
-  username: <%= CREDENTIALS["db"]["username"] %>
-  password: <%= CREDENTIALS["db"]["password"] %>
+  username: <%= ENV["DB_USERNAME"] %>
+  password: <%= ENV["DB_PASSWORD"] %>

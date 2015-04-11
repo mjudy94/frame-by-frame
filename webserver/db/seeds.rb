@@ -7,5 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 # Public room and animation
-publicRoom = Room.create name: 'Public Room'
-publicRoom.create_animation
+if not Room.any?
+  publicRoom = Room.create name: 'Public Room'
+  publicRoom.create_animation
+end

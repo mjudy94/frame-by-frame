@@ -39,6 +39,7 @@ set :passenger_restart_command, -> { "passenger-config restart-app #{fetch(:depl
 # set :keep_releases, 5
 
 namespace :deploy do
+  after :migrate, "db:seed"
 
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
