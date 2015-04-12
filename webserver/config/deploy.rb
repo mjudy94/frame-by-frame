@@ -40,8 +40,8 @@ set :default_env, { rvm_bin_path: '~/.rvm/bin' }
 # set :keep_releases, 5
 
 namespace :deploy do
-  # after "git:clone", "transcrypt:init"
-  after :migrate, "db:seed"
+  before :"deploy:updating", :"deploy:credentials"
+  after :migrate, :"db:seed"
 
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
