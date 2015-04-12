@@ -27,6 +27,10 @@ gem 'spring',        group: :development
 #I want aws and am not elequent
 gem 'aws-sdk-rails'
 
+group :production do
+  gem 'mysql2', '~> 0.3.18'
+end
+
 group :development do
   # Use sqlite3 as the development database for Active Record
   gem 'sqlite3'
@@ -35,6 +39,7 @@ group :development do
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano-passenger'
   gem 'capistrano-bundler', '~> 1.1.4'
+  gem 'capistrano-rvm'
 end
 
 # Use ActiveModel has_secure_password

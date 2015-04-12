@@ -7,6 +7,7 @@ set :repo_tree, 'webserver'
 ask :branch, "master"
 set :deploy_to, '/var/www/frame_by_frame_app'
 set :passenger_restart_command, -> { "passenger-config restart-app #{fetch(:deploy_to)}" }
+set :default_env, { rvm_bin_path: '~/.rvm/bin' }
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
@@ -39,6 +40,7 @@ set :passenger_restart_command, -> { "passenger-config restart-app #{fetch(:depl
 # set :keep_releases, 5
 
 namespace :deploy do
+  # after "git:clone", "transcrypt:init"
   after :migrate, "db:seed"
 
   after :restart, :clear_cache do

@@ -22,8 +22,10 @@ test:
 
 production:
   <<: *default
-  database: frame_by_frame_db
-  adapter: mysql
+  adapter: mysql2
+  encoding: utf8
+  host: frame-by-frame.cc6neyqxetvu.us-east-1.rds.amazonaws.com
+  port: 3306
   database: frame_by_frame_app
   username: <%= ENV["DB_USERNAME"] %>
   password: <%= ENV["DB_PASSWORD"] %>
