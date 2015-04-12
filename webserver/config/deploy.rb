@@ -8,6 +8,7 @@ ask :branch, "master"
 set :deploy_to, '/var/www/frame_by_frame_app'
 set :passenger_restart_command, -> { "passenger-config restart-app #{fetch(:deploy_to)}" }
 set :default_env, { rvm_bin_path: '~/.rvm/bin' }
+set :linked_files, %w{config/creds.yml}
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
@@ -40,7 +41,6 @@ set :default_env, { rvm_bin_path: '~/.rvm/bin' }
 # set :keep_releases, 5
 
 namespace :deploy do
-  before :"deploy:updating", :"deploy:credentials"
   after :migrate, :"db:seed"
 
   after :restart, :clear_cache do
