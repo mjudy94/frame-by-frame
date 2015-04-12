@@ -27,5 +27,5 @@ production:
   host: frame-by-frame.cc6neyqxetvu.us-east-1.rds.amazonaws.com
   port: 3306
   database: frame_by_frame_app
-  username: <%= Rails.application.config.db_username %>
-  password: <%= Rails.application.config.db_password %>
+  username: <%= Rails.configuration.db_username %>
+  password: <%= Rails.configuration.db_password %>
