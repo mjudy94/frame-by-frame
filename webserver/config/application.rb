@@ -1,6 +1,7 @@
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
+require 'yaml'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -20,5 +21,22 @@ module Webserver
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+
+    # Loads the decrypted credentials file into a global constant
+    creds = YAML.load_file(Rails.root.join('config', 'creds.yml'))
+    config.db_username = creds["db"]["username"]
+    config.db_password = creds["db"]["password"]
+    config.secret_key_base = creds["secret_key_base"]
+  end
+end
+
+
+require 'net/smtp'
+
+module Net
+  class SMTP
+    def tls?
+      true
+    end
   end
 end

@@ -1,0 +1,2 @@
+class AnimationsController < ApplicationController
+end

@@ -1,0 +1,2 @@
+#pattern  filter=crypt diff=crypt
+webserver/config/creds.yml  filter=crypt diff=crypt

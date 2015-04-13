@@ -7,5 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 # Public room and animation
-Room.create name: 'Public Room'
-# TODO Create first animation that goes with this room?
+if not Room.any?
+  publicRoom = Room.create name: 'Public Room'
+  publicRoom.create_animation
+end

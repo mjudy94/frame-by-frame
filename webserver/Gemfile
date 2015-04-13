@@ -1,10 +1,7 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.5'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
@@ -16,6 +13,7 @@ gem 'therubyracer',  platforms: :ruby
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -29,6 +27,21 @@ gem 'spring',        group: :development
 #I want aws and am not elequent
 gem 'aws-sdk-rails'
 
+group :production do
+  gem 'mysql2', '~> 0.3.18'
+end
+
+group :development do
+  # Use sqlite3 as the development database for Active Record
+  gem 'sqlite3'
+  # Capistrano for deployment
+  gem 'capistrano',  '~> 3.1'
+  gem 'capistrano-rails', '~> 1.1'
+  gem 'capistrano-passenger', '>= 0.0.5'
+  gem 'capistrano-bundler', '~> 1.1.4'
+  gem 'capistrano-rvm'
+end
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -40,4 +53,3 @@ gem 'aws-sdk-rails'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-
