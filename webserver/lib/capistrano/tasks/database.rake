@@ -5,7 +5,11 @@ namespace :deploy do
       on roles(:db) do |h|
         set :reset_answer, ask("if you really want to reset the production db? [yn]", "n")
         if fetch(:reset_answer).downcase == "y"
-          rake "db:reset"
+          within current_path do
+            with rails_env: fetch(:rails_env) do
+              rake "db:reset"
+            end
+          end
         end
       end
     end
@@ -13,7 +17,11 @@ namespace :deploy do
     desc "Runs rake db:seed on the database"
     task :seed do
       on roles(:db) do |h|
-        rake "db:seed"
+        within current_path do
+          with rails_env: fetch(:rails_env) do
+            rake "db:seed"
+          end
+        end
       end
     end
   end
