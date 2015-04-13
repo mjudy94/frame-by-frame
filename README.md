@@ -34,6 +34,14 @@ Clone the git repository to your local machine with the following command:
 git clone git@github.com:mjudy94/frame-by-frame.git path/to/project/directory
 ```
 
+#### 5. Initializing Transcrypt
+Transcrypt is a nifty tool that automatically encrypts sensitive files in the git repository upon commit using SSL encryption. This is useful for storing secret username and password strings for authentication with resources such as a remote database or AWS. Transcrypt needs to be initialized on all development machines with the proper cipher and password. Ask [Kenny Ruddick](https://github.com/KenRud) for the initialization password.
+
+```
+cd <root of git clone>
+./transcrypt -c aes-256-cbc -p <enter password here>
+```
+
 #### 5. Build the Database Tables
 After cloning the repository for the first time you may need to build the database and its associated tables because the database is not committed. Fortunately Rails provides a set of commands for managing the database. Navigate to the `webserver` directory (the root of the Rails server) and run the following command to ensure that the database has been created and up to date.
 ```
@@ -49,3 +57,20 @@ This will start up the server on your local machine at port 3000. To interact wi
 
 #### 7. Installation Notes
 If you are running a Linux system you may need to install a few other packages other than the ones mentioned. For example, Rails may need the development header files of SQLite. If any errors come up be sure to read them to pinpoint what is missing.
+
+### Deployment to the Production Server
+Deployment of the Rails web application relies on several different technologies that enable fast and stable deployment.
+
+#### Capistrano
+Capistrano is a tool for automating remote deployment to a production server. This tool is used to push new releases to the production server, install the dependencies, and restart the server. To push a new release run the following command from the root of the rails project.
+```
+bundle exec cap production deploy
+```
+
+#### Phusion Passenger
+Phusion Passenger is an application server for running web applications. It runs our Rails web application, automatically spawning multiple processes as there are more incoming requests. This is already set up on the server and Capistrano handles restarting Passenger after a new deployment. If Passenger needs to be initiated again in case the server is shut down or rebooted, run the following commands on the server:
+```
+cd /var/www/frame_by_frame_app/current
+su -
+passenger start --daemonize --user deploy
+```

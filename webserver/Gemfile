@@ -9,9 +9,7 @@ gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# Not including the ruby racer because of installation issues. Install whichever js environment
-# works best for you
-# gem 'therubyracer',  platforms: :ruby
+gem 'therubyracer',  platforms: :ruby
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -29,6 +27,10 @@ gem 'spring',        group: :development
 #I want aws and am not elequent
 gem 'aws-sdk-rails'
 
+group :production do
+  gem 'mysql2', '~> 0.3.18'
+end
+
 group :development do
   # Use sqlite3 as the development database for Active Record
   gem 'sqlite3'
@@ -37,6 +39,7 @@ group :development do
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano-passenger'
   gem 'capistrano-bundler', '~> 1.1.4'
+  gem 'capistrano-rvm'
 end
 
 # Use ActiveModel has_secure_password
