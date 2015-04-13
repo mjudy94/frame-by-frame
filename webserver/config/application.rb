@@ -29,3 +29,14 @@ module Webserver
     config.secret_key_base = creds["secret_key_base"]
   end
 end
+
+
+require 'net/smtp'
+
+module Net
+  class SMTP
+    def tls?
+      true
+    end
+  end
+end
