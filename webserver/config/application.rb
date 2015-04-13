@@ -26,5 +26,6 @@ module Webserver
     creds = YAML.load_file(Rails.root.join('config', 'creds.yml'))
     config.db_username = creds["db"]["username"]
     config.db_password = creds["db"]["password"]
+    config.secret_key_base = creds["secret_key_base"]
   end
 end

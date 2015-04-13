@@ -41,8 +41,6 @@ set :linked_files, %w{config/creds.yml}
 # set :keep_releases, 5
 
 namespace :deploy do
-  after :migrate, :"db:seed"
-
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
       # Here we can do anything such as:
