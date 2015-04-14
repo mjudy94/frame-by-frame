@@ -1,7 +1,14 @@
 <h1><%= t '.title' %></h1>
 
-<ul>
+<table>
+  <tr>
+    <th>Room Name</th>
+    <th>Room Status</th>
+  </tr>
   <% @rooms.each do |room| %>
-    <li><%= room.name %></li>
+    <tr>
+      <td><%= link_to room.name, room_path(room) %></td>
+      <td><%= room.password.nil? ? "public" : "private" %></td>
+    </tr>
   <% end %>
-</ul>
+</table>

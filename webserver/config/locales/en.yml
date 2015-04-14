@@ -23,6 +23,7 @@ en:
   landing_title: "Landing Page"
   public_room_button: "Join Public Room"
   new_room_button: "Create New Room"
+  list_rooms_button: "List of Rooms"
   view_gallery_button: "View Gallery"
 
   rooms:
