@@ -7,4 +7,8 @@
 
 <% if @room.animation %>
   <%= render "canvas" %>
+<% else %>
+  <%= link_to new_room_animation_path(@room) do %>
+    <button>Create new animation</button>
+  <% end %>
 <% end %>

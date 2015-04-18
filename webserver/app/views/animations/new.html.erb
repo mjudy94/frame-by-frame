@@ -1,0 +1,33 @@
+<h1>Create a New Animation</h1>
+
+<%= form_for @animation, url: room_animation_path do |f| %>
+  <p>
+    <%= f.label :number_of_frames %>
+    <%= f.number_field :number_of_frames, value: 60 %>
+  </p>
+
+  <p>
+    <%= f.label :timer_per_frame %>
+    <%= f.number_field :timer_per_frame, value: 30 %>
+    <%= select_tag :timer_units, options_for_select(TIMER_UNITS) %>
+  </p>
+
+  <p>
+    <%= f.label :video_frame_rate %>
+    <%= f.number_field :video_frame_rate, value: 15 %>
+  </p>
+
+  <%= f.submit %>
+<% end %>
+
+<div>
+  <span>Total time to create animation:</span>
+  <span id="total_time"></span>
+  <span id="total_time_units"></span>
+</div>
+
+<div>
+  <span>Total rendered video length:</span>
+  <span id="video_length"></span>
+  <span id="video_length_units"></span>
+</div>
