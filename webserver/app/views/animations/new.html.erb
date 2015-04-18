@@ -3,31 +3,35 @@
 <%= form_for @animation, url: room_animation_path do |f| %>
   <p>
     <%= f.label :number_of_frames %>
-    <%= f.number_field :number_of_frames, value: 60 %>
+    <%= f.number_field :number_of_frames,
+      value: AnimationsController::DEFAULT_NUMBER_OF_FRAMES %>
   </p>
 
   <p>
     <%= f.label :timer_per_frame %>
-    <%= f.number_field :timer_per_frame, value: 30 %>
-    <%= select_tag :timer_units, options_for_select(TIMER_UNITS) %>
+    <%= f.number_field :timer_per_frame,
+      value: AnimationsController::DEFAULT_TIMER_PER_FRAME %>
+    <%= select_tag :timer_units,
+      options_for_select(AnimationsController::TIMER_UNITS) %>
   </p>
 
   <p>
     <%= f.label :video_frame_rate %>
-    <%= f.number_field :video_frame_rate, value: 15 %>
+    <%= f.number_field :video_frame_rate,
+      value: AnimationsController::DEFAULT_VIDEO_FRAME_RATE %>
   </p>
 
   <%= f.submit %>
 <% end %>
 
-<div>
+<p>
   <span>Total time to create animation:</span>
   <span id="total_time"></span>
   <span id="total_time_units"></span>
-</div>
+</p>
 
-<div>
+<p>
   <span>Total rendered video length:</span>
   <span id="video_length"></span>
   <span id="video_length_units"></span>
-</div>
+</p>

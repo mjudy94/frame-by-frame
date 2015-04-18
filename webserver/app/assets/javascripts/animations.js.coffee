@@ -1,7 +1,3 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
-
 $(document).ready ->
   updateTotal()
   $("form").keyup updateTotal
@@ -10,18 +6,21 @@ $(document).ready ->
 getUnitFactor = ->
   parseInt $("select[name=timer_units]").val()
 
+formatTime = (time) ->
+  numeral(time).format '0[.]0'
+
 getConvertedTotal = (total) ->
   if total > 86400
-    amount: total / 86400
+    amount: formatTime total / 86400
     units: 'days'
   else if total > 3600
-    amount: total / 3600
+    amount: formatTime total / 3600
     units: 'hours'
   else if total > 60
-    amount: total / 60,
+    amount: formatTime total / 60
     units: 'minutes'
   else
-    amount: total
+    amount: formatTime total
     units: 'seconds'
 
 updateTotal = ->
