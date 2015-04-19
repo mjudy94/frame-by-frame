@@ -11,7 +11,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150316222408) do
+ActiveRecord::Schema.define(version: 20150407142143) do
+
+  create_table "animations", force: true do |t|
+    t.integer  "number_of_frames"
+    t.integer  "timer_per_frame"
+    t.integer  "video_framerate"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "room_id"
+  end
+
+  add_index "animations", ["room_id"], name: "index_animations_on_room_id"
+
+  create_table "frames", force: true do |t|
+    t.string   "image_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "animation_id"
+  end
+
+  add_index "frames", ["animation_id"], name: "index_frames_on_animation_id"
+
+  create_table "galleries", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "room_id"
+  end
+
+  add_index "galleries", ["room_id"], name: "index_galleries_on_room_id"
 
   create_table "rooms", force: true do |t|
     t.string   "name"
@@ -19,5 +47,14 @@ ActiveRecord::Schema.define(version: 20150316222408) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "videos", force: true do |t|
+    t.string   "video_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "gallery_id"
+  end
+
+  add_index "videos", ["gallery_id"], name: "index_videos_on_gallery_id"
 
 end

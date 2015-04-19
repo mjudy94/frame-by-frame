@@ -2,12 +2,19 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-#room_url {
-  height: 1.5em;
-  resize: none;
-  padding: 0.25em 1em 0 1em;
-}
+@import "canvas";
 
-#copy_message {
-  background: #fffb83;
+#share_dialog {
+  textarea {
+    height: 1.5em;
+    resize: none;
+    padding: 0.5ch 0 0 1ch;
+    width: 350px;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  span {
+    background: #fffb83;
+  }
 }
