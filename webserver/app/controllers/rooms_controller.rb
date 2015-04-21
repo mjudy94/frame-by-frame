@@ -1,7 +1,10 @@
-
 class RoomsController < ApplicationController
+  include Password
 
-  before_action :authenticate, only: [:edit, :update, :show]
+  password do
+    id = params[:id]
+    Room.find(id).password if id and id != 'public'
+  end
 
   def index
     @rooms = Room.all
@@ -15,7 +18,7 @@ class RoomsController < ApplicationController
     @room = Room.new(room_params)
 
     if @room.save
-      redirect_to_room :show
+      redirect_with_password @room, p: @room.password
     else
       render :new
     end
@@ -31,9 +34,9 @@ class RoomsController < ApplicationController
     @room = Room.find(params[:id])
 
     if @room.update(room_params)
-      redirect_to_room :show
+      redirect_with_password @room
     else
-      redirect_to_room :edit
+      redirect_with_password @room, :action => :edit
     end
   end
 
@@ -47,39 +50,26 @@ class RoomsController < ApplicationController
 
   private
 
-    def authenticate
-      if params[:id] != 'public'
-        expected_password = Room.find(params[:id]).password
-        if expected_password && expected_password != params[:p]
-          render_access_forbidden
-        end
+  def room_params
+    p = params.require(:room).permit(:name)
+
+    if params[:room][:private] == '1'
+      if !(@room && @room.password)
+        p[:password] = SecureRandom.urlsafe_base64
       end
+    else
+      p[:password] = nil
     end
 
-    def room_params
-      p = params.require(:room).permit(:name)
+    return p
+  end
 
-      if params[:room][:private] == '1'
-        if !(@room && @room.password)
-          p[:password] = SecureRandom.urlsafe_base64
-        end
-      else
-        p[:password] = nil
-      end
+  def render_access_forbidden
+    render plain: 'Access forbidden', status: :forbidden
+  end
 
-      return p
-    end
-
-    def redirect_to_room(action)
-      redirect_to :controller => :rooms, :action => action, :id => @room.id, :p => @room.password
-    end
-
-    def render_access_forbidden
-      render plain: 'Access forbidden', status: :forbidden
-    end
-
-    def is_global_room
-      id = params[:id]
-      id == 'public' || id == 1
-    end
+  def is_global_room
+    id = params[:id]
+    id == 'public' || id == 1
+  end
 end

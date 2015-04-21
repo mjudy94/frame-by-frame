@@ -1,6 +1,8 @@
 <h1>Create a New Animation</h1>
 
 <%= form_for @animation, url: room_animation_path do |f| %>
+  <%= form_password %>
+   
   <p>
     <%= f.label :number_of_frames %>
     <%= f.number_field :number_of_frames,
@@ -16,8 +18,8 @@
   </p>
 
   <p>
-    <%= f.label :video_frame_rate %>
-    <%= f.number_field :video_frame_rate,
+    <%= f.label :video_framerate %>
+    <%= f.number_field :video_framerate,
       value: AnimationsController::DEFAULT_VIDEO_FRAME_RATE %>
   </p>
 
