@@ -16,3 +16,4 @@
 //= require jquery-ui
 //= require jquery-hotkeys
 //= require turbolinks
+//= require numeral

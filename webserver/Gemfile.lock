@@ -90,6 +90,7 @@ GEM
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.2)
+    numeraljs-rails (1.4.5.0)
     polyglot (0.3.5)
     rack (1.5.2)
     rack-test (0.6.3)
@@ -170,6 +171,7 @@ DEPENDENCIES
   jquery-turbolinks (~> 2.1.0)
   jquery-ui-rails
   mysql2 (~> 0.3.18)
+  numeraljs-rails (~> 1.4.5.0)
   rails (= 4.1.5)
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :rooms
+  resources :rooms do
+    resource :animation
+  end
 
   root 'landing#index'
 
