@@ -58,8 +58,8 @@
       // Mouse pressed down on the canvas
       $("#frameCanvas").mousedown(function(e) {
           mouseClicked = true;
-          var xPos = e.pageX - $(this).offset().left;
-          var yPos = e.pageY - $(this).offset().top;
+          var xPos = recentX = e.pageX - $(this).offset().left;
+          var yPos = recentY = e.pageY - $(this).offset().top;
 
           sketch(xPos, yPos, false);
       });
@@ -89,7 +89,7 @@
   });
 
   function sketch(x, y, drawing) {
-      if(drawing) {
+      if(drawing && Math.abs(recentX - x) + Math.abs(recentY - y) > 5) {
           context.beginPath();
           context.strokeStyle = drawColor;
           context.lineWidth = lineWidth;
@@ -97,9 +97,9 @@
           context.lineTo(x, y);
           context.closePath();
           context.stroke();
+          recentX = x;
+          recentY = y;
       }
-      recentX = x;
-      recentY = y;
   }
 
   function resizeEraser() {
