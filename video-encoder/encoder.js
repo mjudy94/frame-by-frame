@@ -14,25 +14,17 @@ var IMG_FORMAT = 'png';
 function encode(imgs, fps, width, height, out) {
   var combinedStream = CombinedStream.create();
 
-  // Convert all SVGs into JPG streams
+  // Convert all SVGs into PNG streams
   imgs.forEach(function(img) {
     combinedStream.append(gm(img).stream(IMG_FORMAT));
   });
 
   // Run the command and stream to out
   ffmpeg()
-    .on('start', function(cl) {
-      console.log(cl);
-    })
-    .on('progress', function(progress) {
-      console.log('Processing: ' + progress.percent + '% done');
-    })
     .input(combinedStream)
     .inputFormat('image2pipe')
     .withVideoCodec('libvpx')
-    .addOptions(['-qmin 0', '-qmax 50', '-crf 5'])
-    .withVideoBitrate  (1024)
-    .outputFps(fps)
+    .inputFps(fps)
     .outputFormat('webm')
     .stream(out);
 }
