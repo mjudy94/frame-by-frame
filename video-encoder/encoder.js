@@ -9,6 +9,8 @@ var IMG_FORMAT = 'png';
  * @param img {Array} List of paths or URLs to the images that are to be
  *            encoded into a video. The order of the list matters.
  * @param fps {Number} The desired framerate of the video
+ * @param width {Number}  The maximum width of the rendered video
+ * @param height {Number} The maximum height of the rendered video
  * @param out {WriteableStream} A stream that the video is written to.
  */
 function encode(imgs, fps, width, height, out) {
@@ -16,7 +18,7 @@ function encode(imgs, fps, width, height, out) {
 
   // Convert all SVGs into PNG streams
   imgs.forEach(function(img) {
-    combinedStream.append(gm(img).stream(IMG_FORMAT));
+    combinedStream.append(gm(img).resize(width, height).stream(IMG_FORMAT));
   });
 
   // Run the command and stream to out
