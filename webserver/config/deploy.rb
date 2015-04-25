@@ -6,7 +6,6 @@ set :repo_url, 'git@github.com:mjudy94/frame-by-frame.git'
 set :repo_tree, 'webserver'
 ask :branch, "master"
 set :deploy_to, '/var/www/frame_by_frame_app'
-set :passenger_restart_command, -> { "passenger-config restart-app #{fetch(:deploy_to)}" }
 set :default_env, { rvm_bin_path: '~/.rvm/bin' }
 set :linked_files, %w{config/creds.yml}
 

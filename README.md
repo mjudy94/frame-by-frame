@@ -70,7 +70,7 @@ bundle exec cap production deploy
 #### Phusion Passenger
 Phusion Passenger is an application server for running web applications. It runs our Rails web application, automatically spawning multiple processes as there are more incoming requests. This is already set up on the server and Capistrano handles restarting Passenger after a new deployment. If Passenger needs to be initiated again in case the server is shut down or rebooted, run the following commands on the server:
 ```
-cd /var/www/frame_by_frame_app/current
+cd /var/www/frame_by_frame_app
 su -
-passenger start --daemonize --user deploy
+passenger start current --daemonize --user deploy --pid-file shared/pids/passenger.pid --log-file shared/logs/passenger.log
 ```
