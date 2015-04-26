@@ -4,7 +4,11 @@
   <div><%= t '.notice' %></div>
   <textarea readonly><%= request.original_url %></textarea>
   <div>
-    <button id="invite_button"><%= t '.invite_button' %></button>
+<%= form_tag({controller: "email", action: "new"}, method: "post") do %>
+    <%= label_tag(:q, "Enter e-mail") %>
+    <%= text_field_tag(:q) %>
+    <%= submit_tag("Send e-mail") %>
+<% end %>
     <button id="copy_button"><%= t '.copy_button' %></button>
   </div>
   <span><%= t '.copy_message' %></span>
