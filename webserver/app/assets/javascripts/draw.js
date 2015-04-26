@@ -1,5 +1,4 @@
 (function() {
-  $("textBox").hide();
   var canvas, context;
   var mouseClicked = false;
   
@@ -11,9 +10,6 @@
   var drawColor = "rgb(0, 0, 0)";
 
   var lineWidth = 5;
-
-  var zoom= 0;
-  var textBox = false;
 
   $(function() {
       canvas = document.getElementById("frameCanvas");
@@ -38,16 +34,6 @@
           drawColor = "white";
           alert("Press 'e' to modify eraser size, 'c' to clear frame");
 
-      });
-
-      $("#text").click(function(){
-        textBox = !textBox;
-        var textarea = $(document).getElementById("#textBox");
-        $("#frameCanvas").append(textarea);
-        alert("You can now give a title to your frame");
-
-        if (textBox == false)
-          $("#textBox").hide();
       });
 
       $("#brush").click(function(){
