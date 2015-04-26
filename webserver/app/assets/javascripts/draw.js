@@ -1,6 +1,8 @@
 (function() {
+  $("textBox").hide();
   var canvas, context;
   var mouseClicked = false;
+  
 
   // Previous frame's mouse position
   var recentX;
@@ -10,6 +12,9 @@
 
   var lineWidth = 5;
 
+  var zoom= 0;
+  var textBox = false;
+
   $(function() {
       canvas = document.getElementById("frameCanvas");
       if (!canvas) {
@@ -18,6 +23,7 @@
       }
 
       context = canvas.getContext("2d");
+      
 
       // Hotkey binding
       $(document).bind("keydown", "e", resizeEraser);
@@ -34,16 +40,19 @@
 
       });
 
+      $("#text").click(function(){
+        textBox = !textBox;
+        var textarea = $(document).getElementById("#textBox");
+        $("#frameCanvas").append(textarea);
+        alert("You can now give a title to your frame");
+
+        if (textBox == false)
+          $("#textBox").hide();
+      });
+
       $("#brush").click(function(){
           lineWidth = 15;
           alert("Press 'b' to modify brush size");
-      });
-
-      $("#textBox").click(function(){
-
-          // Mouse pressed, create text area on mouse click of arbitrary (small) size
-          // User can expand text area anyways
-
       });
 
       $("#bucket").click(function(){
@@ -114,4 +123,5 @@
   function clear() {
     context.clearRect(0, 0, 780, 540);
   }
+
 })();

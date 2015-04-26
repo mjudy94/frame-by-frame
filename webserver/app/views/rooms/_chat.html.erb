@@ -2,11 +2,27 @@
   <%= javascript_include_tag "http://localhost:9292/faye/faye.js" %>
 <% end %>
 
+<style>
+	
+	.chat {
+		display: inline-block;
+		height: 150px;
+		width: 500px;
+		overflow-y:scroll;
+	}
+
+	#chatBox {
+		position: absolute;
+		top: 230px;
+	}
+	
+</style>
+
 <div class="chat">
   <div>
-    <p>Welcome to the chatroom!</p>
+    <p style="color:#00BFFF"><b>Welcome to the chatroom!</b></p>
   </div>
-  <form>
+  <form id="chatBox">
     <input type="text">
     <input type="submit">
   </form>
