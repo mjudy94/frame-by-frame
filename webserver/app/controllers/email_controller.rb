@@ -6,9 +6,10 @@ class EmailController < ApplicationController
 
   def create
   	user_entry = params[:q]
-  UserMailer.server_email(user_entry).deliver
+  	current_url = params[:current_room_url]
+  UserMailer.server_email(user_entry, current_url).deliver
 
-  redirect_to "/"
+  redirect_to current_url
 end
 end
 

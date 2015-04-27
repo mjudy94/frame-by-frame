@@ -7,6 +7,7 @@
 <%= form_tag({controller: "email", action: "new"}, method: "post") do %>
     <%= label_tag(:q, "Enter e-mail") %>
     <%= text_field_tag(:q) %>
+    <%= hidden_field_tag "current_room_url", request.original_url %>
     <%= submit_tag("Send e-mail") %>
 <% end %>
     <button id="copy_button"><%= t '.copy_button' %></button>
