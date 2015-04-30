@@ -1,18 +1,22 @@
 $(function() {
   var client = new Faye.Client("http://localhost:9292/faye");
-  var room_id = $(".chat").find("form").data('id');
-  var password = $(".chat").find("form").data('password');
-  var channel = "/chat/" + room_id;
+  var form = $(".chat").find("form");
+  var roomId = form.data('id');
+  var password = form.data('password');
+  var channel = "/chat/" + roomId + "p" + password;
 
   client.subscribe(channel, function(data) {
-    $(".chat").find("div").append("<p>" + data.msg);
+    var messageBox = $(".chat").find(".messages");
+    messageBox.append("<p>" + data.msg);
+    messageBox.animate({
+      scrollTop: messageBox.prop("scrollHeight")
+    }, "slow");
   });
 
- 
-  $(".chat").find("form").submit(function() {
+
+  form.submit(function() {
     var input = $("input:first");
     client.publish(channel, {
-      password,
       msg: input.val()
     });
     input.val("");
