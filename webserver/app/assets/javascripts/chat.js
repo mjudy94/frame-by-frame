@@ -1,7 +1,7 @@
 $(function() {
   var client = new Faye.Client("http://localhost:9292/faye"),
       chatWidget = $(".chat"),
-      greeting = chatWidget.find(".greeting"),
+      displayName = chatWidget.find(".displayName"),
       messageForm = chatWidget.find(".messageForm"),
       messageBox = chatWidget.find(".messages"),
       nameForm = chatWidget.find('.nameForm'),
@@ -51,17 +51,17 @@ $(function() {
     nameForm.dialog("close");
     username = nameInput.val();
     localStorage.setItem("username", username);
-    updateGreeting();
+    updateDisplayName();
     return false;
   });
 
-  chatWidget.find('button').click(function() {
+  displayName.click(function() {
     nameForm.dialog("open");
   });
 
-  function updateGreeting() {
-    greeting.text(username);
+  function updateDisplayName() {
+    displayName.text(username);
   };
 
-  updateGreeting();
+  updateDisplayName();
 });
