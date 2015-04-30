@@ -1,6 +1,7 @@
 (function() {
   var canvas, context;
   var mouseClicked = false;
+  
 
   // Previous frame's mouse position
   var recentX;
@@ -18,6 +19,7 @@
       }
 
       context = canvas.getContext("2d");
+      
 
       // Hotkey binding
       $(document).bind("keydown", "e", resizeEraser);
@@ -37,13 +39,6 @@
       $("#brush").click(function(){
           lineWidth = 15;
           alert("Press 'b' to modify brush size");
-      });
-
-      $("#textBox").click(function(){
-
-          // Mouse pressed, create text area on mouse click of arbitrary (small) size
-          // User can expand text area anyways
-
       });
 
       $("#bucket").click(function(){
@@ -114,4 +109,5 @@
   function clear() {
     context.clearRect(0, 0, 780, 540);
   }
+
 })();

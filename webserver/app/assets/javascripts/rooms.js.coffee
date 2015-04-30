@@ -3,6 +3,7 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 #= require draw
+#= require chat
 
 $(document).ready ->
   shareDialog = $("#share_dialog")

@@ -1,5 +1,5 @@
 #canvas {
-  background: url(background.png) no-repeat center center fixed;
+  background: url(/assets/background.png) no-repeat center center fixed;
   background-size: cover;
   position: relative;
   height: 800px;
@@ -20,14 +20,13 @@
   span {position:absolute; top:180px; left:215px;}
   section {position:absolute; top:180px; left:255px;}
   #pencil {position:absolute; top:100px; left:220px;}
-  #eraser {position:absolute; top:100px; left:245px;}
+  #eraser {position:absolute; top:100px; left:280px;}
+  #text {position:absolute; top:115px; left:250px;}
   #brush {position:absolute; top:130px; left:210px;}
-  #bucket {position:absolute; top:130px; left:240px;}
-  #textbox {position:absolute; top:100px; left:275px;}
-  #zoom {position:absolute; top:130px; left:270px;}
+  #bucket {position:absolute; top:130px; left:285px;}
   #canvasDiv {position:absolute; left:335px;}
   #frameCanvas {background-color: white}
-  button {position: absolute; top:60px; left: 330px;}
+  button {position: absolute; top:50px; left: 330px;}
   #galleryButton {
     -moz-box-shadow: 0px 0px 0px 2px #9fb4f2;
     -webkit-box-shadow: 0px 0px 0px 2px #9fb4f2;
