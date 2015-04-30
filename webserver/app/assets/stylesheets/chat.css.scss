@@ -4,5 +4,13 @@
   .messages {
     height: 150px;
     overflow-y: scroll;
+
+    .self {
+      color: red;
+    }
+
+    .other {
+      color: inherit;
+    }
   }
 }

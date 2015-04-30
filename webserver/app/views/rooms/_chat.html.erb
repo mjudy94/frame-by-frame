@@ -3,10 +3,18 @@
 <% end %>
 
 <div class="chat">
+  <strong>Name: </strong><span class="greeting">Guest</span>
+  <button>Change name</button>
+  <form class="nameForm">
+    <input type="text">
+    <input type="submit">
+  </form>
+
   <div class="messages">
     <p style="color:#00BFFF"><b>Welcome to the chatroom!</b></p>
   </div>
-  <form data-id="<%= @room.id %>"data-password="<%= @room.password %>">
+
+  <form class="messageForm" data-id="<%= @room.id %>"data-password="<%= @room.password %>">
     <input type="text">
     <input type="submit">
   </form>
