@@ -38,14 +38,12 @@
     }
   }
 
-  // TODO Change the layout to be less brittle!
   .messageForm {
-    input[type="text"] {
-      width: 430px;
-    }
+    display: flex;
 
-    input[type="submit"] {
-      float: right;
+    input[type="text"] {
+      flex: 1 0;
+      margin-right: 10px;
     }
   }
 }
