@@ -1,0 +1,16 @@
+<h1><%= t '.title' %></h1>
+
+<table>
+  <tr>
+    <th>Video Name</th>
+    <th>Upload Date</th>
+  </tr>
+  <% if @gallery.videos %>
+	  <% @gallery.videos.each do |video| %>
+	    <tr>
+	      <td><%= link_to video.name, video_path(video) %></td>
+	      <td><%= video.created_at %></td>
+	    </tr>
+	  <% end %>
+  <% end %> 
+</table>
