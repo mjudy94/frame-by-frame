@@ -48,7 +48,7 @@
 
       $("#bucket").click(function(){
           context.fillStyle = drawColor;
-          context.fillRect(0,0,780,540);
+          context.fillRect(0,0, context.canvas.width, context.canvas.height);
       });
 
       /*
@@ -91,11 +91,11 @@
   function sketch(x, y, drawing) {
       if(drawing) {
           context.beginPath();
-          context.strokeStyle = drawColor;
-          context.lineWidth = lineWidth;
           context.moveTo(recentX, recentY);
           context.lineTo(x, y);
-          context.closePath();
+          context.lineWidth = lineWidth;
+          context.strokeStyle = drawColor;
+          context.lineCap = 'round';
           context.stroke();
       }
       recentX = x;
@@ -112,7 +112,7 @@
   }
 
   function clear() {
-    context.clearRect(0, 0, 780, 540);
+    context.clearRect(0, 0, context.canvas.width, context.canvas.height);
   }
 
 })();
