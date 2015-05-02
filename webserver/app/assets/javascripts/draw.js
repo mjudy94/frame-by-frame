@@ -2,7 +2,6 @@
   var canvas, context;
   var mouseClicked = false;
   
-
   // Previous frame's mouse position
   var recentX;
   var recentY;
@@ -17,6 +16,21 @@
         // Stop execution if the canvas is not found
         return;
       }
+      
+      var client = new Faye.Client("http://localhost:9292/faye"),
+      		chatWidget = $(".chat"),
+      		messageForm = chatWidget.find(".messageForm"),
+      		roomId = messageForm.data('id'),
+      		password = messageForm.data('password'),
+          channel = "/drawing/" + roomId + "p" + password,
+          username = localStorage.getItem('username') || 'Guest',
+          userId = guid();
+      
+      client.subscribe(channel, function(data) {
+      	var isOwnSketchAction = data.userId === userId,
+      			className = isOwnSketchAction ? 'self' : 'other',
+      			name = isOwnSketchAction ? 'Me' : data.fromUser;
+      });
 
       context = canvas.getContext("2d");
       
