@@ -29,14 +29,14 @@ module Webserver
     config.db_username = creds["db"]["username"]
     config.db_password = creds["db"]["password"]
 
-    #Set up mail for smtp
+     #Set up mail for smtp
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.perform_deliveries = true
     config.action_mailer.smtp_settings = {
       :address => 'email-smtp.us-east-1.amazonaws.com',
       :authentication => :login,
       :user_name => creds["smtp"]["username"],
-      :password => '',
+      :password => creds["smtp"]["password"],
       :enable_starttls_auto => true,
       :port => 465
     }
