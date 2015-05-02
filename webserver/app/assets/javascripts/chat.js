@@ -1,6 +1,9 @@
 $(function() {
   var client = new Faye.Client("http://localhost:9292/faye"),
       chatWidget = $(".chat"),
+      titleBar = chatWidget.find('.titleBar'),
+      hideButton = titleBar.find(".hideButton"),
+      content = chatWidget.find('.content'),
       displayName = chatWidget.find(".displayName"),
       messageForm = chatWidget.find(".messageForm"),
       messageBox = chatWidget.find(".messages"),
@@ -34,6 +37,34 @@ $(function() {
     });
     input.val("");
     return false;
+  });
+
+  // HIDE CHAT
+  var isHidden = false;
+  hideButton.button({
+    text: false,
+    icons: {
+      primary: "ui-icon-minus"
+    }
+  }).click(function() {
+    if (isHidden) {
+      hideButton.button({ icons: { primary: "ui-icon-minus" } });
+      content.show("fast");
+      isHidden = false;
+    } else {
+      hideButton.button({ icons: { primary: "ui-icon-plus" } });
+      content.hide("fast");
+      isHidden = true;
+    }
+  });
+
+  // DRAG CHAT WIDGET
+  chatWidget.draggable({
+    axis: 'x',
+    handle: titleBar,
+    stop: function() {
+      chatWidget.css("top", "auto");
+    }
   });
 
   // NAME DIALOG FORM

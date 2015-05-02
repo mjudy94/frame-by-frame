@@ -1,18 +1,24 @@
 .chat {
+  background: white;
   border: solid gray 1px;
-  border-radius: 5px;
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
   padding: 10px;
-  width: 500px;
+  width: 300px;
 
-  >* {
-    margin-bottom: 10px;
-  }
+  bottom: 0;
+  right: 200px;
+  position: fixed;
+  z-index: 100;
 
   .titleBar {
     background: gray;
     border-radius: 2px;
     color: white;
+    cursor: move;
+    margin-bottom: 10px;
     padding: 5px;
+    position: relative;
 
     h2 {
       font-size: 12pt;
@@ -23,27 +29,40 @@
       cursor: pointer;
       text-decoration: underline;
     }
-  }
 
-  .messages {
-    height: 150px;
-    overflow-y: scroll;
-
-    .self {
-      color: red;
-    }
-
-    .other {
-      color: inherit;
+    .hideButton {
+      bottom: 0;
+      height: 20px;
+      margin: auto;
+      right: 10px;
+      top: 0;
+      position: absolute;
+      width: 20px;
     }
   }
 
-  .messageForm {
-    display: flex;
+  .content {
+    .messages {
+      height: 200px;
+      overflow-y: scroll;
+      margin-bottom: 10px;
 
-    input[type="text"] {
-      flex: 1 0;
-      margin-right: 10px;
+      .self {
+        color: red;
+      }
+
+      .other {
+        color: inherit;
+      }
+    }
+
+    .messageForm {
+      display: flex;
+
+      input[type="text"] {
+        flex: 1 0;
+        margin-right: 10px;
+      }
     }
   }
 }

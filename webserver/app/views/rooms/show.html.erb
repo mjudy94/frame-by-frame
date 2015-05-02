@@ -5,8 +5,6 @@
   <%= render "share" %>
 <% end %>
 
-<%= render "chat" %>
-
 <% if @room.animation %>
   <%= render "canvas" %>
 <% else %>
@@ -14,3 +12,5 @@
     <button>Create new animation</button>
   <% end %>
 <% end %>
+
+<%= render "chat" %>

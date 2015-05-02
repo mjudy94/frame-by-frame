@@ -5,19 +5,22 @@
 <div class="chat">
   <div class="titleBar">
     <h2>Welcome <span class="displayName" title="Change name">Guest</span>!</h2>
+    <button class="hideButton">-</button>
   </div>
 
-  <form class="nameForm">
-    <input type="text">
-    <input type="submit">
-  </form>
+  <div class="content">
+    <form class="nameForm">
+      <input type="text">
+      <input type="submit">
+    </form>
 
-  <div class="messages">
-    <p style="color:#00BFFF"><b>Welcome to the chatroom!</b></p>
+    <div class="messages">
+      <p style="color:#00BFFF"><b>Welcome to the chatroom!</b></p>
+    </div>
+
+    <form class="messageForm" data-id="<%= @room.id %>"data-password="<%= @room.password %>">
+      <input type="text">
+      <input type="submit">
+    </form>
   </div>
-
-  <form class="messageForm" data-id="<%= @room.id %>"data-password="<%= @room.password %>">
-    <input type="text">
-    <input type="submit">
-  </form>
 </div>
