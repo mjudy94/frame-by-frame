@@ -4,18 +4,4 @@
 
 @import "canvas";
 @import "chat";
-
-#share_dialog {
-  textarea {
-    height: 1.5em;
-    resize: none;
-    padding: 0.5ch 0 0 1ch;
-    width: 350px;
-    overflow: hidden;
-    white-space: nowrap;
-  }
-
-  span {
-    background: #fffb83;
-  }
-}
+@import "share";

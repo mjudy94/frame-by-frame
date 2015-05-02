@@ -1,0 +1,61 @@
+@mixin box-sizing($sizing) {
+  -moz-box-sizing: $sizing;
+  -webkit-box-sizing: $sizing;
+  box-sizing: $sizing;
+}
+
+.shareDialog {
+  h2 {
+    font-size: 16pt;
+  }
+
+  .linkSection {
+    display: flex;
+
+    textarea {
+      flex: 1;
+      height: 1.5em;
+      margin-right: 10px;
+      overflow: hidden;
+      padding: 0.5ch 0 0 1ch;
+      resize: none;
+      width: 350px;
+      white-space: nowrap;
+    }
+  }
+
+  .copyMessage {
+    background: #fffb83;
+  }
+
+  .recipients {
+    @include box-sizing(border-box);
+    border: solid gray 1px;
+    height: 100px;
+    margin-bottom: 10px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding: 10px;
+    font-size: 10pt;
+    width: 100%;
+
+    >* {
+      background: #f3f3f3;
+      border: solid gray 1px;
+      border-radius: 5px;
+      display: inline-block;
+      margin: 0 0.5em 0.5em 0;
+      padding: 0.25em;
+
+      .close {
+        cursor: pointer;
+        font-weight: bold;
+        padding: 0.5em;
+
+        &:hover {
+          color: white;
+        }
+      }
+    }
+  }
+}
