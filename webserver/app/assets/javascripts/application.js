@@ -17,6 +17,7 @@
 //= require jquery-hotkeys
 //= require turbolinks
 //= require numeral
+//= require bootstrap-sprockets
 //= require faye-browser
 
 function guid() {

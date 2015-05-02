@@ -12,14 +12,19 @@
   var lineWidth = 5;
 
   $(function() {
-      canvas = document.getElementById("frameCanvas");
+      canvas = document.getElementById("canvas");
       if (!canvas) {
         // Stop execution if the canvas is not found
         return;
       }
 
+      // Resize canvas to fit container
+      canvas.style.width ='100%';
+      canvas.style.height='100%';
+      canvas.width  = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+
       context = canvas.getContext("2d");
-      
 
       // Hotkey binding
       $(document).bind("keydown", "e", resizeEraser);
@@ -43,7 +48,7 @@
 
       $("#bucket").click(function(){
           context.fillStyle = drawColor;
-          context.fillRect(0,0,780,540);
+          context.fillRect(0,0, context.canvas.width, context.canvas.height);
       });
 
       /*
@@ -51,7 +56,7 @@
       */
 
       // Mouse pressed down on the canvas
-      $("#frameCanvas").mousedown(function(e) {
+      $("#canvas").mousedown(function(e) {
           mouseClicked = true;
           var xPos = e.pageX - $(this).offset().left;
           var yPos = e.pageY - $(this).offset().top;
@@ -60,19 +65,19 @@
       });
 
       // Mouse moves on the canvas
-      $("#frameCanvas").mousemove(function(e) {
+      $("#canvas").mousemove(function(e) {
           if (mouseClicked) {
               sketch(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
           }
       });
 
       // Mouse un-press
-      $("#frameCanvas").mouseup(function(e) {
+      $("#canvas").mouseup(function(e) {
           mouseClicked = false;
       });
 
       // Mouse goes off the canvas
-      $("#frameCanvas").mouseleave(function(e) {
+      $("#canvas").mouseleave(function(e) {
           mouseClicked = false;
       });
 
@@ -86,11 +91,11 @@
   function sketch(x, y, drawing) {
       if(drawing) {
           context.beginPath();
-          context.strokeStyle = drawColor;
-          context.lineWidth = lineWidth;
           context.moveTo(recentX, recentY);
           context.lineTo(x, y);
-          context.closePath();
+          context.lineWidth = lineWidth;
+          context.strokeStyle = drawColor;
+          context.lineCap = 'round';
           context.stroke();
       }
       recentX = x;
@@ -107,7 +112,7 @@
   }
 
   function clear() {
-    context.clearRect(0, 0, 780, 540);
+    context.clearRect(0, 0, context.canvas.width, context.canvas.height);
   }
 
 })();

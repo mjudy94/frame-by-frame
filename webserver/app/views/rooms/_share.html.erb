@@ -1,11 +1,11 @@
-<%= button_tag "Share room", type: "button", class: "shareButton" %>
+<%= button_tag "Share room", type: "button", class: "shareButton btn btn-default" %>
 
 <div class="shareDialog" data-title="<%= t '.dialog_title' %>">
   <h2><%= t '.notice' %></h2>
 
   <div class="linkSection">
     <textarea readonly><%= request.original_url %></textarea>
-    <button id="copy_button"><%= t '.copy_button' %></button>
+    <button id="copy_button" class="btn btn-default"><%= t '.copy_button' %></button>
   </div>
 
   <div class="copyMessage"><%= t '.copy_message' %></div>
@@ -24,11 +24,11 @@
     <p>
       <%= label_tag(:emailInput, "To") %>
       <%= email_field_tag(:emailInput) %>
-      <%= button_tag "Add", type: :button, class: :addButton %>
+      <%= button_tag "Add", type: :button, :class => "addButton btn btn-default" %>
     </p>
 
     <div class="recipients"></div>
 
-    <%= submit_tag("Send") %>
+    <%= submit_tag "Send", :class => "btn btn-default" %>
   <% end %>
 </div>

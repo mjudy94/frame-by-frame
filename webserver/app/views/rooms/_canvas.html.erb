@@ -1,80 +1,64 @@
-<div id="canvas" align="center">
-  <h2 "title"> Frame by Frame </h2>
-  <h4 id="countdown"> 9:34 until the next frame </h4>
-  <a href = "#"> Make a Private Room </a>
+<div class="row-fluid">
+  <div id="canvas-header">
+    <h4 id="countdown"> 9:34 until the next frame </h4>
+    <a href="#" class="btn btn-default"> Make a Private Room </a>
+    <button type="button" class="btn btn-default" id="galleryButton">View Gallery</button>
+  </div>
+</div>
 
-  <%= image_tag "pencil.png", id: "pencil", size: "25x25" %>
-  <%= image_tag "eraser.png", id: "eraser", size: "25x25" %>
-  <%= image_tag "text.png", id: "text", size: "25x25" %>
-  <%= image_tag "paintbrush.png", id: "brush", size: "25x25" %>
-  <%= image_tag "bucket.png", id: "bucket", size: "25x25" %>
-
-  <button type="button" id="galleryButton">View Gallery</button>
-
-  <!-- Left column of colors -->
-  <span>
-    <div id="seashell" class="color-picker" style="background-color:seashell; height:40px; width: 40px">
+<div id="drawing-container" class="row-fluid">
+  <div id="drawing-tools" class="col-md-1">
+    <div class="row">
+      <%= image_tag "pencil.png", id: "pencil", size: "40x40" %>
+      <%= image_tag "eraser.png", id: "eraser", size: "40x40" %>
+    </div>
+    <div class="row">
+      <%= image_tag "text.png", id: "text", size: "40x40" %>
+      <%= image_tag "paintbrush.png", id: "brush", size: "40x40" %>
+    </div>
+    <div class="row">
+      <%= image_tag "bucket.png", id: "bucket", size: "40x40" %>
     </div>
 
-    <div id="lightGrayColor" class="color-picker" style="background-color:lightgray; height:40px; width: 40px">
+    <div class="row">
+      <div id="seashell" class="color-picker col-md-6" style="background-color:seashell; height:40px;"></div>
+      <div id="black" class="color-picker col-md-6" style="background-color:black; height:40px;"></div>
     </div>
-
-    <div id="sandyBrown" class="color-picker" style="background-color:sandyBrown; height:40px; width: 40px">
+    <div class="row">
+      <div id="lightGrayColor" class="color-picker col-md-6" style="background-color:lightgray; height:40px;"></div>
+      <div id="gray" class="color-picker col-md-6" style="background-color:gray; height:40px;"></div>
     </div>
-
-    <div id="pink" class="color-picker" style="background-color:pink; height:40px; width: 40px">
+    <div class="row">
+      <div id="sandyBrown" class="color-picker col-md-6" style="background-color:sandyBrown; height:40px;"></div>
+      <div id="brown" class="color-picker col-md-6" style="background-color:brown; height:40px;"></div>
     </div>
-
-    <div id="orange" class="color-picker" style="background-color:orange; height:40px; width: 40px">
+    <div class="row">
+      <div id="pink" class="color-picker col-md-6" style="background-color:pink; height:40px;"></div>
+      <div id="red" class="color-picker col-md-6" style="background-color:red; height:40px;"></div>
     </div>
-
-    <div id="lightYellow" class="color-picker" style="background-color:lightyellow; height:40px; width: 40px">
+    <div class="row">
+      <div id="orange" class="color-picker col-md-6" style="background-color:orange; height:40px;"></div>
+      <div id="darkorange" class="color-picker col-md-6" style="background-color:darkorange; height:40px;"></div>
     </div>
-
-    <div id="lightGreen" class="color-picker" style="background-color:lightgreen; height:40px; width: 40px">
+    <div class="row">
+      <div id="lightYellow" class="color-picker col-md-6" style="background-color:lightyellow; height:40px;"></div>
+      <div id="yellow" class="color-picker col-md-6" style="background-color:yellow; height:40px;"></div>
     </div>
-
-    <div id="lightBlue" class="color-picker" style="background-color:lightblue; height:40px; width: 40px">
+    <div class="row">
+      <div id="lightGreen" class="color-picker col-md-6" style="background-color:lightgreen; height:40px;"></div>
+      <div id="green" class="color-picker col-md-6" style="background-color:green; height:40px;"></div>
     </div>
-
-    <div id="mediumPurple" class="color-picker" style="background-color:mediumpurple; height:40px; width: 40px">
+    <div class="row">
+      <div id="lightBlue" class="color-picker col-md-6" style="background-color:lightblue; height:40px;"></div>
+      <div id="blue" class="color-picker col-md-6" style="background-color:blue; height:40px;"></div>
     </div>
-  </span>
-
-  <!-- Right column of colors -->
-  <section>
-    <div id="black" class="color-picker" style="background-color:black; height:40px; width: 40px">
+    <div class="row">
+      <div id="mediumPurple" class="color-picker col-md-6" style="background-color:mediumpurple; height:40px;"></div>
+      <div id="purple" class="color-picker col-md-6" style="background-color: purple; height:40px;"></div>
     </div>
-
-    <div id="gray" class="color-picker" style="background-color:gray; height:40px; width: 40px">
-    </div>
-
-    <div id="brown" class="color-picker" style="background-color:brown; height:40px; width: 40px">
-    </div>
-
-    <div id="red" class="color-picker" style="background-color:red; height:40px; width: 40px">
-    </div>
-
-    <div id="darkorange" class="color-picker" style="background-color:darkorange; height:40px; width: 40px">
-    </div>
-
-    <div id="yellow" class="color-picker" style="background-color:yellow; height:40px; width: 40px">
-    </div>
-
-    <div id="green" class="color-picker" style="background-color:green; height:40px; width: 40px">
-    </div>
-
-    <div id="blue" class="color-picker" style="background-color:blue; height:40px; width: 40px">
-    </div>
-
-    <div id="purple" class="color-picker" style="background-color: purple; height:40px; width: 40px">
-    </div>
-  </section>
-
-  
-  <div id="canvasDiv">
-    <canvas id="frameCanvas" width="675" height="540" style="border:3px solid black"></canvas>
   </div>
 
-</div>
+  <div class="col-md-11">
+    <canvas id="canvas" width="100%" height="100%"></canvas>
+  </div>
 </div>
