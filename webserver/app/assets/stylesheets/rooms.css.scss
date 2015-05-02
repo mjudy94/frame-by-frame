@@ -5,16 +5,23 @@
 @import "canvas";
 
 #share_dialog {
-  textarea {
-    height: 1.5em;
-    resize: none;
-    padding: 0.5ch 0 0 1ch;
-    width: 350px;
-    overflow: hidden;
-    white-space: nowrap;
+  .linkSection {
+    display: flex;
+
+    textarea {
+      flex: 1;
+      height: 1.5em;
+      margin-right: 10px;
+      overflow: hidden;
+      padding: 0.5ch 0 0 1ch;
+      resize: none;
+      width: 350px;
+      white-space: nowrap;
+    }
   }
 
-  span {
+  .copyMessage {
     background: #fffb83;
   }
+
 }
