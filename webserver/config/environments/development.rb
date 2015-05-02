@@ -34,4 +34,6 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  config.faye_url = "http://localhost:9292/faye"
 end

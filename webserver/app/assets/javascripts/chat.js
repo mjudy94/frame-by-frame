@@ -1,6 +1,6 @@
 $(function() {
-  var client = new Faye.Client("http://localhost:9292/faye"),
-      chatWidget = $(".chat"),
+  var chatWidget = $(".chat"),
+      client = new Faye.Client(chatWidget.data("faye")),
       titleBar = chatWidget.find('.titleBar'),
       hideButton = titleBar.find(".hideButton"),
       content = chatWidget.find('.content'),
