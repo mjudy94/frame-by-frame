@@ -1,7 +1,8 @@
-<%= button_tag "Share room", type: "button", id: "share_button" %>
+<%= button_tag "Share room", type: "button", class: "shareButton" %>
 
-<div id="share_dialog" data-title="<%= t '.dialog_title' %>">
-  <div><%= t '.notice' %>:</div>
+<div class="shareDialog" data-title="<%= t '.dialog_title' %>">
+  <h2><%= t '.notice' %></h2>
+
   <div class="linkSection">
     <textarea readonly><%= request.original_url %></textarea>
     <button id="copy_button"><%= t '.copy_button' %></button>
@@ -9,19 +10,25 @@
 
   <div class="copyMessage"><%= t '.copy_message' %></div>
 
+  <h2>Send Invitations by Email</h2>
+
   <%# Email form %>
   <%= form_tag({controller: "email", action: "create"}, method: "post") do %>
     <%= hidden_field_tag "current_room_url", request.original_url %>
+
     <p>
       <%= label_tag(:from, "From") %>
       <%= email_field_tag(:from, nil, required: true) %>
     </p>
+
     <p>
       <%= label_tag(:emailInput, "To") %>
       <%= email_field_tag(:emailInput) %>
       <%= button_tag "Add", type: :button, class: :addButton %>
     </p>
+
     <div class="recipients"></div>
+
     <%= submit_tag("Send") %>
   <% end %>
 </div>

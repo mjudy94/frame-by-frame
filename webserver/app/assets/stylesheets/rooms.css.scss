@@ -3,25 +3,4 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 @import "canvas";
-
-#share_dialog {
-  .linkSection {
-    display: flex;
-
-    textarea {
-      flex: 1;
-      height: 1.5em;
-      margin-right: 10px;
-      overflow: hidden;
-      padding: 0.5ch 0 0 1ch;
-      resize: none;
-      width: 350px;
-      white-space: nowrap;
-    }
-  }
-
-  .copyMessage {
-    background: #fffb83;
-  }
-
-}
+@import "share";

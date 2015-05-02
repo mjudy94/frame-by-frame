@@ -1,17 +1,17 @@
 $(document).ready ->
-  shareDialog = $("#share_dialog")
+  shareDialog = $(".shareDialog")
   copyMessage = shareDialog.find(".copyMessage").hide()
 
   shareDialog.dialog
-    title: $("#share_dialog").data("title")
+    title: shareDialog.data("title")
     autoOpen: false
     modal: true
-    height: 300
+    height: 'auto'
     width: 500
     close: -> copyMessage.hide()
 
-  $('#share_button').click ->
-    $("#share_dialog").dialog "open"
+  $('.shareButton').click ->
+    shareDialog.dialog "open"
 
   shareDialog.find('textarea').on 'click', (e) ->
     e.target.select()
@@ -24,9 +24,7 @@ $(document).ready ->
     emailInput = $('#emailInput')
     email = emailInput.val()
     if validateEmail email
-      recipient = $("<div></div>").append(email)
-        .append($("<input type='hidden' name='to[]'>").val(email))
-      shareDialog.find('.recipients').append(recipient)
+      shareDialog.find('.recipients').append(createRecipent(email))
       emailInput.val("")
     else
       alert "Invalid email"
@@ -42,3 +40,10 @@ $(document).ready ->
 validateEmail = (email) ->
   reg = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
   reg.test email
+
+createRecipent = (email) ->
+  $("<div></div>")
+    .append $("<input type='hidden' name='to[]'>").val(email)
+    .append $("<span class='close'>x</span>").click (e) ->
+      $(e.target).parent().remove()
+    .append(email)
