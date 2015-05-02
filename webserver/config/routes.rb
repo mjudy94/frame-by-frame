@@ -1,8 +1,13 @@
 Rails.application.routes.draw do
   resources :rooms do
     resource :animation
+    
+    resources :galleries, except: [:new, :edit, :index] do
+      resources :videos, only: [:create, :show, :destroy] 
+    end
   end
 
+  get 'galleries/:id', to: 'galleries#index', as: 'galleries/index'
   root 'landing#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
