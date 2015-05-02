@@ -8,12 +8,10 @@ class RoomsController < ApplicationController
 
   def index
     @rooms = Room.all
-
   end
 
   def new
     @room = Room.new
-
   end
 
   def create
@@ -70,11 +68,8 @@ class RoomsController < ApplicationController
     render plain: 'Access forbidden', status: :forbidden
   end
 
-
-
   def is_global_room
     id = params[:id]
     id == 'public' || id == 1
   end
 end
-

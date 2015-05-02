@@ -2,8 +2,9 @@ Rails.application.routes.draw do
   resources :rooms do
     resource :animation
   end
-match '/email',      to: 'email#new',         via: 'get'
-match '/email',      to: 'email#create',        via: 'post'
+
+  match '/email', to: 'email#new', via: 'get'
+  match '/email', to: 'email#create', via: 'post'
 
   root 'landing#index'
 
