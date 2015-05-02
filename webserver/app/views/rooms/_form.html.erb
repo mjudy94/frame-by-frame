@@ -1,16 +1,18 @@
 <%= form_for @room do |f| %>
   <%= form_password %>
 
-  <p>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </p>
+  <div class="row">
+    <div class="col-md-3">
+      <%= f.text_field :name, {placeholder: 'Room Name', class: 'form-control'} %>
+    </div>
+  </div>
 
-  <p>
-    <%= f.label :private %>
-    <%= f.check_box :private, checked: params[:p] != nil %>
-    <span>(<%= t '.private_notice' %>)</span>
-  </p>
+  <div class="checkbox">
+    <label>
+      <%= f.check_box :private, checked: params[:p] != nil %>
+      Private (<%= t '.private_notice' %>)
+    </label>
+  </div>
 
-  <%= f.submit %>
+  <%= f.submit 'Create', :class=>"btn btn-default" %>
 <% end %>

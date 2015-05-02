@@ -1,0 +1,25 @@
+@import "variables";
+
+body {
+  background-color: $colorBackground;
+}
+
+.container {
+  background-color: $colorForeground;
+
+  padding: 0 32px 32px 32px;
+
+  border: 2px solid $colorBrown;
+  border-top: none;
+  border-radius: 0 0 16px 16px;
+
+  .btn-default {
+    background-color: $colorGreen;
+    color: #FFFFFF;
+
+    &:hover {
+        background-color: #FFFFFF;
+        color: $colorDarkGreen;
+    }
+  }
+}

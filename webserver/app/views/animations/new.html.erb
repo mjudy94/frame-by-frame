@@ -1,39 +1,41 @@
-<h1>Create a New Animation</h1>
+<div class="container">
+  <div class="page-header">
+    <h1>Create a New Animation</h1>
+  </div>
 
-<%= form_for @animation, url: room_animation_path do |f| %>
-  <%= form_password %>
-   
-  <p>
-    <%= f.label :number_of_frames %>
-    <%= f.number_field :number_of_frames,
-      value: AnimationsController::DEFAULT_NUMBER_OF_FRAMES %>
-  </p>
+  <%= form_for @animation, url: room_animation_path do |f| %>
+    <%= form_password %>
+     
+    <div class="control-group">
+      <%= f.label :number_of_frames %>
+      <%= f.number_field :number_of_frames, value: AnimationsController::DEFAULT_NUMBER_OF_FRAMES %>
+    </div>
 
-  <p>
-    <%= f.label :timer_per_frame %>
-    <%= f.number_field :timer_per_frame,
-      value: AnimationsController::DEFAULT_TIMER_PER_FRAME %>
-    <%= select_tag :timer_units,
-      options_for_select(AnimationsController::TIMER_UNITS) %>
-  </p>
+    <div class="control-group">
+      <%= f.label :timer_per_frame %>
+      <%= f.number_field :timer_per_frame, value: AnimationsController::DEFAULT_TIMER_PER_FRAME %>
+      <%= select_tag :timer_units, options_for_select(AnimationsController::TIMER_UNITS) %>
+    </div>
 
-  <p>
-    <%= f.label :video_framerate %>
-    <%= f.number_field :video_framerate,
-      value: AnimationsController::DEFAULT_VIDEO_FRAME_RATE %>
-  </p>
+    <div class="control-group">
+      <%= f.label :video_framerate %>
+      <%= f.number_field :video_framerate, value: AnimationsController::DEFAULT_VIDEO_FRAME_RATE %>
+    </div>
 
-  <%= f.submit %>
-<% end %>
+    <%= f.submit 'Create Animation', :class=>"btn btn-default" %>
+  <% end %>
 
-<p>
-  <span>Total time to create animation:</span>
-  <span id="total_time"></span>
-  <span id="total_time_units"></span>
-</p>
+  <br/>
 
-<p>
-  <span>Total rendered video length:</span>
-  <span id="video_length"></span>
-  <span id="video_length_units"></span>
-</p>
+  <div class="row">
+    <span>Total time to create animation:</span>
+    <span id="total_time"></span>
+    <span id="total_time_units"></span>
+  </div>
+
+  <div class="row">
+    <span>Total rendered video length:</span>
+    <span id="video_length"></span>
+    <span id="video_length_units"></span>
+  </div>
+</div>

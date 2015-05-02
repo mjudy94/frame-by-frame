@@ -1,16 +1,23 @@
-<h1><%= @room.name %></h1>
+<div class="container">
+  <div class="page-header">
+    <h1><%= @room.name %></h1>
+  </div>
 
-<% if @room.id != 1 %>
-  <%= link_to t(".edit_link"), url_with_password(@room, :action => :edit) %>
-  <%= render "share" %>
-<% end %>
+  <div class="row-fluid">
+    <% if @room.id != 1 %>
+      <%= link_to t(".edit_link"), url_with_password(@room, :action => :edit), :class => "btn btn-default" %>
+      <%= render "share" %>
+    <% end %>
 
-<% if @room.animation %>
-  <%= render "canvas" %>
-<% else %>
-  <%= link_to url_with_password([@room, :animation], :action => :new) do %>
-    <button>Create new animation</button>
-  <% end %>
-<% end %>
+    <% if @room.animation %>
+      <%= render "canvas" %>
+    <% else %>
+      <%= link_to url_with_password([@room, :animation], :action => :new) do %>
+        <button class="btn btn-default">Create new animation</button>
+      <% end %>
+    <% end %>
+  </div>
 
-<%= render "chat" %>
+  <%= render "chat" %>
+
+</div>

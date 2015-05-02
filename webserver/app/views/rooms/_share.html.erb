@@ -1,11 +1,11 @@
-<%= button_tag "Share room", type: "button", id: "share_button" %>
+<%= button_tag "Share room", type: "button", id: "share_button", :class => "btn btn-default" %>
 
 <div id="share_dialog" data-title="<%= t '.dialog_title' %>">
   <div><%= t '.notice' %></div>
   <textarea readonly><%= request.original_url %></textarea>
   <div>
-    <button id="invite_button"><%= t '.invite_button' %></button>
-    <button id="copy_button"><%= t '.copy_button' %></button>
+    <button id="invite_button" class="btn btn-default"><%= t '.invite_button' %></button>
+    <button id="copy_button" class="btn btn-default"><%= t '.copy_button' %></button>
   </div>
   <span><%= t '.copy_message' %></span>
 </div>
