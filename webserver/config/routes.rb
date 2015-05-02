@@ -3,6 +3,8 @@ Rails.application.routes.draw do
     resource :animation
   end
 
+  match '/email', to: 'email#create', via: 'post'
+
   root 'landing#index'
 
   # The priority is based upon order of creation: first created -> highest priority.

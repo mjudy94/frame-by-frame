@@ -1,11 +1,34 @@
-<%= button_tag "Share room", type: "button", id: "share_button", :class => "btn btn-default" %>
+<%= button_tag "Share room", type: "button", class: "shareButton btn btn-default" %>
 
-<div id="share_dialog" data-title="<%= t '.dialog_title' %>">
-  <div><%= t '.notice' %></div>
-  <textarea readonly><%= request.original_url %></textarea>
-  <div>
-    <button id="invite_button" class="btn btn-default"><%= t '.invite_button' %></button>
+<div class="shareDialog" data-title="<%= t '.dialog_title' %>">
+  <h2><%= t '.notice' %></h2>
+
+  <div class="linkSection">
+    <textarea readonly><%= request.original_url %></textarea>
     <button id="copy_button" class="btn btn-default"><%= t '.copy_button' %></button>
   </div>
-  <span><%= t '.copy_message' %></span>
+
+  <div class="copyMessage"><%= t '.copy_message' %></div>
+
+  <h2>Send Invitations by Email</h2>
+
+  <%# Email form %>
+  <%= form_tag({controller: "email", action: "create"}, method: "post") do %>
+    <%= hidden_field_tag "current_room_url", request.original_url %>
+
+    <p>
+      <%= label_tag(:from, "From") %>
+      <%= email_field_tag(:from, nil, required: true) %>
+    </p>
+
+    <p>
+      <%= label_tag(:emailInput, "To") %>
+      <%= email_field_tag(:emailInput) %>
+      <%= button_tag "Add", type: :button, :class => "addButton btn btn-default" %>
+    </p>
+
+    <div class="recipients"></div>
+
+    <%= submit_tag "Send", :class => "btn btn-default" %>
+  <% end %>
 </div>

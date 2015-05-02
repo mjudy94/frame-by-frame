@@ -2,6 +2,7 @@ require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 require 'yaml'
+require 'net/smtp'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -24,14 +25,24 @@ module Webserver
 
     # Loads the decrypted credentials file into a global constant
     creds = YAML.load_file(Rails.root.join('config', 'creds.yml'))
+    config.secret_key_base = creds["secret_key_base"]
     config.db_username = creds["db"]["username"]
     config.db_password = creds["db"]["password"]
-    config.secret_key_base = creds["secret_key_base"]
+
+     #Set up mail for smtp
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.perform_deliveries = true
+    config.action_mailer.smtp_settings = {
+      :address => 'email-smtp.us-east-1.amazonaws.com',
+      :authentication => :login,
+      :user_name => creds["smtp"]["username"],
+      :password => creds["smtp"]["password"],
+      :enable_starttls_auto => true,
+      :port => 465
+    }
+
   end
 end
-
-
-require 'net/smtp'
 
 module Net
   class SMTP
