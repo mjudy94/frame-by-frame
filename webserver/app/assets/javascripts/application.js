@@ -17,6 +17,7 @@
 //= require jquery-hotkeys
 //= require turbolinks
 //= require numeral
+//= require faye-browser
 
 function guid() {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
