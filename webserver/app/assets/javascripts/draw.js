@@ -26,6 +26,8 @@
             sketch(data.guestX, data.guestY, data.guestDrawing, data.guestRecentX, data.guestRecentY, data.guestLineWidth, data.guestDrawColor, isOwnSketchAction);
           } else if(data.action === "fill") {
             fill(data.guestDrawColor, isOwnSketchAction);
+          } else if(data.action === "clear") {
+            clear(isOwnSketchAction);
           }
         }
       });
@@ -51,7 +53,7 @@
       // Hotkey binding
       $(document).bind("keydown", "e", resizeEraser);
       $(document).bind("keydown", "b", resizeBrush);
-      $(document).bind("keydown", "c", clear);
+      $(document).bind("keydown", "c", function() { clear(true); });
 
       $("#pencil").click(function(){
         lineWidth = 2;
@@ -166,6 +168,18 @@
     }
   }
 
+  function clear(isOwnSketch) {
+    if(channel) {
+      context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+      if(isOwnSketch) {
+        client.publish(channel, {
+          userId: userId,
+          action: "clear"
+        });
+      }
+    }
+  }
+
   function resizeEraser() {
     lineWidth = prompt("Enter size of eraser: ");
     drawColor = "white";
@@ -175,8 +189,6 @@
     lineWidth = prompt("Enter size of brush: ");
   }
 
-  function clear() {
-    context.clearRect(0, 0, context.canvas.width, context.canvas.height);
-  }
+  
 
 })();
