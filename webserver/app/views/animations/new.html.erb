@@ -1,41 +1,39 @@
-<div class="container">
-  <div class="page-header">
-    <h1>Create a New Animation</h1>
+<div class="page-header">
+  <h1>Create a New Animation</h1>
+</div>
+
+<%= form_for @animation, url: room_animation_path do |f| %>
+  <%= form_password %>
+   
+  <div class="control-group">
+    <%= f.label :number_of_frames %>
+    <%= f.number_field :number_of_frames, value: AnimationsController::DEFAULT_NUMBER_OF_FRAMES %>
   </div>
 
-  <%= form_for @animation, url: room_animation_path do |f| %>
-    <%= form_password %>
-     
-    <div class="control-group">
-      <%= f.label :number_of_frames %>
-      <%= f.number_field :number_of_frames, value: AnimationsController::DEFAULT_NUMBER_OF_FRAMES %>
-    </div>
-
-    <div class="control-group">
-      <%= f.label :timer_per_frame %>
-      <%= f.number_field :timer_per_frame, value: AnimationsController::DEFAULT_TIMER_PER_FRAME %>
-      <%= select_tag :timer_units, options_for_select(AnimationsController::TIMER_UNITS) %>
-    </div>
-
-    <div class="control-group">
-      <%= f.label :video_framerate %>
-      <%= f.number_field :video_framerate, value: AnimationsController::DEFAULT_VIDEO_FRAME_RATE %>
-    </div>
-
-    <%= f.submit 'Create Animation', :class=>"btn btn-default" %>
-  <% end %>
-
-  <br/>
-
-  <div class="row">
-    <span>Total time to create animation:</span>
-    <span id="total_time"></span>
-    <span id="total_time_units"></span>
+  <div class="control-group">
+    <%= f.label :timer_per_frame %>
+    <%= f.number_field :timer_per_frame, value: AnimationsController::DEFAULT_TIMER_PER_FRAME %>
+    <%= select_tag :timer_units, options_for_select(AnimationsController::TIMER_UNITS) %>
   </div>
 
-  <div class="row">
-    <span>Total rendered video length:</span>
-    <span id="video_length"></span>
-    <span id="video_length_units"></span>
+  <div class="control-group">
+    <%= f.label :video_framerate %>
+    <%= f.number_field :video_framerate, value: AnimationsController::DEFAULT_VIDEO_FRAME_RATE %>
   </div>
+
+  <%= f.submit 'Create Animation', :class=>"btn btn-default" %>
+<% end %>
+
+<br/>
+
+<div class="row">
+  <span>Total time to create animation:</span>
+  <span id="total_time"></span>
+  <span id="total_time_units"></span>
+</div>
+
+<div class="row">
+  <span>Total rendered video length:</span>
+  <span id="video_length"></span>
+  <span id="video_length_units"></span>
 </div>
