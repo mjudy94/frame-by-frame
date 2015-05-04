@@ -24,8 +24,14 @@
     }
   }
 
-  canvas {
-    background-color: #FFFFFF;
-    border: 2px solid $colorDarkGreen;
+  #canvas-container {
+    width: 960px;
+    height: 540px;
+    #canvas {
+      width: 960px;
+      height: 540px;
+      background-color: #FFFFFF;
+      border: 2px solid $colorDarkGreen;
+    }
   }
 }

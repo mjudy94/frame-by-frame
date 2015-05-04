@@ -25,7 +25,11 @@
 
     //Add isOwnSketchAction as param so sketch knows whether or not to ignore the following sketch request?
     if(!isOwnSketchAction) {
-      sketch(data.guestX, data.guestY, data.guestDrawing, data.guestRecentX, data.guestRecentY, data.guestLineWidth, data.guestDrawColor, isOwnSketchAction);
+      if(data.action === "sketch") {
+        sketch(data.guestX, data.guestY, data.guestDrawing, data.guestRecentX, data.guestRecentY, data.guestLineWidth, data.guestDrawColor, isOwnSketchAction);
+      } else if(data.action === "fill") {
+        fill(data.guestDrawColor, isOwnSketchAction);
+      }
     }
   });
 
@@ -35,12 +39,6 @@
         // Stop execution if the canvas is not found
         return;
       }
-
-      // Resize canvas to fit container
-      canvas.style.width ='100%';
-      canvas.style.height='100%';
-      canvas.width  = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
 
       context = canvas.getContext("2d");
 
@@ -65,8 +63,7 @@
       });
 
       $("#bucket").click(function(){
-          context.fillStyle = drawColor;
-          context.fillRect(0,0, context.canvas.width, context.canvas.height);
+        fill(drawColor, true);
       });
 
       /*
@@ -120,6 +117,7 @@
       if(isOwnSketch) {
         client.publish(channel, {
           userId: userId,
+          action: "sketch",
           guestX: x,
           guestY: y,
           guestDrawing: drawing,
@@ -134,6 +132,18 @@
     if (isOwnSketch) {
       recentX = x;
       recentY = y;
+    }
+  }
+
+  function fill(dcolor, isOwnSketch) {
+    context.fillStyle = dcolor;
+    context.fillRect(0,0, context.canvas.width, context.canvas.height);
+    if(isOwnSketch) {
+      client.publish(channel, {
+        userId: userId,
+        action: "fill",
+        guestDrawColor: dcolor
+      });
     }
   }
 
