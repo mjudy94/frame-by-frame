@@ -5,10 +5,44 @@
   // Previous frame's mouse position
   var recentX;
   var recentY;
-
   var drawColor = "rgb(0, 0, 0)";
-
   var lineWidth = 5;
+
+  var client = new Faye.Client("http://localhost:9292/faye"),
+      chatWidget = $(".chat"),
+      messageForm = chatWidget.find(".messageForm"),
+      roomId = messageForm.data('id'),
+      password = messageForm.data('password'),
+      channel = "/draw/" + roomId + "p" + password,
+      username = localStorage.getItem('username') || 'Guest',
+      userId = guid();
+      
+  //need to subscribe to channel in ruby too   
+  client.subscribe(channel, function(data) {
+    var isOwnSketchAction = data.userId === userId,
+        className = isOwnSketchAction ? 'self' : 'other',
+        name = isOwnSketchAction ? 'Me' : data.fromUser;
+      
+    // Data from faye message, corresponds to the 4 variables above
+    var guestX,
+        guestY,
+        guestDrawing,
+        guestRecentX,
+        guestRecentY,
+        guestDrawColor,
+        guestLineWidth;
+
+    guestX = data.xPos;
+    guestY = data.yPos;
+    guestDrawing = data.drawing;
+    guestRecentX = data.recentX;
+    guestRecentY = data.recentY;
+    guestDrawColor = data.drawColor;
+    guestLineWidth = data.lineWidth;
+
+    //Add isOwnSketchAction as param so sketch knows whether or not to ignore the following sketch request?
+    sketch(guestX, guestY, guestDrawing, guestRecentX, guestRecentY, guestDrawColor, guestLineWidth, isOwnSketchAction)
+  });
 
   $(function() {
       canvas = document.getElementById("frameCanvas");
@@ -16,21 +50,6 @@
         // Stop execution if the canvas is not found
         return;
       }
-      
-      var client = new Faye.Client("http://localhost:9292/faye"),
-      		chatWidget = $(".chat"),
-      		messageForm = chatWidget.find(".messageForm"),
-      		roomId = messageForm.data('id'),
-      		password = messageForm.data('password'),
-          channel = "/drawing/" + roomId + "p" + password,
-          username = localStorage.getItem('username') || 'Guest',
-          userId = guid();
-      
-      client.subscribe(channel, function(data) {
-      	var isOwnSketchAction = data.userId === userId,
-      			className = isOwnSketchAction ? 'self' : 'other',
-      			name = isOwnSketchAction ? 'Me' : data.fromUser;
-      });
 
       context = canvas.getContext("2d");
       
@@ -41,23 +60,23 @@
       $(document).bind("keydown", "c", clear);
 
       $("#pencil").click(function(){
-          lineWidth = 2;
+        lineWidth = 2;
       });
 
       $("#eraser").click(function(){
-          drawColor = "white";
-          alert("Press 'e' to modify eraser size, 'c' to clear frame");
+        drawColor = "white";
+        alert("Press 'e' to modify eraser size, 'c' to clear frame");
 
       });
 
       $("#brush").click(function(){
-          lineWidth = 15;
-          alert("Press 'b' to modify brush size");
+        lineWidth = 15;
+        alert("Press 'b' to modify brush size");
       });
 
       $("#bucket").click(function(){
-          context.fillStyle = drawColor;
-          context.fillRect(0,0,780,540);
+        context.fillStyle = drawColor;
+        context.fillRect(0,0,780,540);
       });
 
       /*
@@ -66,49 +85,63 @@
 
       // Mouse pressed down on the canvas
       $("#frameCanvas").mousedown(function(e) {
-          mouseClicked = true;
-          var xPos = e.pageX - $(this).offset().left;
-          var yPos = e.pageY - $(this).offset().top;
+        mouseClicked = true;
+        var xPos = e.pageX - $(this).offset().left;
+        var yPos = e.pageY - $(this).offset().top;
 
-          sketch(xPos, yPos, false);
+        sketch(xPos, yPos, false, recentX, recentY, drawColor, lineWidth, true);
       });
 
       // Mouse moves on the canvas
       $("#frameCanvas").mousemove(function(e) {
-          if (mouseClicked) {
-              sketch(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
-          }
+        if (mouseClicked) {
+          sketch(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true, recentX, recentY, drawColor, lineWidth, true);
+        }
       });
 
       // Mouse un-press
       $("#frameCanvas").mouseup(function(e) {
-          mouseClicked = false;
+        mouseClicked = false;
       });
 
       // Mouse goes off the canvas
       $("#frameCanvas").mouseleave(function(e) {
-          mouseClicked = false;
+        mouseClicked = false;
       });
 
 
       // Color pickers
       $(".color-picker").click(function(e) {
-          drawColor = $(this).css("background-color");
+        drawColor = $(this).css("background-color");
       });
   });
 
-  function sketch(x, y, drawing) {
-      if(drawing) {
-          context.beginPath();
-          context.strokeStyle = drawColor;
-          context.lineWidth = lineWidth;
-          context.moveTo(recentX, recentY);
-          context.lineTo(x, y);
-          context.closePath();
-          context.stroke();
-      }
+  function sketch(x, y, drawing, rX, rY, lwidth, dcolor, isOwnSketch) {
+    if(drawing) {
+      context.beginPath();
+      context.strokeStyle = dcolor;
+      context.lineWidth = lwidth;
+      context.moveTo(rX, rY);
+      context.lineTo(x, y);
+      context.lineCap = 'round';
+      context.stroke();
+
+      //send faye message here with x, y, drawing, recentX, recentY, drawColor, lineWidth
+      client.publish(channel, {
+        guestX: x,
+        guestY: y,
+        guestDrawing: drawing,
+        guestRecentX: rX,
+        guestRecentY: rY,
+        guestDrawColor: dcolor,
+        guestLineWidth: lwidth
+      });
+    }
+
+    if (isOwnSketch) {
       recentX = x;
       recentY = y;
+    }
   }
 
   function resizeEraser() {
