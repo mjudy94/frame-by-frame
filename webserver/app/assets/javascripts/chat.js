@@ -5,7 +5,7 @@ $(function() {
       hideButton = titleBar.find(".hideButton"),
       content = chatWidget.find('.content'),
       displayName = chatWidget.find(".displayName"),
-      messageForm = chatWidget.find(".messageForm"),
+      messageForm = chatWidget.find("#messageForm"),
       messageBox = chatWidget.find(".messages"),
       nameForm = chatWidget.find('.nameForm'),
       nameInput = nameForm.find("input:first");
