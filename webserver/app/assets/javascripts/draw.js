@@ -54,7 +54,6 @@
       $("#eraser").click(function(){
         drawColor = "white";
         alert("Press 'e' to modify eraser size, 'c' to clear frame");
-
       });
 
       $("#brush").click(function(){
@@ -99,6 +98,16 @@
 
       // Color pickers
       $(".color-picker").click(function(e) {
+        $(".color-picker").not($(this)).animate({
+          "border-radius": 0
+        }, 200);
+        $(".color-picker").not($(this)).css("border", "none");
+
+        $(this).animate({
+          "border-radius": "20px"
+        }, 200);
+        $(this).css("border", "2px dashed white");
+
         drawColor = $(this).css("background-color");
       });
   });
