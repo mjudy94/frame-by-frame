@@ -22,26 +22,11 @@
     var isOwnSketchAction = data.userId === userId,
         className = isOwnSketchAction ? 'self' : 'other',
         name = isOwnSketchAction ? 'Me' : data.fromUser;
-      
-    // Data from faye message, corresponds to the 4 variables above
-    var guestX,
-        guestY,
-        guestDrawing,
-        guestRecentX,
-        guestRecentY,
-        guestDrawColor,
-        guestLineWidth;
-
-    guestX = data.xPos;
-    guestY = data.yPos;
-    guestDrawing = data.drawing;
-    guestRecentX = data.recentX;
-    guestRecentY = data.recentY;
-    guestDrawColor = data.drawColor;
-    guestLineWidth = data.lineWidth;
 
     //Add isOwnSketchAction as param so sketch knows whether or not to ignore the following sketch request?
-    sketch(guestX, guestY, guestDrawing, guestRecentX, guestRecentY, guestDrawColor, guestLineWidth, isOwnSketchAction)
+    if(!isOwnSketchAction) {
+      sketch(data.guestX, data.guestY, data.guestDrawing, data.guestRecentX, data.guestRecentY, data.guestLineWidth, data.guestDrawColor, isOwnSketchAction);
+    }
   });
 
   $(function() {
@@ -89,13 +74,13 @@
         var xPos = e.pageX - $(this).offset().left;
         var yPos = e.pageY - $(this).offset().top;
 
-        sketch(xPos, yPos, false, recentX, recentY, drawColor, lineWidth, true);
+        sketch(xPos, yPos, false, recentX, recentY, lineWidth, drawColor, true);
       });
 
       // Mouse moves on the canvas
       $("#frameCanvas").mousemove(function(e) {
         if (mouseClicked) {
-          sketch(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true, recentX, recentY, drawColor, lineWidth, true);
+          sketch(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true, recentX, recentY, lineWidth, drawColor, true);
         }
       });
 
@@ -127,15 +112,18 @@
       context.stroke();
 
       //send faye message here with x, y, drawing, recentX, recentY, drawColor, lineWidth
-      client.publish(channel, {
-        guestX: x,
-        guestY: y,
-        guestDrawing: drawing,
-        guestRecentX: rX,
-        guestRecentY: rY,
-        guestDrawColor: dcolor,
-        guestLineWidth: lwidth
-      });
+      if(isOwnSketch) {
+        client.publish(channel, {
+          userId: userId,
+          guestX: x,
+          guestY: y,
+          guestDrawing: drawing,
+          guestRecentX: rX,
+          guestRecentY: rY,
+          guestDrawColor: dcolor,
+          guestLineWidth: lwidth
+        });
+      }
     }
 
     if (isOwnSketch) {
