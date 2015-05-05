@@ -8,11 +8,13 @@
   var drawColor = "rgb(0, 0, 0)";
   var lineWidth = 5;
 
-  // Poll until we find the channel id and password
-  // (starts as undefined until ruby finishes loading)
   var channel;
-  var pollForChannel = function() {
-    if($("#messageForm").data("id")) {
+
+  var client = new Faye.Client("http://localhost:9292/faye"),
+      username = localStorage.getItem('username') || 'Guest',
+      userId = guid();
+
+  $(function() {
       channel = "/draw/" + $("#messageForm").data("id") + "p" + $("#messageForm").data("password");
 
       client.subscribe(channel, function(data) {
@@ -31,17 +33,7 @@
           }
         }
       });
-
-      clearInterval(pollForChannelIntvl);
-    }
-  }
-  var pollForChannelIntvl = setInterval(pollForChannel, 200);
-
-  var client = new Faye.Client("http://localhost:9292/faye"),
-      username = localStorage.getItem('username') || 'Guest',
-      userId = guid();
-
-  $(function() {
+    
       canvas = document.getElementById("canvas");
       if (!canvas) {
         // Stop execution if the canvas is not found
