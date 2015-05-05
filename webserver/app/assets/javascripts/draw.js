@@ -74,6 +74,12 @@
         fill(drawColor, true);
       });
 
+      $(".tool").click(function(){
+        $(".tool").not($(this)).css("border", "none");
+        $(this).css("border", "2px solid black");
+
+      });
+
       /*
       * Mouse input events
       */
