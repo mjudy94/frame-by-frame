@@ -85,6 +85,15 @@
         sketch(xPos, yPos, false, recentX, recentY, lineWidth, drawColor, true);
       });
 
+      //touch began
+      $("#canvas")[0].addEventListener('touchstart', function(e) {
+        mouseClicked = true;
+        var xPos = e.changedTouches[0].pageX - $(this).offset().left;
+        var yPos = e.changedTouches[0].pageY - $(this).offset().top;
+
+        sketch(xPos, yPos, false, recentX, recentY, lineWidth, drawColor, true);
+      }, false);
+
       // Mouse moves on the canvas
       $("#canvas").mousemove(function(e) {
         if (mouseClicked) {
@@ -92,15 +101,29 @@
         }
       });
 
-      // Mouse un-press
-      $("#canvas").mouseup(function(e) {
+      //touch move
+      $("#canvas")[0].addEventListener('touchmove', function(e) {
+        if (mouseClicked) {
+          sketch(e.changedTouches[0].pageX - $(this).offset().left, e.changedTouches[0].pageY - $(this).offset().top, true, recentX, recentY, lineWidth, drawColor, true);
+        }
+      }, false);
+
+      var inputStopFunc = function(e) {
+        console.log("touch stop");
         mouseClicked = false;
-      });
+      };
+      
+      //triggers when user removes finger wnile within bounds of specified element
+      $("#canvas")[0].addEventListener('touchend', inputStopFunc);
+
+      // Mouse un-press
+      $("#canvas").mouseup(inputStopFunc);
+
+      //triggers when no longer touching the canvas
+      $("#canvas")[0].addEventListener('touchleave', inputStopFunc);
 
       // Mouse goes off the canvas
-      $("#canvas").mouseleave(function(e) {
-        mouseClicked = false;
-      });
+      $("#canvas").mouseleave(inputStopFunc);
 
 
       // Color pickers
