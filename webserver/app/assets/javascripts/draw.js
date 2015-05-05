@@ -12,6 +12,18 @@
 
   var client, username, userId;
   $(function() {
+      var brushSizeChanged = function() {
+        lineWidth = $("#brush-size-slider").slider("value");
+        $("#brush-size").html(lineWidth);
+      };
+      $("#brush-size-slider").slider({
+        range: "min",
+        min: 1,
+        max: 100,
+        value: 5,
+        change: brushSizeChanged
+      });
+
       client = new Faye.Client($(".chat").data("faye"));
       username = localStorage.getItem('username') || 'Guest',
       userId = guid();
@@ -44,8 +56,6 @@
       context = canvas.getContext("2d");
 
       // Hotkey binding
-      $(document).bind("keydown", "e", resizeEraser);
-      $(document).bind("keydown", "b", resizeBrush);
       $(document).bind("keydown", "c", function() { clear(true); });
 
       $("#pencil").click(function(){
@@ -54,12 +64,10 @@
 
       $("#eraser").click(function(){
         drawColor = "white";
-        alert("Press 'e' to modify eraser size, 'c' to clear frame");
       });
 
       $("#brush").click(function(){
         lineWidth = 15;
-        alert("Press 'b' to modify brush size");
       });
 
       $("#bucket").click(function(){
