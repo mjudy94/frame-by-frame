@@ -18,9 +18,22 @@
   }
 
   #drawing-tools {
+    #black {
+      border-radius: 20px;
+      border: 2px dashed white;
+    }
+
     .color-picker {
       width: 40px;
       height: 40px;
+    }
+
+    #brush-size-display {
+      font-size: 12px;
+    }
+
+    #brush-size-slider {
+      margin-top: 8px;
     }
   }
 
