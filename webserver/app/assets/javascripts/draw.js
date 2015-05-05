@@ -10,11 +10,12 @@
 
   var channel;
 
-  var client = new Faye.Client("http://localhost:9292/faye"),
+  var client, username, userId;
+  $(function() {
+      client = new Faye.Client($(".chat").data("faye"));
       username = localStorage.getItem('username') || 'Guest',
       userId = guid();
 
-  $(function() {
       channel = "/draw/" + $("#messageForm").data("id") + "p" + $("#messageForm").data("password");
 
       client.subscribe(channel, function(data) {
