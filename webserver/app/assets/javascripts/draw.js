@@ -66,6 +66,11 @@
         fill(drawColor, true);
       });
 
+      $("#clear").click(function(){
+         context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+ 
+      });
+
       $(".tool").click(function(){
         $(".tool").not($(this)).css("border", "none");
         $(this).css("border", "2px solid black");
