@@ -100,6 +100,8 @@
 
       //touch began
       $("#canvas")[0].addEventListener('touchstart', function(e) {
+        e.preventDefault();
+
         mouseClicked = true;
         var xPos = e.changedTouches[0].pageX - $(this).offset().left;
         var yPos = e.changedTouches[0].pageY - $(this).offset().top;
