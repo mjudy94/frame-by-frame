@@ -124,7 +124,6 @@
       }, false);
 
       var inputStopFunc = function(e) {
-        console.log("touch stop");
         mouseClicked = false;
       };
       
