@@ -75,7 +75,7 @@
       });
 
       $("#clear").click(function(){
-         context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+         clear(true);
  
       });
 
