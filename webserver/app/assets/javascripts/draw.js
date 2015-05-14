@@ -12,14 +12,15 @@
   var drawColor = "rgb(0, 0, 0)";
   var lineWidth = 5;
 
-  var channel;
+  var client, channel;
+  var userId = guid();
 
-  var client, username, userId;
   $(function() {
       var brushSizeChanged = function() {
         lineWidth = $("#brush-size-slider").slider("value");
         $("#brush-size").html(lineWidth);
       };
+
       $("#brush-size-slider").slider({
         range: "min",
         min: 1,
@@ -28,13 +29,19 @@
         change: brushSizeChanged
       });
 
-      client = new Faye.Client($(".chat").data("faye"));
-      username = localStorage.getItem('username') || 'Guest',
-      userId = guid();
-
+      // Set up the Faye client
+      // TODO Refactor this code to remove draw.js dependency on elements from the chat room
       channel = "/draw/" + $("#messageForm").data("id") + "p" + $("#messageForm").data("password");
+      client = new Faye.Client($(".chat").data("faye"));
+      client.addExtension({
+        outgoing : function(message, callback) {
+          message['ext'] = message['ext'] || {};
+          message['ext']['room_id'] = $("#messageForm").data("id");
+          callback(message);
+        }
+      });
 
-      client.subscribe(channel, function(data) {
+      var subscription = client.subscribe(channel, function(data) {
         var isOwnSketchAction = data.userId === userId,
             className = isOwnSketchAction ? 'self' : 'other';
 

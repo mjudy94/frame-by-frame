@@ -118,6 +118,7 @@ GEM
     rake (10.4.2)
     rdoc (4.2.0)
       json (~> 1.4)
+    redis (3.2.1)
     ref (1.0.5)
     sass (3.2.19)
     sass-rails (4.0.5)
@@ -180,6 +181,7 @@ DEPENDENCIES
   mysql2 (~> 0.3.18)
   numeraljs-rails (~> 1.4.5.0)
   rails (= 4.1.5)
+  redis (~> 3.2.1)
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
   spring

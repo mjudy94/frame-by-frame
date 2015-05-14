@@ -27,6 +27,7 @@ GEM
     http_parser.rb (0.6.0)
     multi_json (1.11.0)
     rack (1.6.0)
+    redis (3.2.1)
     thin (1.6.3)
       daemons (~> 1.0, >= 1.0.9)
       eventmachine (~> 1.0)
@@ -40,4 +41,5 @@ PLATFORMS
 
 DEPENDENCIES
   faye
+  redis (~> 3.2.1)
   thin

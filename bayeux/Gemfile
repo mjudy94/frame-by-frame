@@ -1,6 +1,6 @@
 # A sample Gemfile
 source "https://rubygems.org"
 
-# gem "rails"
 gem "faye"
 gem "thin"
+gem 'redis', '~> 3.2.1'
