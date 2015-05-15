@@ -46,6 +46,12 @@ class RoomsController < ApplicationController
     else
       @room = Room.find(params[:id])
     end
+
+    # Ensures that a new (unexpired) frame is initialized
+    # TODO consider changing
+    if @room.animation
+      @room.animation.current_frame
+    end
   end
 
   private

@@ -8,7 +8,8 @@
     <%= render "share" %>
   <% end %>
 
-  <% if @room.animation %>
+  <% if @room.animation and not @room.animation.complete? %>
+    <%= @room.animation.current_frame.expiration_date %>
     <%= render "canvas" %>
   <% else %>
     <%= link_to url_with_password([@room, :animation], :action => :new) do %>

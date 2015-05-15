@@ -1,9 +1,17 @@
 require 'redis'
 
-module Canvas
+class Canvas
   @@redis = Redis.new
 
-  def self.get room_id
-    @@redis.get("room:#{room_id}") || ''
+  def initialize room_id
+    @key = "room:#{room_id}"
+  end
+
+  def get
+    @@redis.get(@key) || ''
+  end
+
+  def clear
+    @@redis.del @key
   end
 end

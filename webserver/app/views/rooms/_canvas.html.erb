@@ -66,7 +66,7 @@
 
   <div id="canvas-container" class="col-md-11">
     <svg id="canvas" width="960" height="540">
-      <%= Canvas.get(@room.id).html_safe %>
+      <%= Canvas.new(@room.id).get.html_safe %>
     </svg>
   </div>
 </div>
