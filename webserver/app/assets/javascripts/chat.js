@@ -1,6 +1,6 @@
 $(function() {
   var chatWidget = $(".chat"),
-      client = new Faye.Client(chatWidget.data("faye")),
+      client = new Faye.Client(gon.fayeUrl),
       titleBar = chatWidget.find('.titleBar'),
       hideButton = titleBar.find(".hideButton"),
       content = chatWidget.find('.content'),
@@ -9,8 +9,8 @@ $(function() {
       messageBox = chatWidget.find(".messages"),
       nameForm = chatWidget.find('.nameForm'),
       nameInput = nameForm.find("input:first");
-      roomId = messageForm.data('id'),
-      password = messageForm.data('password'),
+      roomId = gon.roomId,
+      password = gon.password,
       channel = "/chat/" + roomId + "p" + password,
       username = localStorage.getItem('username') || 'Guest',
       userId = guid();

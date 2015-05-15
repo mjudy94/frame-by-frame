@@ -30,13 +30,12 @@
       });
 
       // Set up the Faye client
-      // TODO Refactor this code to remove draw.js dependency on elements from the chat room
-      channel = "/draw/" + $("#messageForm").data("id") + "p" + $("#messageForm").data("password");
-      client = new Faye.Client($(".chat").data("faye"));
+      channel = "/draw/" + gon.roomId + "p" + gon.password;
+      client = new Faye.Client(gon.fayeUrl);
       client.addExtension({
         outgoing : function(message, callback) {
           message['ext'] = message['ext'] || {};
-          message['ext']['room_id'] = $("#messageForm").data("id");
+          message['ext']['room_id'] = gon.roomId
           callback(message);
         }
       });

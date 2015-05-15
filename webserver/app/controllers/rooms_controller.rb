@@ -46,12 +46,14 @@ class RoomsController < ApplicationController
     else
       @room = Room.find(params[:id])
     end
-
-    # Ensures that a new (unexpired) frame is initialized
-    # TODO consider changing
-    if @room.animation
-      @room.animation.current_frame
-    end
+    
+    # Send attributes to JS
+    gon.push({
+      frame_expiration: @room.animation ? @room.animation.current_frame.expiration : nil,
+      room_id: @room.id,
+      password: @room.password,
+      faye_url: Rails.configuration.faye_url
+    })
   end
 
   private

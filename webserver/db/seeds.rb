@@ -9,5 +9,9 @@
 # Public room and animation
 if not Room.any?
   publicRoom = Room.create name: 'Public Room'
-  publicRoom.create_animation
+  publicRoom.create_animation ({
+    number_of_frames: 10,
+    timer_per_frame: 30,
+    video_framerate: 10
+  })
 end
