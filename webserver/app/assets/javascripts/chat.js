@@ -1,6 +1,5 @@
-$(function() {
+$(document).ready(function() {
   var chatWidget = $(".chat"),
-      client = new Faye.Client(gon.fayeUrl),
       titleBar = chatWidget.find('.titleBar'),
       hideButton = titleBar.find(".hideButton"),
       content = chatWidget.find('.content'),
@@ -15,8 +14,12 @@ $(function() {
       username = localStorage.getItem('username') || 'Guest',
       userId = guid();
 
+  if (!faye) {
+    return;
+  }
+
   // MESSAGE SUBSCRIBE
-  client.subscribe(channel, function(data) {
+  faye.subscribe(channel, function(data) {
     var isOwnMessage = data.userId === userId,
       className =  isOwnMessage ? 'self' : 'other',
       name = isOwnMessage ? 'Me' : data.from;
@@ -30,7 +33,7 @@ $(function() {
   // MESSAGE INPUT AND PUBLISH
   messageForm.submit(function() {
     var input = messageForm.find("input:first");
-    client.publish(channel, {
+    faye.publish(channel, {
       msg: input.val(),
       from: username,
       userId: userId

@@ -1,3 +1,4 @@
+//= require countdown
 //= require snap-svg
 
 (function() {
@@ -12,10 +13,16 @@
   var drawColor = "rgb(0, 0, 0)";
   var lineWidth = 5;
 
-  var client, channel;
+  var channel;
   var userId = guid();
 
-  $(function() {
+  $(document).ready(function() {
+      svg = Snap("#canvas");
+      if (!svg) {
+        // Stop execution if the svg canvas is not found
+        return;
+      }
+
       var brushSizeChanged = function() {
         lineWidth = $("#brush-size-slider").slider("value");
         $("#brush-size").html(lineWidth);
@@ -31,16 +38,7 @@
 
       // Set up the Faye client
       channel = "/draw/" + gon.roomId + "p" + gon.password;
-      client = new Faye.Client(gon.fayeUrl);
-      client.addExtension({
-        outgoing : function(message, callback) {
-          message['ext'] = message['ext'] || {};
-          message['ext']['room_id'] = gon.roomId
-          callback(message);
-        }
-      });
-
-      var subscription = client.subscribe(channel, function(data) {
+      var subscription = faye.subscribe(channel, function(data) {
         var isOwnSketchAction = data.userId === userId,
             className = isOwnSketchAction ? 'self' : 'other';
 
@@ -65,12 +63,6 @@
           }
         }
       });
-
-      svg = Snap("#canvas");
-      if (!svg) {
-        // Stop execution if the svg canvas is not found
-        return;
-      }
 
       // Hotkey binding
       $(document).bind("keydown", "c", function() { clear(true); });
@@ -170,7 +162,7 @@
 
   function commitInput() {
     if (publishAction) {
-      client.publish(channel, {
+      faye.publish(channel, {
         userId: userId,
         svg:  svgElement && svgElement.toString(),
         action: publishAction
@@ -205,21 +197,6 @@
         } else {
           svgElement.attr("points", svgElement.attr("points").concat(rx, ry))
         }
-
-        //send faye message here with x, y, drawing, recentX, recentY, drawColor, lineWidth
-        // if(isOwnSketch) {
-        //   client.publish(channel, {
-        //     userId: userId,
-        //     action: "sketch",
-        //     guestX: x,
-        //     guestY: y,
-        //     guestDrawing: drawing,
-        //     guestRecentX: rx,
-        //     guestRecentY: ry,
-        //     guestDrawColor: dcolor,
-        //     guestLineWidth: lwidth
-        //   });
-        // }
       }
 
       if (isOwnSketch) {
@@ -234,7 +211,7 @@
       context.fillStyle = dcolor;
       context.fillRect(0,0, context.canvas.width, context.canvas.height);
       if(isOwnSketch) {
-        client.publish(channel, {
+        faye.publish(channel, {
           userId: userId,
           action: "fill",
           guestDrawColor: dcolor
