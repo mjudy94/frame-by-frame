@@ -4,7 +4,7 @@
   <%= link_to t(".edit_link"), url_with_password(@room, :action => :edit) %>
   <%= render "share" %>
 <% end %>
-
+<%= link_to 'Gallery', room_gallery_path(@room, @gallery) %>
 <% if @room.animation %>
   <%= render "canvas" %>
 <% else %>

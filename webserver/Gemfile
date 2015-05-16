@@ -27,7 +27,7 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 
 #I want aws and am not elequent
-gem 'aws-sdk-rails'
+gem 'aws-sdk', '~> 2.0.43'
 
 group :production do
   gem 'mysql2', '~> 0.3.18'

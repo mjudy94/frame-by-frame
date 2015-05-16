@@ -6,6 +6,9 @@ class VideosController < ApplicationController
 
 	def show
 		@video = Video.find_by_id(params[:id])
+		@gallery = @video.gallery
+		@aws_video = Video.s3_resource.bucket(Rails.configuration.s3_bucket).object("galleries/#{@gallery.id}/#{@video.name}")
+		@aws_url = @aws_video.presigned_url(:get, expires_in: 1800)
 	end
 
 	def destroy
@@ -17,7 +20,7 @@ class VideosController < ApplicationController
 
 		def video_params
 			p = params.require(:video).permit(:video_url)
-			
+
 		end
 
 

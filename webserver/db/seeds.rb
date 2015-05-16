@@ -8,6 +8,11 @@
 
 # Public room and animation
 if not Room.any?
+  publicVideo = Video.create video_url: 'galleries/1/elephants-dream.webm', name: 'elephants-dream.webm'
+  publicGallery = Gallery.create
+  publicGallery.videos << publicVideo
   publicRoom = Room.create name: 'Public Room'
+  publicRoom.gallery = publicGallery
+  publicGallery.room = publicRoom
   publicRoom.create_animation
 end

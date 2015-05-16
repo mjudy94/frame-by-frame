@@ -16,6 +16,9 @@ class RoomsController < ApplicationController
 
   def create
     @room = Room.new(room_params)
+    @gallery = Gallery.create
+    @room.gallery = @gallery
+    @gallery.room = @room
 
     if @room.save
       redirect_with_password @room, p: @room.password
@@ -46,6 +49,7 @@ class RoomsController < ApplicationController
     else
       @room = Room.find(params[:id])
     end
+    @gallery = @room.gallery
   end
 
   private

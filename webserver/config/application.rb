@@ -27,6 +27,15 @@ module Webserver
     config.db_username = creds["db"]["username"]
     config.db_password = creds["db"]["password"]
     config.secret_key_base = creds["secret_key_base"]
+
+    config.s3_access_key_id = creds["s3"]["access_key_id"]
+    config.s3_secret_access_key = creds["s3"]["secret_access_key"]
+    config.s3_bucket = 'frame-by-frame'
+    # Aws.config.update({
+    #   region: 'us-east-1',
+    #   credentials: Aws::Credentials.new(creds["s3"]["access_key_id"], creds["s3"]["secret_access_key"])
+    # })
+
   end
 end
 
