@@ -64,6 +64,21 @@
       <div id="brush-size-slider"></div>
       <span id="brush-size-display">Brush Size: <b><span id="brush-size">5</span></b></span>
     </div>
+
+    <div id="text-dialog" title="Insert Text">
+      <form>
+        <fieldset>
+          <label for="fontSize">Font Size</label>
+          <input type="text" name="fontSize" id="fontSize" value="20" class="text ui-widget-content ui-corner-all">
+          <br/>
+          <label for="text">Text</label>
+          <input type="text" name="text" id="text" class="text ui-widget-content ui-corner-all">
+
+          <!-- Allow form submission with keyboard without duplicating the dialog button -->
+          <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+        </fieldset>
+      </form>
+    </div>
   </div>
 
   <div id="canvas-container" class="col-md-11">

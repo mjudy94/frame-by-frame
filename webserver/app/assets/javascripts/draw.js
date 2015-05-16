@@ -13,11 +13,14 @@
   var drawColor = "rgb(0, 0, 0)";
   var lineWidth = 5;
 
+  var textDialog, textForm;
+
   // tool enums
   var Tool = {
     "BRUSH": 0,
     "PENCIL": 1,
-    "ERASER": 2
+    "ERASER": 2,
+    "TEXT": 3
   };
   var currentTool = Tool.BRUSH;
 
@@ -35,6 +38,24 @@
       for(var i = 0; i < svgElements.length; i++) {
         addSVGEvents(svgElements[i]);
       }
+
+
+      textDialog = $("#text-dialog").dialog({
+        autoOpen: false,
+        height: 300,
+        width: 350,
+        modal: true,
+        buttons: {
+          "Insert": addText
+        },
+        close: function() {
+          textForm[0].reset();
+        }
+      });
+      textForm = textDialog.find("form").on("submit", function(e) {
+        e.preventDefault();
+        addText();
+      });
 
 
       var brushSizeChanged = function() {
@@ -104,6 +125,10 @@
         currentTool = Tool.ERASER;
       });
 
+      $("#text").click(function() {
+        currentTool = Tool.TEXT;
+      });
+
       $("#bucket").click(function(){
         fill(drawColor, true);
       });
@@ -127,9 +152,13 @@
         mouseClicked = true;
 
         var xPos = e.pageX - $(this).offset().left;
-        var yPos = e.pageY - $(this).offset().top;  
+        var yPos = e.pageY - $(this).offset().top;
 
-        sketch(xPos, yPos, false, recentX, recentY, lineWidth, drawColor, true);
+        if(currentTool === Tool.BRUSH || currentTool === Tool.PENCIL) {
+          sketch(xPos, yPos, false, recentX, recentY, lineWidth, drawColor, true);
+        } else if(currentTool === Tool.TEXT) {
+          text(xPos, yPos);
+        }
       });
 
       //touch began
@@ -140,20 +169,28 @@
         var xPos = e.changedTouches[0].pageX - $(this).offset().left;
         var yPos = e.changedTouches[0].pageY - $(this).offset().top;
 
-        sketch(xPos, yPos, false, recentX, recentY, lineWidth, drawColor, true);
+        if(currentTool === Tool.BRUSH || currentTool === Tool.PENCIL) {
+          sketch(xPos, yPos, false, recentX, recentY, lineWidth, drawColor, true);
+        } else if(currentTool === Tool.TEXT) {
+          text(xPos, yPos);
+        }
       }, false);
 
       // Mouse moves on the canvas
       $("#canvas").mousemove(function(e) {
-        if (mouseClicked) {
-          sketch(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true, recentX, recentY, lineWidth, drawColor, true);
+        if(currentTool === Tool.BRUSH || currentTool === Tool.PENCIL) {
+          if (mouseClicked) {
+            sketch(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true, recentX, recentY, lineWidth, drawColor, true);
+          }
         }
       });
 
       //touch move
       $("#canvas")[0].addEventListener('touchmove', function(e) {
-        if (mouseClicked) {
-          sketch(e.changedTouches[0].pageX - $(this).offset().left, e.changedTouches[0].pageY - $(this).offset().top, true, recentX, recentY, lineWidth, drawColor, true);
+        if(currentTool === Tool.BRUSH || currentTool === Tool.PENCIL) {
+          if (mouseClicked) {
+            sketch(e.changedTouches[0].pageX - $(this).offset().left, e.changedTouches[0].pageY - $(this).offset().top, true, recentX, recentY, lineWidth, drawColor, true);
+          }
         }
       }, false);
 
@@ -203,7 +240,7 @@
   };
 
   function sketch(x, y, drawing, rx, ry, lwidth, dcolor, isOwnSketch) {
-    if(channel && currentTool !== Tool.ERASER) {
+    if(channel) {
       if(drawing) {
         if (Math.abs(x - rx) < MIN_LINE_LENGTH  &&
               Math.abs(y - ry) < MIN_LINE_LENGTH) {
@@ -234,6 +271,24 @@
         recentY = y;
       }
     }
+  }
+  
+  function text(x, y) {
+    textDialog.x = x;
+    textDialog.y = y;
+    textDialog.dialog("open");
+  }
+  function addText() {
+    publishAction = "sketch";
+    svgElement = svg.text(textDialog.x, textDialog.y, $("#text-dialog #text").val()).attr({
+      "id": guid(),
+      "class": "unselectable",
+      "font-size": $("#text-dialog #fontSize").val(),
+      "fill": drawColor
+    });
+    addSVGEvents(svgElement);
+    
+    textDialog.dialog("close");
   }
 
   function erase(svgId) {
