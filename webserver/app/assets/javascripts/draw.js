@@ -4,7 +4,7 @@
 (function() {
   var MIN_LINE_LENGTH = 5;
 
-  var svg, svgElement, publishAction;
+  var svg, svgElement, publishAction, publishData;
   var mouseClicked = false;
 
   // Previous frame's mouse position
@@ -12,6 +12,14 @@
   var recentY;
   var drawColor = "rgb(0, 0, 0)";
   var lineWidth = 5;
+
+  // tool enums
+  var Tool = {
+    "BRUSH": 0,
+    "PENCIL": 1,
+    "ERASER": 2
+  };
+  var currentTool = Tool.BRUSH;
 
   var channel;
   var userId = guid();
@@ -23,9 +31,20 @@
         return;
       }
 
+      var svgElements = svg.selectAll("*");
+      for(var i = 0; i < svgElements.length; i++) {
+        addSVGEvents(svgElements[i]);
+      }
+
+
       var brushSizeChanged = function() {
         lineWidth = $("#brush-size-slider").slider("value");
         $("#brush-size").html(lineWidth);
+      };
+
+      var setBrushSize = function(size) {
+        lineWidth = size;
+        $("#brush-size-slider").slider("option", "value", size);
       };
 
       $("#brush-size-slider").slider({
@@ -44,22 +63,26 @@
 
         //Add isOwnSketchAction as param so sketch knows whether or not to ignore the following sketch request?
         if(!isOwnSketchAction) {
-          // if(data.action === "sketch") {
-          //   sketch(data.guestX, data.guestY, data.guestDrawing, data.guestRecentX, data.guestRecentY, data.guestLineWidth, data.guestDrawColor, isOwnSketchAction);
-          // } else if(data.action === "fill") {
-          //   fill(data.guestDrawColor, isOwnSketchAction);
-          // } else if(data.action === "clear") {
-          //   clear(isOwnSketchAction);
-          // }
+          var incomingSVGElement;
+
           switch (data.action) {
             case "sketch":
-              svg.add(Snap.parse(data.svg));
+              incomingSVGElement = Snap.parse(data.svg);
               break;
             case "clear":
               svg.clear();
               break;
+            case "erase":
+              for(var i = 0; i < data.data.ids.length; i++) {
+                svg.select('[id="' + data.data.ids[i] + '"]').remove();
+              }
             default:
               break;
+          }
+
+          if(incomingSVGElement) {
+            addSVGEvents(incomingSVGElement.select("*"));
+            svg.add(incomingSVGElement);
           }
         }
       });
@@ -67,16 +90,18 @@
       // Hotkey binding
       $(document).bind("keydown", "c", function() { clear(true); });
 
+      $("#brush").click(function(){
+        currentTool = Tool.BRUSH;
+        setBrushSize(15);
+      });
+
       $("#pencil").click(function(){
-        lineWidth = 2;
+        currentTool = Tool.PENCIL;
+        setBrushSize(2);
       });
 
       $("#eraser").click(function(){
-        drawColor = "white";
-      });
-
-      $("#brush").click(function(){
-        lineWidth = 15;
+        currentTool = Tool.ERASER;
       });
 
       $("#bucket").click(function(){
@@ -100,8 +125,9 @@
       // Mouse pressed down on the canvas
       $("#canvas").mousedown(function(e) {
         mouseClicked = true;
+
         var xPos = e.pageX - $(this).offset().left;
-        var yPos = e.pageY - $(this).offset().top;
+        var yPos = e.pageY - $(this).offset().top;  
 
         sketch(xPos, yPos, false, recentX, recentY, lineWidth, drawColor, true);
       });
@@ -109,8 +135,8 @@
       //touch began
       $("#canvas")[0].addEventListener('touchstart', function(e) {
         e.preventDefault();
-
         mouseClicked = true;
+
         var xPos = e.changedTouches[0].pageX - $(this).offset().left;
         var yPos = e.changedTouches[0].pageY - $(this).offset().top;
 
@@ -165,17 +191,19 @@
       faye.publish(channel, {
         userId: userId,
         svg:  svgElement && svgElement.toString(),
-        action: publishAction
+        action: publishAction,
+        data: publishData
       });
     }
 
     mouseClicked = false;
     svgElement = null;
     publishAction = null;
+    publishData = null;
   };
 
   function sketch(x, y, drawing, rx, ry, lwidth, dcolor, isOwnSketch) {
-    if(channel) {
+    if(channel && currentTool !== Tool.ERASER) {
       if(drawing) {
         if (Math.abs(x - rx) < MIN_LINE_LENGTH  &&
               Math.abs(y - ry) < MIN_LINE_LENGTH) {
@@ -188,12 +216,14 @@
 
         if (!svgElement) {
           svgElement = svg.polyline(x, y, rx, ry).attr({
+            "id": guid(),
             "stroke": dcolor,
             "stroke-width": lwidth,
             "stroke-linecap": "round",
             "stroke-linejoin": "round",
             "fill": "none"
           });
+          addSVGEvents(svgElement);
         } else {
           svgElement.attr("points", svgElement.attr("points").concat(rx, ry))
         }
@@ -204,6 +234,16 @@
         recentY = y;
       }
     }
+  }
+
+  function erase(svgId) {
+    svg.select('[id="' + svgId + '"]').remove();
+
+    publishAction = "erase";
+    if(!publishData) {
+      publishData = { "ids": [] };
+    }
+    publishData.ids.push(svgId);
   }
 
   function fill(dcolor, isOwnSketch) {
@@ -230,12 +270,22 @@
     }
   }
 
-  function resizeEraser() {
-    lineWidth = prompt("Enter size of eraser: ");
-    drawColor = "white";
+
+  // Add event listeners to SVG elements
+  function addSVGEvents(svgElem) {
+    svgElem.mouseover(svgElementMouseOver);
+    svgElem.touchstart(svgElementTouchStart);
   }
 
-  function resizeBrush() {
-    lineWidth = prompt("Enter size of brush: ");
+  // SVG Element events
+  function svgElementMouseOver() {
+    if(mouseClicked && currentTool === Tool.ERASER) {
+      erase(this.attr("id"));
+    }
+  }
+  function svgElementTouchStart() {
+    if(mouseClicked && currentTool === Tool.ERASER) {
+      erase(this.attr("id"));
+    }
   }
 })();
