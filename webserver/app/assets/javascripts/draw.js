@@ -129,15 +129,6 @@
         currentTool = Tool.TEXT;
       });
 
-      $("#bucket").click(function(){
-        fill(drawColor, true);
-      });
-
-      $("#clear").click(function(){
-         clear(true);
-
-      });
-
       $(".tool").click(function(){
         $(".tool").not($(this)).css("border", "none");
         $(this).css("border", "2px solid black");
@@ -299,30 +290,6 @@
       publishData = { "ids": [] };
     }
     publishData.ids.push(svgId);
-  }
-
-  function fill(dcolor, isOwnSketch) {
-    if(channel) {
-      context.fillStyle = dcolor;
-      context.fillRect(0,0, context.canvas.width, context.canvas.height);
-      if(isOwnSketch) {
-        faye.publish(channel, {
-          userId: userId,
-          action: "fill",
-          guestDrawColor: dcolor
-        });
-      }
-    }
-  }
-
-  function clear(isOwnSketch) {
-    if(channel) {
-      svg.clear();
-      if(isOwnSketch) {
-        publishAction = "clear";
-        commitInput();
-      }
-    }
   }
 
 
