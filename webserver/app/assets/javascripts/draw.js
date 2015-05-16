@@ -71,7 +71,7 @@
       $("#brush-size-slider").slider({
         range: "min",
         min: 1,
-        max: 100,
+        max: 50,
         value: 5,
         change: brushSizeChanged
       });
