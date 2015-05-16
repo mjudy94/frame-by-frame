@@ -1,8 +1,10 @@
 <div class="row-fluid">
   <div id="canvas-header">
-    <h4 id="countdown"> 9:34 until the next frame </h4>
     <a href="#" class="btn btn-default"> Make a Private Room </a>
     <button type="button" class="btn btn-default" id="galleryButton">View Gallery</button>
+
+    <h4 id="countdown"></h4>
+    <h4><%= frame_progress %></h4>
   </div>
 </div>
 
@@ -65,6 +67,8 @@
   </div>
 
   <div id="canvas-container" class="col-md-11">
-    <canvas id="canvas" width="960" height="540"></canvas>
+    <svg id="canvas" width="960" height="540">
+      <%= Canvas.new(@room.id).get.html_safe %>
+    </svg>
   </div>
 </div>

@@ -1,4 +1,4 @@
-<div class="chat" data-faye="<%= Rails.configuration.faye_url %>">
+<div class="chat">
   <div class="titleBar">
     <h2>Welcome <span class="displayName" title="Change name">Guest</span>!</h2>
     <button class="hideButton">-</button>
@@ -14,7 +14,7 @@
       <p style="color:#00BFFF"><b>Welcome to the chatroom!</b></p>
     </div>
 
-    <form id="messageForm" data-id="<%= @room.id %>" data-password="<%= @room.password %>">
+    <form id="messageForm">
       <input type="text">
       <input type="submit">
     </form>

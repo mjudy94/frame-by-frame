@@ -46,6 +46,15 @@ class RoomsController < ApplicationController
     else
       @room = Room.find(params[:id])
     end
+
+    # Send attributes to JS
+    gon.push({
+      frame_expiration: @room.animation ? @room.animation.current_frame.expiration : nil,
+      animation_complete: @room.animation ? @room.animation.complete? : nil,
+      room_id: @room.id,
+      password: @room.password,
+      faye_url: Rails.configuration.faye_url
+    })
   end
 
   private
