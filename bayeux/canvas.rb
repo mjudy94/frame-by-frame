@@ -1,8 +1,20 @@
 require "redis"
 require "nokogiri"
+require "yaml"
 
 class Canvas
-  @@redis = Redis.new
+  # Initializes the REDIS password
+  if ENV['REDIS'] == 'production'
+    redis_password = YAML.load_file('creds.yml')['redis']['password']
+  else
+    redis_password = nil
+  end
+
+  @@redis = Redis.new(
+    :host => "localhost",
+    :port => 6379,
+    :password => redis_password
+  )
 
   def incoming(message, callback)
     channel = message['channel']

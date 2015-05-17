@@ -36,4 +36,6 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   config.faye_url = "http://localhost:9292/faye"
+  config.redis_host = "localhost"
+  config.redis_password = nil
 end
