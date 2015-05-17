@@ -3,10 +3,18 @@ require "oga"
 require "yaml"
 
 class Canvas
-credsFile = YAML.load_file('creds.yml')
-redis_password = credsFile.fetch('redis')['password']
+  # Initializes the REDIS password
+  if ENV['REDIS'] == 'production'
+    redis_password = YAML.load_file('creds.yml')['redis']['password']
+  else
+    redis_password = nil
+  end
 
-  @@redis = Redis.new(:host => "45.56.99.120", :port => 6379,:password => redis_password)
+  @@redis = Redis.new(
+    :host => "localhost",
+    :port => 6379,
+    :password => redis_password
+  )
 
   def incoming(message, callback)
     channel = message['channel']

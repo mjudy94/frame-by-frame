@@ -1,7 +1,11 @@
 require 'redis'
 
 class Canvas
-  @@redis = Redis.new(:host => "45.56.99.120", :port => 6379,:password => Rails.configuration.redis_password )
+  @@redis = Redis.new(
+    :port => 6379,
+    :host => Rails.configuration.redis_host,
+    :password => Rails.configuration.redis_password
+  )
 
   def initialize room_id
     @key = "room:#{room_id}"
