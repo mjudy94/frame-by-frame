@@ -34,6 +34,7 @@ class Animation < ActiveRecord::Base
 
 			if complete?
 				# Render the animation over AWS Lambda
+				Lambduh.render self
 			end
 		end
 	end
