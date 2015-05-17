@@ -3,24 +3,17 @@ class Gallery < ActiveRecord::Base
 	has_many :videos
 
 	def is_public
-		if self.room.password == nil
-			public = true
-		else
-			public = false
-		end
-		return public
+		room.password == nil
 	end
 
 	def self.public_galleries
-		public_rooms = Room.where(password: nil)
-		public_gallery = []
-		public_rooms.each do |room|
-			public_gallery << room.gallery
+		Room.where(password: nil).map do |room|
+			room.gallery
 		end
 	end
 
 	def name
-		return self.room.name
+		return room.name
 	end
 
 end
