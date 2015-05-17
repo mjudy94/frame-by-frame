@@ -55,7 +55,7 @@ class RoomsController < ApplicationController
       room_id: @room.id,
       password: @room.password,
       faye_url: Rails.configuration.faye_url
-    })
+    }) 
   end
 
   private

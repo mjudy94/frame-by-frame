@@ -1,5 +1,6 @@
 //= require countdown
 //= require snap-svg
+//= require jquery.minicolors
 
 (function() {
   var MIN_LINE_LENGTH = 5;
@@ -10,10 +11,14 @@
   // Previous frame's mouse position
   var recentX;
   var recentY;
-  var drawColor = "rgb(0, 0, 0)";
-  var lineWidth = 5;
+  var drawColor = "#000000";
+  var lineWidth = 15;
 
   var textDialog, textForm;
+
+  // Array storing sketch "items"
+
+  var lastElements = new Array();
 
   // tool enums
   var Tool = {
@@ -58,6 +63,15 @@
       });
 
 
+      // Initialize color picker
+      $("#color-picker").minicolors({
+        defaultValue: '#000000',
+        change: function(hex, opacity) {
+          drawColor = hex;
+        }
+      });
+
+
       var brushSizeChanged = function() {
         lineWidth = $("#brush-size-slider").slider("value");
         $("#brush-size").html(lineWidth);
@@ -68,12 +82,27 @@
         $("#brush-size-slider").slider("option", "value", size);
       };
 
+      // Brush size slider
       $("#brush-size-slider").slider({
         range: "min",
         min: 1,
         max: 50,
         value: 5,
-        change: brushSizeChanged
+        slide: brushSizeChanged
+      });
+
+      // Brush size buttons
+      $("#dec-brush-size").click(function() {
+        $("#brush-size-slider").slider("value", $("#brush-size-slider").slider("value") - 1);
+        brushSizeChanged();
+      });
+      $("#inc-brush-size").click(function() {
+        $("#brush-size-slider").slider("value", $("#brush-size-slider").slider("value") + 1);
+        brushSizeChanged();
+      });
+
+      $("#undo").click(function(){
+        undo();
       });
 
       // Set up the Faye client
@@ -196,22 +225,6 @@
 
       // Mouse goes off the canvas
       $("#canvas").mouseleave(commitInput);
-
-
-      // Color pickers
-      $(".color-picker").click(function(e) {
-        $(".color-picker").not($(this)).animate({
-          "border-radius": 0
-        }, 200);
-        $(".color-picker").not($(this)).css("border", "none");
-
-        $(this).animate({
-          "border-radius": "20px"
-        }, 200);
-        $(this).css("border", "2px dashed white");
-
-        drawColor = $(this).css("background-color");
-      });
   });
 
   function commitInput() {
@@ -222,6 +235,11 @@
         action: publishAction,
         data: publishData
       });
+    }
+
+    if (svgElement)
+    {
+      lastElements.push(svgElement.attr("id"));
     }
 
     mouseClicked = false;
@@ -310,4 +328,11 @@
       erase(this.attr("id"));
     }
   }
+
+  function undo() {
+    erase(lastElements.pop());
+  }
+
+
+
 })();

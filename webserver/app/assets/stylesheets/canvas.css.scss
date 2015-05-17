@@ -27,9 +27,20 @@
       border: 2px solid black;
     }
 
-    .color-picker {
-      width: 40px;
-      height: 40px;
+    .minicolors {
+      width: 80px;
+      height: 80px;
+      border: 4px solid black;
+    }
+
+    #brush-size-btns {
+      width: 100%;
+      text-align: center;
+    }
+
+    #dec-brush-size, #inc-brush-size {
+      width: 30px;
+      height: 30px;
     }
 
     #brush-size-display {
@@ -38,6 +49,7 @@
 
     #brush-size-slider {
       margin-top: 8px;
+      width: 80px;
     }
   }
 
