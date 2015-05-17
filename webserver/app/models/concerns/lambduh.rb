@@ -4,7 +4,7 @@ module Lambduh
     credentials: Rails.configuration.lambduh
   )
 
-  def render animation
+  def def.render animation
     galleryId = animation.room.gallery.id
     video = animation.room.gallery.videos.create
     video.video_url = "galleries/#{galleryId}/#{video.id}"
