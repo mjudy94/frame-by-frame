@@ -16,11 +16,9 @@ class RoomsController < ApplicationController
 
   def create
     @room = Room.new(room_params)
-    @gallery = Gallery.create
-    @room.gallery = @gallery
-    @gallery.room = @room
 
     if @room.save
+      @room.create_gallery
       redirect_with_password @room, p: @room.password
     else
       render :new
@@ -49,7 +47,7 @@ class RoomsController < ApplicationController
     else
       @room = Room.find(params[:id])
     end
-    @gallery = @room.gallery
+
     # Send attributes to JS
     gon.push({
       frame_expiration: @room.animation ? @room.animation.current_frame.expiration : nil,

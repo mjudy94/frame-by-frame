@@ -16,6 +16,7 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-turbolinks', '~> 2.1.0'
 gem 'numeraljs-rails', '~> 1.4.5.0'
+gem 'jquery-minicolors-rails'
 
 gem 'gon', '~> 5.2.3'
 

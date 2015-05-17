@@ -1,0 +1,7 @@
+node_modules/
+node_modules/*
+imgs/*
+test.js
+*.webm
+*.zip
+ffmpeg

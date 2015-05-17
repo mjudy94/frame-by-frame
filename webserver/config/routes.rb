@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   resources :rooms do
     resource :animation
 
-    resources :galleries, except: [:new, :edit, :index] do
+    resource :gallery, except: [:new, :edit, :index] do
       resources :videos, only: [:create, :show, :destroy]
     end
   end

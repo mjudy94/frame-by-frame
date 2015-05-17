@@ -1,0 +1,17 @@
+{
+  "name": "fbf-video-encoder",
+  "version": "1.0.0",
+  "description": "Module that runs on AWS lambda to convert still images into videos",
+  "author": "TCNJ",
+  "contributors": [{
+      "name": "Kenneth Ruddick",
+      "email": "ruddick1@tcnj.edu"
+  }],
+  "dependencies": {
+    "fluent-ffmpeg": "2.x",
+    "gm": "~1.17",
+    "combined-stream": "0.0.7",
+    "aws-sdk": "2.1.x",
+    "s3-upload-stream": "1.0.x"
+  }
+}

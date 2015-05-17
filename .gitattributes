@@ -1,3 +1,4 @@
 #pattern  filter=crypt diff=crypt
+video-encoder/creds.json  filter=crypt diff=crypt
 webserver/config/creds.yml  filter=crypt diff=crypt
 bayeux/creds.yml  filter=crypt diff=crypt
