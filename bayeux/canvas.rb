@@ -1,5 +1,5 @@
 require "redis"
-require "oga"
+require "nokogiri"
 
 class Canvas
   @@redis = Redis.new
@@ -12,21 +12,18 @@ class Canvas
       return callback.call(message)
     end
 
-    room_id = message['ext']['room_id']
+    redisKey = "room:#{message['ext']['room_id']}"
 
     case message['data']['action']
     when 'sketch'
-      @@redis.append("room:#{room_id}", message['data']['svg'])
+      @@redis.append(redisKey, message['data']['svg'])
     when 'erase'
-      canvas = @@redis.get("room:#{room_id}")
+      svg_string = @@redis.get redisKey
+      fragment = Nokogiri::HTML.fragment svg_string
       message['data']['data']['ids'].each do |id|
-        svg = Oga.parse_xml canvas
-        canvas = ""
-        svg.xpath("*[@id!='" << id << "']").each do |elem|
-          canvas << elem.to_xml
-        end
+        fragment.at_css("\##{id}").remove
       end
-      @@redis.set("room:#{room_id}", canvas)
+      @@redis.set(redisKey, fragment.to_html)
     end
 
     callback.call(message)

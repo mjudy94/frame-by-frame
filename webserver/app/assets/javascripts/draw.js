@@ -263,7 +263,7 @@
       }
     }
   }
-  
+
   function text(x, y) {
     textDialog.x = x;
     textDialog.y = y;
@@ -278,7 +278,7 @@
       "fill": drawColor
     });
     addSVGEvents(svgElement);
-    
+
     textDialog.dialog("close");
   }
 
