@@ -3,7 +3,7 @@
 //= require jquery.minicolors
 
 (function() {
-  var MIN_LINE_LENGTH = 5;
+  var MIN_LINE_LENGTH = 2;
 
   var svg, svgElement, publishAction, publishData;
   var mouseClicked = false;
@@ -25,7 +25,9 @@
     "BRUSH": 0,
     "PENCIL": 1,
     "ERASER": 2,
-    "TEXT": 3
+    "TEXT": 3,
+    "LINE": 4,
+    "RECT": 5
   };
   var currentTool = Tool.BRUSH;
 
@@ -87,7 +89,7 @@
         range: "min",
         min: 1,
         max: 50,
-        value: 5,
+        value: 15,
         slide: brushSizeChanged
       });
 
@@ -158,6 +160,14 @@
         currentTool = Tool.TEXT;
       });
 
+      $("#line").click(function() {
+        currentTool = Tool.LINE;
+      });
+
+      $("#rect").click(function() {
+        currentTool = Tool.RECT;
+      });
+
       $(".tool").click(function(){
         $(".tool").not($(this)).css("border", "none");
         $(this).css("border", "2px solid black");
@@ -176,6 +186,8 @@
 
         if(currentTool === Tool.BRUSH || currentTool === Tool.PENCIL) {
           sketch(xPos, yPos, false, recentX, recentY, lineWidth, drawColor, true);
+        } else if(currentTool === Tool.RECT) {
+          rect(recentX, recentY, xPos, yPos);
         } else if(currentTool === Tool.TEXT) {
           text(xPos, yPos);
         }
@@ -191,6 +203,8 @@
 
         if(currentTool === Tool.BRUSH || currentTool === Tool.PENCIL) {
           sketch(xPos, yPos, false, recentX, recentY, lineWidth, drawColor, true);
+        } else if(currentTool === Tool.RECT) {
+          rect(recentX, recentY, xPos, yPos);
         } else if(currentTool === Tool.TEXT) {
           text(xPos, yPos);
         }
@@ -198,20 +212,36 @@
 
       // Mouse moves on the canvas
       $("#canvas").mousemove(function(e) {
-        if(currentTool === Tool.BRUSH || currentTool === Tool.PENCIL) {
-          if (mouseClicked) {
-            sketch(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true, recentX, recentY, lineWidth, drawColor, true);
+        var xPos = e.pageX - $(this).offset().left;
+        var yPos = e.pageY - $(this).offset().top;
+
+        if(mouseClicked) {
+          if(currentTool === Tool.BRUSH || currentTool === Tool.PENCIL || currentTool === Tool.LINE) {
+            sketch(xPos, yPos, true, recentX, recentY, lineWidth, drawColor, true);
+          } else if(currentTool === Tool.RECT) {
+            rect(recentX, recentY, xPos, yPos);
           }
         }
+
+        recentX = xPos;
+        recentY = yPos;
       });
 
       //touch move
       $("#canvas")[0].addEventListener('touchmove', function(e) {
-        if(currentTool === Tool.BRUSH || currentTool === Tool.PENCIL) {
-          if (mouseClicked) {
-            sketch(e.changedTouches[0].pageX - $(this).offset().left, e.changedTouches[0].pageY - $(this).offset().top, true, recentX, recentY, lineWidth, drawColor, true);
+        var xPos = e.changedTouches[0].pageX - $(this).offset().left;
+        var yPos = e.changedTouches[0].pageY - $(this).offset().top;
+
+        if(mouseClicked) {
+          if(currentTool === Tool.BRUSH || currentTool === Tool.PENCIL || currentTool === Tool.LINE) {
+            sketch(xPos, yPos, true, recentX, recentY, lineWidth, drawColor, true);
+          } else if(currentTool === Tool.RECT) {
+            rect(recentX, recentY, xPos, yPos);
           }
         }
+
+        recentX = xPos;
+        recentY = yPos;
       }, false);
 
       //triggers when user removes finger while within bounds of specified element
@@ -261,7 +291,7 @@
         publishAction = "sketch";
 
         if (!svgElement) {
-          svgElement = svg.polyline(x, y, rx, ry).attr({
+          svgElement = svg.polyline(x, y, x, y).attr({
             "id": guid(),
             "stroke": dcolor,
             "stroke-width": lwidth,
@@ -270,14 +300,42 @@
             "fill": "none"
           });
           addSVGEvents(svgElement);
+        } else if(currentTool === Tool.LINE) {
+          var newPts = svgElement.attr("points");
+          newPts[2] = rx;
+          newPts[3] = ry;
+          svgElement.attr("points", newPts);
         } else {
           svgElement.attr("points", svgElement.attr("points").concat(rx, ry))
         }
       }
+    }
+  }
 
-      if (isOwnSketch) {
-        recentX = x;
-        recentY = y;
+  function rect(rx, ry, x, y) {
+    if (Math.abs(x - rx) < MIN_LINE_LENGTH  &&
+          Math.abs(y - ry) < MIN_LINE_LENGTH) {
+      // Do not draw anything if the change is too insignificant. This helps
+      // conserve bandwidth and size of the svg image.
+      return;
+    }
+    
+    publishAction = "sketch";
+
+    if(!svgElement) {
+      svgElement = svg.rect(x, y, 0, 0).attr({
+        "id": guid(),
+        "stroke": drawColor,
+        "stroke-width": lineWidth,
+        "fill": "none"
+      });
+      addSVGEvents(svgElement);
+    } else {
+      if(x > svgElement.attr("x")) {
+        svgElement.attr("width", x - svgElement.attr("x"));
+      }
+      if(y > svgElement.attr("y")) {
+        svgElement.attr("height", y - svgElement.attr("y"));
       }
     }
   }
