@@ -56,7 +56,7 @@ function getFrames(animationId, callback) {
       lambdaContext.fail(err);
     } else {
       // Get streams for all objects
-      frames = data.Contents.slice(1).map(function(object) {
+      frames = filterAndSort(data.Contents).map(function(object) {
         return s3.getObject({
           Bucket: BUCKET,
           Key: object.Key
@@ -67,6 +67,14 @@ function getFrames(animationId, callback) {
   });
 }
 
+function filterAndSort(frames) {
+  return frames.filter(function(f) {
+    return f.Size > 0;
+  }).sort(function(a, b) {
+    return parseInt(a.Key.match(/\/(\d+)/)[1]) - parseInt(b.Key.match(/\/(\d+)/)[1]);
+  });
+}
+
 function storeVideo(galleryId, videoId, stream) {
   var upload = s3Stream.upload({
     Bucket: BUCKET,
@@ -74,7 +82,7 @@ function storeVideo(galleryId, videoId, stream) {
   });
 
   // Optional configuration
-  upload.maxPartSize(MAX_PART_SIZE); // 20 MB
+  upload.maxPartSize(MAX_PART_SIZE);
   upload.concurrentParts(5);
 
   upload.on('error', function (error) {
