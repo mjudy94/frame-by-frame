@@ -16,6 +16,10 @@
 
   var textDialog, textForm;
 
+  // Array storing sketch "items"
+
+  var lastElements = new Array();
+
   // tool enums
   var Tool = {
     "BRUSH": 0,
@@ -95,6 +99,10 @@
       $("#inc-brush-size").click(function() {
         $("#brush-size-slider").slider("value", $("#brush-size-slider").slider("value") + 1);
         brushSizeChanged();
+      });
+
+      $("#undo").click(function(){
+        undo();
       });
 
       // Set up the Faye client
@@ -229,6 +237,11 @@
       });
     }
 
+    if (svgElement)
+    {
+      lastElements.push(svgElement.attr("id"));
+    }
+
     mouseClicked = false;
     svgElement = null;
     publishAction = null;
@@ -315,4 +328,11 @@
       erase(this.attr("id"));
     }
   }
+
+  function undo() {
+    erase(lastElements.pop());
+  }
+
+
+
 })();
