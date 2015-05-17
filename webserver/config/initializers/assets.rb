@@ -10,3 +10,4 @@ Rails.application.config.assets.precompile += %w( rooms.js )
 Rails.application.config.assets.precompile += %w( rooms.css )
 Rails.application.config.assets.precompile += %w( animations.js )
 Rails.application.config.assets.precompile += %w( animations.css )
+

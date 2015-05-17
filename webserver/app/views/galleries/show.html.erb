@@ -1,0 +1,18 @@
+<h1><%= @room.name %></h1>
+<% if @gallery.videos.first %>
+<table>
+  <tr>
+    <th>Video Name</th>
+    <th>Upload Date</th>
+  </tr>
+
+  <% @gallery.videos.each do |video| %>
+    <tr>
+	    <td><%= link_to video.name, room_gallery_video_path(@room, @gallery, video) %></td>
+	    <td><%= video.created_at %></td>
+	  </tr>
+  <% end %>
+</table>
+<% else %>
+  <strong>No videos have been created yet!</strong>
+<% end %>

@@ -1,0 +1,14 @@
+<h1>Galleries</h1>
+
+<table>
+  <tr>
+    <th>Gallery Name</th>
+  </tr>
+  <% if @galleries %>
+	  <% @galleries.each do |gallery| %>
+	    <tr>
+	      <td><%= link_to gallery.name, gallery_path(gallery) %></td>
+	    </tr>
+	  <% end %>
+  <% end %>
+</table>

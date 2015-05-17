@@ -80,5 +80,5 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-    config.faye_url = "http://45.56.99.120:9292/faye"
+  config.faye_url = "http://45.56.99.120:9292/faye"
 end
