@@ -28,6 +28,7 @@ module Webserver
     config.secret_key_base = creds["secret_key_base"]
     config.db_username = creds["db"]["username"]
     config.db_password = creds["db"]["password"]
+    config.redis_password = creds["redis"]["password"]
 
     config.s3_access_key_id = creds["s3"]["access_key_id"]
     config.s3_secret_access_key = creds["s3"]["secret_access_key"]
