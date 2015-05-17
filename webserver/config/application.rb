@@ -29,6 +29,10 @@ module Webserver
     config.db_username = creds["db"]["username"]
     config.db_password = creds["db"]["password"]
 
+    config.s3_access_key_id = creds["s3"]["access_key_id"]
+    config.s3_secret_access_key = creds["s3"]["secret_access_key"]
+    config.s3_bucket = 'frame-by-frame'
+
      #Set up mail for smtp
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.perform_deliveries = true

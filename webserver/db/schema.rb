@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150407142143) do
+ActiveRecord::Schema.define(version: 20150516031746) do
 
   create_table "animations", force: true do |t|
     t.integer  "number_of_frames"
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 20150407142143) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "gallery_id"
+    t.string   "name"
   end
 
   add_index "videos", ["gallery_id"], name: "index_videos_on_gallery_id"

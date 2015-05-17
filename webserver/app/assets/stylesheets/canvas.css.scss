@@ -23,6 +23,10 @@
       border: 2px dashed white;
     }
 
+    #brush {
+      border: 2px solid black;
+    }
+
     .color-picker {
       width: 40px;
       height: 40px;
@@ -52,4 +56,12 @@
       }
     }
   }
+}
+
+*.unselectable {
+   -moz-user-select: -moz-none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
 }

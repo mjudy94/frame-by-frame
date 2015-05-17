@@ -1,4 +1,5 @@
 require "redis"
+require "oga"
 
 class Canvas
   @@redis = Redis.new
@@ -12,7 +13,21 @@ class Canvas
     end
 
     room_id = message['ext']['room_id']
-    @@redis.append("room:#{room_id}", message['data']['svg'])
+
+    case message['data']['action']
+    when 'sketch'
+      @@redis.append("room:#{room_id}", message['data']['svg'])
+    when 'erase'
+      canvas = @@redis.get("room:#{room_id}")
+      message['data']['data']['ids'].each do |id|
+        svg = Oga.parse_xml canvas
+        canvas = ""
+        svg.xpath("*[@id!='" << id << "']").each do |elem|
+          canvas << elem.to_xml
+        end
+      end
+      @@redis.set("room:#{room_id}", canvas)
+    end
 
     callback.call(message)
   end
