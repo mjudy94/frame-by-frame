@@ -1,7 +1,12 @@
 require "redis"
-
+require 'yaml'
 class Canvas
-  @@redis = Redis.new
+
+credsFile = YAML.load_file('creds.yml')
+redis_password = credsFile.fetch('redis')['password']
+
+  @@redis = Redis.new(:host => "45.56.99.120", :port => 6379,:password => redis_password)
+
 
   def incoming(message, callback)
     channel = message['channel']

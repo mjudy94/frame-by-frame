@@ -28,6 +28,7 @@ module Webserver
     config.secret_key_base = creds["secret_key_base"]
     config.db_username = creds["db"]["username"]
     config.db_password = creds["db"]["password"]
+    config.redis_password = creds["redis"]["password"]
 
      #Set up mail for smtp
     config.action_mailer.delivery_method = :smtp
