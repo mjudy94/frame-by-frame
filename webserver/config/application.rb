@@ -34,7 +34,9 @@ module Webserver
     config.s3_secret_access_key = creds["s3"]["secret_access_key"]
     config.s3_bucket = 'frame-by-frame'
 
-    #Set up mail for smtp
+    config.lambduh = creds["lambda"]
+
+     #Set up mail for smtp
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.perform_deliveries = true
     config.action_mailer.smtp_settings = {
