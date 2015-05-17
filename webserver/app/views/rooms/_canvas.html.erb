@@ -19,40 +19,7 @@
     <br/>
 
     <div class="row">
-      <div id="seashell" class="color-picker col-md-6" style="background-color:seashell; height:40px;"></div>
-      <div id="black" class="color-picker col-md-6" style="background-color:black; height:40px;"></div>
-    </div>
-    <div class="row">
-      <div id="lightGrayColor" class="color-picker col-md-6" style="background-color:lightgray; height:40px;"></div>
-      <div id="gray" class="color-picker col-md-6" style="background-color:gray; height:40px;"></div>
-    </div>
-    <div class="row">
-      <div id="sandyBrown" class="color-picker col-md-6" style="background-color:sandyBrown; height:40px;"></div>
-      <div id="brown" class="color-picker col-md-6" style="background-color:brown; height:40px;"></div>
-    </div>
-    <div class="row">
-      <div id="pink" class="color-picker col-md-6" style="background-color:pink; height:40px;"></div>
-      <div id="red" class="color-picker col-md-6" style="background-color:red; height:40px;"></div>
-    </div>
-    <div class="row">
-      <div id="orange" class="color-picker col-md-6" style="background-color:orange; height:40px;"></div>
-      <div id="darkorange" class="color-picker col-md-6" style="background-color:darkorange; height:40px;"></div>
-    </div>
-    <div class="row">
-      <div id="lightYellow" class="color-picker col-md-6" style="background-color:lightyellow; height:40px;"></div>
-      <div id="yellow" class="color-picker col-md-6" style="background-color:yellow; height:40px;"></div>
-    </div>
-    <div class="row">
-      <div id="lightGreen" class="color-picker col-md-6" style="background-color:lightgreen; height:40px;"></div>
-      <div id="green" class="color-picker col-md-6" style="background-color:green; height:40px;"></div>
-    </div>
-    <div class="row">
-      <div id="lightBlue" class="color-picker col-md-6" style="background-color:lightblue; height:40px;"></div>
-      <div id="blue" class="color-picker col-md-6" style="background-color:blue; height:40px;"></div>
-    </div>
-    <div class="row">
-      <div id="mediumPurple" class="color-picker col-md-6" style="background-color:mediumpurple; height:40px;"></div>
-      <div id="purple" class="color-picker col-md-6" style="background-color: purple; height:40px;"></div>
+      <input type="hidden" id="color-picker">
     </div>
 
     <br/>
@@ -60,6 +27,10 @@
     <div class="row">
       <div id="brush-size-slider"></div>
       <span id="brush-size-display">Brush Size: <b><span id="brush-size">5</span></b></span>
+      <div id="brush-size-btns">
+        <a href="#" id="dec-brush-size" class="btn btn-default">-</a>
+        <a href="#" id="inc-brush-size" class="btn btn-default">+</a>
+      </div>
     </div>
 
     <div id="text-dialog" title="Insert Text">
