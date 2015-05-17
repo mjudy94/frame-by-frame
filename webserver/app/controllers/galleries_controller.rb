@@ -3,13 +3,21 @@ class GalleriesController < ApplicationController
 	include Password
 
 	password do
-		id = params[:id]
-		@gallery = Gallery.find(id)
-		@room = Room.find(@gallery.room_id).password if id and !@gallery.is_public
+		if params[:id]
+			id = params[:id]
+			@gallery = Gallery.find(id)
+			@room = Room.find(@gallery.room_id).password if id and !@gallery.is_public
+		end
 	end
 
 	def index
-		@galleries = Gallery.bucket.object(Gallery.public_galleries)
+		@galleries = Gallery.all
+		@public_galleries = []
+		@galleries.each do |gallery|
+			if gallery.is_public
+				@public_galleries << gallery
+			end
+		end
 	end
 
 	def create

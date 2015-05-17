@@ -1,13 +1,13 @@
-<h1>Galleries</h1>
+<h1>Public Galleries</h1>
 
 <table>
   <tr>
     <th>Gallery Name</th>
   </tr>
-  <% if @galleries %>
-	  <% @galleries.each do |gallery| %>
+  <% if @public_galleries %>
+	  <% @public_galleries.each do |gallery| %>
 	    <tr>
-	      <td><%= link_to gallery.name, gallery_path(gallery) %></td>
+	      <td><%= link_to gallery.name, room_gallery_path(gallery.room, gallery) %></td>
 	    </tr>
 	  <% end %>
   <% end %>
