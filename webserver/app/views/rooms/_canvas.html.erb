@@ -12,6 +12,10 @@
       <%= image_tag "pencil.png", id: "pencil", class: "tool", size: "40x40"  %>
     </div>
     <div class="row">
+      <%= image_tag "line.png", id: "line", class: "tool", size: "40x40" %>
+      <%= image_tag "rect.png", id: "rect", class: "tool", size: "40x40"  %>
+    </div>
+    <div class="row">
       <%= image_tag "eraser.png", id: "eraser", class: "tool", size: "40x40" %>
       <%= image_tag "text.png", id: "text", class: "tool", size: "40x40" %>
     </div>
@@ -26,7 +30,7 @@
 
     <div class="row">
       <div id="brush-size-slider"></div>
-      <span id="brush-size-display">Brush Size: <b><span id="brush-size">5</span></b></span>
+      <span id="brush-size-display">Brush Size: <b><span id="brush-size">15<span></b></span>
       <div id="brush-size-btns">
         <a href="#" id="dec-brush-size" class="btn btn-default">-</a>
         <a href="#" id="inc-brush-size" class="btn btn-default">+</a>
