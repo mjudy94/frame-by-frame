@@ -1,4 +1,5 @@
 {
   "port": 80,
-  "environment": "production"
+  "environment": "production",
+  "spawn_method": "direct"
 }

@@ -11,6 +11,11 @@ class Animation < ActiveRecord::Base
 	belongs_to :room
 	has_many :frames
 
+	@@s3 = Aws::S3::Client.new(
+		region: 'us-east-1',
+		credentials: Aws::Credentials.new(Rails.configuration.s3_access_key_id, Rails.configuration.s3_secret_access_key)
+	)
+
 	def current_frame
 		create_next_frame if frames.empty? || (frames.last.expired? && !complete?)
 		frames.last
@@ -38,27 +43,19 @@ class Animation < ActiveRecord::Base
 	def schedule_frame_completion frame_id
 		Rufus::Scheduler.singleton.in "#{timer_per_frame}s" do
 			canvas = Canvas.new room.id
-			puts "Frame ID: #{frame_id}"
 
 			# Store the current canvas image into S3
-			svg = "#{SVG_NODE}#{canvas.get}</svg>"
-
-			s3 = Aws::S3::Client.new(
-				region: 'us-east-1',
-				credentials: Aws::Credentials.new(Rails.configuration.s3_access_key_id, Rails.configuration.s3_secret_access_key)
-			)
-
-			s3.put_object(
+			@@s3.put_object(
 				bucket: Rails.configuration.s3_bucket,
-				body: svg,
+				body: "#{SVG_NODE}#{canvas.get}</svg>",
 				key: "frames/#{self.id}/#{frame_id.to_s}",
 				content_type: "image/svg+xml"
 			)
 
-			# Clear the current canvas from redis
 			canvas.clear
 
 			if complete?
+				# Create a new animation for the public room
 				if room.id == 1
 					room.create_animation(
 				    number_of_frames: 75,
@@ -66,17 +63,8 @@ class Animation < ActiveRecord::Base
 				    video_framerate: 15
 				  )
 				end
-
+				# Render the video on AWS Lambda
 				Lambduh.render self
-
-				frame = Frame.find(frame_id)
-				animation = frame.animation
-				room = animation.room
-				gallery = room.gallery
-				video = gallery.videos.create
-				video.video_url = video.id
-				video.name = video.id
-				video.save
 			end
 		end
 	end
