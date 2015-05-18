@@ -19,6 +19,7 @@
 //= require numeral
 //= require bootstrap-sprockets
 //= require faye-browser
+//= require updateQueryString
 
 function guid() {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {

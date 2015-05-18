@@ -55,7 +55,8 @@ class RoomsController < ApplicationController
       room_id: @room.id,
       password: @room.password,
       faye_url: Rails.configuration.faye_url,
-      current_frame_url: url_with_password([@room, :animation], action: :current_frame)
+      current_frame_url: url_with_password([@room, :animation], action: :current_frame),
+      last_frame_url: url_with_password([@room, :animation], action: :last_frames)
     )
   end
 

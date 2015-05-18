@@ -1,10 +1,18 @@
 fetchFrame = ->
   $.get gon.currentFrameUrl, (frame) ->
-    Snap('#canvas')?.clear()
     if frame.complete
       location.reload()
     else
       startCountdown frame
+
+drawOnion = ->
+  svg = Snap('#canvas')
+  # Remove old onion elements
+  for element in svg.selectAll ".onion"
+    element.remove()
+  # Set new onion elements
+  for element in svg.selectAll("*")
+    element.touchstart().unmouseover().attr class: "onion"
 
 startCountdown = (frame) ->
   return unless frame?
@@ -17,6 +25,7 @@ startCountdown = (frame) ->
     if timeRemaining <= 0
       # Logic to load next frame rather than reload the page
       clearInterval interval
+      drawOnion()
       fetchFrame()
     else
       countdown.text "Time remaining #{timeRemaining.format('00:00')}"

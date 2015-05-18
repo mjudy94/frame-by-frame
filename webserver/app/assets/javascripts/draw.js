@@ -64,6 +64,15 @@
         addText();
       });
 
+      // Get last frame
+      $.get(updateQueryString("num", 1, gon.lastFrameUrl), function(json) {
+        if(json && json.length > 0) {
+          svg.prepend(svg.image(json[0], 0, 0, 960, 540).attr({
+            "class": "onion"
+          }));
+        }
+      });
+
 
       // Initialize color picker
       $("#color-picker").minicolors({
@@ -319,7 +328,7 @@
       // conserve bandwidth and size of the svg image.
       return;
     }
-    
+
     publishAction = "sketch";
 
     if(!svgElement) {
