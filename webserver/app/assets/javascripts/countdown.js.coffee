@@ -25,8 +25,8 @@ startCountdown = (frame) ->
     if timeRemaining <= 0
       # Logic to load next frame rather than reload the page
       clearInterval interval
-      drawOnion()
       fetchFrame()
+      drawOnion()
     else
       countdown.text "Time remaining #{timeRemaining.format('00:00')}"
       countdown.css('color', 'red') if timeRemaining < 5
