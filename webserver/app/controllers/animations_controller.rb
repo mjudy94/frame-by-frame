@@ -38,6 +38,7 @@ class AnimationsController < ApplicationController
       format.json {
         render :json => {
           expiration: animation.current_frame.expiration,
+          number: animation.frames.size + 1,
           complete: animation.complete?
         }
       }

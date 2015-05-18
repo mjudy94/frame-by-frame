@@ -3,6 +3,7 @@ fetchFrame = ->
     if frame.complete
       location.reload()
     else
+      $('#frame-progress').text "Frame #{frame.number}/#{gon.numberOfFrames}"
       startCountdown frame
 
 drawOnion = ->
