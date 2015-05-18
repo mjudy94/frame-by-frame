@@ -13,7 +13,9 @@ drawOnion = ->
     element.remove()
   # Set new onion elements
   for element in svg.selectAll("*")
-    element.touchstart().unmouseover().attr class: "onion"
+    element.untouchstart().unmouseover().attr class: "onion"
+
+  $(".onion").css("opacity", if $("#toggle-onion").is(":checked") then 0.1 else 0);
 
 startCountdown = (frame) ->
   return unless frame?
