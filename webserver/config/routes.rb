@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
   resources :rooms do
     resource :animation do
-      get :last_frames, on: :member, :defaults => { :format => 'json' }
+      member do
+        get :current_frame, :defaults => { :format => :json }
+        get :last_frames, :defaults => { :format => :json }
+      end
     end
 
     resource :gallery, except: [:new, :edit, :index] do

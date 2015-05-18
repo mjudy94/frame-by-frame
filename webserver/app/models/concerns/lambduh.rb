@@ -11,6 +11,7 @@ module Lambduh
     galleryId = animation.room.gallery.id
     video = animation.room.gallery.videos.create
     video.video_url = "galleries/#{galleryId}/#{video.id}"
+    video.name = video.id
     if video.save
       @@client.invoke(
         function_name: 'renderAnimation',

@@ -49,14 +49,15 @@ class RoomsController < ApplicationController
     end
 
     # Send attributes to JS
-    gon.push({
+    gon.push(
       frame_expiration: @room.animation ? @room.animation.current_frame.expiration : nil,
       animation_complete: @room.animation ? @room.animation.complete? : nil,
       room_id: @room.id,
       password: @room.password,
       faye_url: Rails.configuration.faye_url,
-      last_frame_url: last_frames_room_animation_path(@room)
-    })
+      current_frame_url: url_with_password([@room, :animation], action: :current_frame),
+      last_frame_url: url_with_password([@room, :animation], action: :last_frames)
+    )
   end
 
   private

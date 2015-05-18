@@ -14,7 +14,7 @@
 
     textarea {
       flex: 1;
-      height: 1.5em;
+      height: 2em;
       margin-right: 10px;
       overflow: hidden;
       padding: 0.5ch 0 0 1ch;
@@ -25,7 +25,11 @@
   }
 
   .copyMessage {
-    background: #fffb83;
+    background: #a1d5dd;
+    font-weight: bold;
+    margin: 5px 0;
+    padding: 5px;
+    text-align: center;
   }
 
   .recipients {
@@ -47,7 +51,7 @@
       margin: 0 0.5em 0.5em 0;
       padding: 0.25em;
 
-      .close {
+      .exit {
         cursor: pointer;
         font-weight: bold;
         padding: 0.5em;

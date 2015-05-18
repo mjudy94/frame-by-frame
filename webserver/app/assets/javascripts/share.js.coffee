@@ -1,6 +1,8 @@
 $(document).ready ->
   shareDialog = $(".shareDialog")
   copyMessage = shareDialog.find(".copyMessage").hide()
+  emailInput = $('#emailInput')
+  copyClient = new ZeroClipboard $('#copy_button')
 
   shareDialog.dialog
     title: shareDialog.data("title")
@@ -13,25 +15,32 @@ $(document).ready ->
   $('.shareButton').click ->
     shareDialog.dialog "open"
 
-  shareDialog.find('textarea').on 'click', (e) ->
+  shareDialog.find('textarea').click (e) ->
     e.target.select()
 
-  $('#copy_button').click ->
-    shareDialog.find('.linkSection textarea').select().focus()
-    copyMessage.fadeIn 'fast'
+  copyClient.on "ready", (event) ->
+    copyClient.on 'copy', (event) ->
+      clipboard = event.clipboardData;
+      textarea = shareDialog.find '.linkSection textarea'
+      clipboard.setData "text/plain", textarea.val()
+
+    copyClient.on 'aftercopy', (event) ->
+      textarea = shareDialog.find '.linkSection textarea'
+      copyMessage.fadeIn 'fast'
+
+  copyClient.on 'error', (event) ->
+    ZeroClipboard.destroy();
+    $('#copy_button').hide()
 
   addEmail = (e) ->
-    emailInput = $('#emailInput')
     email = emailInput.val()
     if validateEmail email
       shareDialog.find('.recipients').append(createRecipent(email))
       emailInput.val("")
-    else
-      alert "Invalid email"
 
   emailNum = 0
   shareDialog.find(".addButton").click addEmail
-  shareDialog.find('#emailInput').keypress (e) ->
+  emailInput.keypress (e) ->
     if e.which == 13
       addEmail(e)
       e.preventDefault()
@@ -44,6 +53,6 @@ validateEmail = (email) ->
 createRecipent = (email) ->
   $("<div></div>")
     .append $("<input type='hidden' name='to[]'>").val(email)
-    .append $("<span class='close'>x</span>").click (e) ->
+    .append $("<span class='exit'>x</span>").click (e) ->
       $(e.target).parent().remove()
     .append(email)

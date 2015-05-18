@@ -1,7 +1,6 @@
 $(document).ready(function() {
   var chatWidget = $(".chat"),
       titleBar = chatWidget.find('.titleBar'),
-      hideButton = titleBar.find(".hideButton"),
       content = chatWidget.find('.content'),
       displayName = chatWidget.find(".displayName"),
       messageForm = chatWidget.find("#messageForm"),
@@ -44,18 +43,11 @@ $(document).ready(function() {
 
   // HIDE CHAT
   var isHidden = false;
-  hideButton.button({
-    text: false,
-    icons: {
-      primary: "ui-icon-minus"
-    }
-  }).click(function() {
+  titleBar.click(function() {
     if (isHidden) {
-      hideButton.button({ icons: { primary: "ui-icon-minus" } });
       content.show("fast");
       isHidden = false;
     } else {
-      hideButton.button({ icons: { primary: "ui-icon-plus" } });
       content.hide("fast");
       isHidden = true;
     }
@@ -64,7 +56,7 @@ $(document).ready(function() {
   // DRAG CHAT WIDGET
   chatWidget.draggable({
     axis: 'x',
-    handle: titleBar,
+    handle: content,
     stop: function() {
       chatWidget.css("top", "auto");
     }
@@ -91,6 +83,7 @@ $(document).ready(function() {
 
   displayName.click(function() {
     nameForm.dialog("open");
+    return false;
   });
 
   function updateDisplayName() {
