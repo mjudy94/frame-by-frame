@@ -12,5 +12,4 @@ class Video < ActiveRecord::Base
 			.object(video_url)
 			.presigned_url(:get, expires_in: 1800)
 	end
-
 end

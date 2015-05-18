@@ -3,7 +3,12 @@ class Gallery < ActiveRecord::Base
 	has_many :videos
 
 	def is_public
-		room.password == nil
+		if self.room.password == nil
+			is_public = true
+		else
+			is_public = false
+		end
+		return is_public
 	end
 
 	def self.public_galleries

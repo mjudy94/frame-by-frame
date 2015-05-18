@@ -1,5 +1,12 @@
 class VideosController < ApplicationController
 
+	include Password
+
+  password do
+    id = params[:room_id]
+    Room.find(id).password if id and id != 'public'
+  end
+
 	def create
 		@video = @video.new(video_params)
 	end
