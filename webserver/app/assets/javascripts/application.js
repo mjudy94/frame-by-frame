@@ -20,6 +20,7 @@
 //= require bootstrap-sprockets
 //= require faye-browser
 //= require updateQueryString
+//= require zeroclipboard
 
 function guid() {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {

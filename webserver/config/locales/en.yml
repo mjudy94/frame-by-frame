@@ -44,7 +44,7 @@ en:
 
     share:
       dialog_title: "Share Room"
-      notice: "Share this Private URL"
-      copy_message: "Press CTRL+C or CMD+C to copy the selected URL"
+      copy_message: "Private room URL has been copied!"
+      copy_error_message: "Press CTRL+C or CMD+C to copy the selected URL"
       invite_button: "Send Invite"
       copy_button: "Copy Link"
