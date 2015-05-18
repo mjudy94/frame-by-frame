@@ -1,9 +1,9 @@
 .chat {
-  background: white;
-  border: solid gray 1px;
+  background: $colorForeground;
+  border: solid 3px $colorGreen;
+  border-bottom-width: 0;
   border-top-left-radius: 7px;
   border-top-right-radius: 7px;
-  padding: 10px;
   width: 300px;
 
   bottom: 0;
@@ -12,12 +12,10 @@
   z-index: 100;
 
   .titleBar {
-    background: gray;
-    border-radius: 2px;
+    background: $colorGreen;
     color: white;
-    cursor: move;
-    margin-bottom: 10px;
-    padding: 5px;
+    cursor: row-resize;
+    padding: 10px;
     position: relative;
 
     h2 {
@@ -27,7 +25,7 @@
 
     .displayName {
       cursor: pointer;
-      text-decoration: underline;
+      font-weight: bold;
     }
 
     .hideButton {
@@ -42,13 +40,17 @@
   }
 
   .content {
+    cursor: move;
+    padding-top: 10px;
+    padding: 10px;
+
     .messages {
       height: 200px;
       overflow-y: scroll;
       margin-bottom: 10px;
 
       .self {
-        color: red;
+        color: $colorGreen;
       }
 
       .other {
