@@ -20,13 +20,18 @@ $(document).ready(function() {
   // MESSAGE SUBSCRIBE
   faye.subscribe(channel, function(data) {
     var isOwnMessage = data.userId === userId,
-      className =  isOwnMessage ? 'self' : 'other',
-      name = isOwnMessage ? 'Me' : data.from;
+        className =  isOwnMessage ? 'self' : 'other',
+        name = isOwnMessage ? 'Me' : data.from;
     messageBox.append("<p><strong class='" + className + "'>" + name +
       ":</strong> " + data.msg);
     messageBox.animate({
       scrollTop: messageBox.prop("scrollHeight")
     }, "slow");
+
+    // Highlight the titlebar as a notification
+    if (!isOwnMessage) {
+      titleBar.effect("highlight");
+    }
   });
 
   // MESSAGE INPUT AND PUBLISH
