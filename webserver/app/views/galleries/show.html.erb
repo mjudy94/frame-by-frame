@@ -1,10 +1,14 @@
 <div class="page-header">
-  <%= link_to 'Room', url_with_password(@room), :class => 'btn btn-default' %>
   <h1><%= @room.name %></h1>
 </div>
 
+<div class="row-fluid">
+  <%= link_to 'Home', root_path, :class => "btn btn-default"  %>
+  <%= link_to 'Room', url_with_password(@room), :class => 'btn btn-default' %>
+</div>
+
 <% if @gallery.videos.first %>
-<table>
+<table class="table">
   <tr>
     <th>Video Name</th>
     <th>Upload Date</th>
