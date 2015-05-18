@@ -9,14 +9,16 @@
     <%= link_to t(".edit_link"), url_with_password(@room, :action => :edit), :class => "btn btn-default" %>
     <%= render "share" %>
   <% end %>
+</div>
 
+<div class="center row-fluid">
   <% if @room.animation and not @room.animation.complete? %>
     <%= render "canvas" %>
   <% else %>
-    <%= link_to url_with_password([@room, :animation], :action => :new) do %>
-      <button class="btn btn-default">Create new animation</button>
-    <% end %>
-
+    <h3>There currently are no active animations</h3>
+    <%= link_to "Create new animation",
+      url_with_password([@room, :animation], :action => :new),
+      class: "btn btn-default" %>
   <% end %>
 </div>
 

@@ -28,7 +28,11 @@ class Animation < ActiveRecord::Base
 
 	def create_next_frame
 		frame = frames.create
-		schedule_frame_completion frame.id
+		frame.image_url = "frames/#{id}/#{frame.id}"
+
+		if frame.save
+			schedule_frame_completion frame.id
+		end
 	end
 
 	def schedule_frame_completion frame_id
@@ -47,13 +51,22 @@ class Animation < ActiveRecord::Base
 			s3.put_object(
 				bucket: Rails.configuration.s3_bucket,
 				body: svg,
-				key: "frames/#{self.id}/#{frame_id.to_s}"
+				key: "frames/#{self.id}/#{frame_id.to_s}",
+				content_type: "image/svg+xml"
 			)
+
 			# Clear the current canvas from redis
 			canvas.clear
 
 			if complete?
-				# Render the animation over AWS Lambda
+				if room.id == 1
+					room.create_animation(
+				    number_of_frames: 75,
+				    timer_per_frame: 60,
+				    video_framerate: 15
+				  )
+				end
+
 				Lambduh.render self
 
 				frame = Frame.find(frame_id)

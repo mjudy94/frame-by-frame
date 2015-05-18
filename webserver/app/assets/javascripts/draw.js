@@ -64,6 +64,15 @@
         addText();
       });
 
+      // Get last frame
+      $.get(gon.lastFrameUrl + "?num=1", function(json) {
+        if(json && json.length > 0) {
+          svg.prepend(svg.image(json[0], 0, 0, 960, 540).attr({
+            "opacity": 0.1
+          }));
+        }
+      });
+
 
       // Initialize color picker
       $("#color-picker").minicolors({
