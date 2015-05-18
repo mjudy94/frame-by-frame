@@ -55,6 +55,15 @@ class Animation < ActiveRecord::Base
 			if complete?
 				# Render the animation over AWS Lambda
 				Lambduh.render self
+
+				frame = Frame.find(frame_id)
+				animation = frame.animation
+				room = animation.room
+				gallery = room.gallery
+				video = gallery.videos.create
+				video.video_url = video.id
+				video.name = video.id
+				video.save
 			end
 		end
 	end
