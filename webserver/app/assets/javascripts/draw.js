@@ -339,13 +339,14 @@
         "fill": "none"
       });
       addSVGEvents(svgElement);
+
+      svgElement.pos1X = x;
+      svgElement.pos1Y = y;
     } else {
-      if(x > svgElement.attr("x")) {
-        svgElement.attr("width", x - svgElement.attr("x"));
-      }
-      if(y > svgElement.attr("y")) {
-        svgElement.attr("height", y - svgElement.attr("y"));
-      }
+      svgElement.attr("x", Math.min(svgElement.pos1X, x));
+      svgElement.attr("y", Math.min(svgElement.pos1Y, y));
+      svgElement.attr("width", Math.abs(svgElement.pos1X - x));
+      svgElement.attr("height", Math.abs(svgElement.pos1Y - y));
     }
   }
 
