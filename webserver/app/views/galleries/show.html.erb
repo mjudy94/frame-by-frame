@@ -12,7 +12,7 @@
 
   <% @gallery.videos.each do |video| %>
     <tr>
-	    <td><%= link_to video.name, room_gallery_video_path(@room, @gallery, video) %></td>
+	    <td><%= link_to video.name, url_with_password([@room, :gallery, video]) %></td>
 	    <td><%= video.created_at %></td>
 	  </tr>
   <% end %>

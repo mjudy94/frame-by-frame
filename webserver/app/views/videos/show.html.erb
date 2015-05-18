@@ -1,5 +1,5 @@
 <div class="page-header">
-  <%= link_to 'Back', url_with_password(@video.gallery.room, @video.gallery), :class => 'btn btn-default' %>
+  <%= link_to 'Back', url_with_password([@gallery.room, :gallery]), :class => 'btn btn-default' %>
   <h1><%= @video.name %></h1>
 </div>
 
