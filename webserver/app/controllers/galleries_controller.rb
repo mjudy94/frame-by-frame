@@ -8,7 +8,13 @@ class GalleriesController < ApplicationController
 	end
 
 	def index
-		@galleries = Gallery.bucket.object(Gallery.public_galleries)
+		@galleries = Gallery.all
+		@public_galleries = []
+		@galleries.each do |gallery|
+			if gallery.is_public
+				@public_galleries << gallery
+			end
+		end
 	end
 
 	def show

@@ -1,10 +1,11 @@
 <div class="page-header">
+  <%= link_to 'Back', url_with_password(@animation.room), :class => 'btn btn-default' %>
   <h1>Create a New Animation</h1>
 </div>
 
 <%= form_for @animation, url: room_animation_path do |f| %>
   <%= form_password %>
-   
+
   <div class="control-group">
     <%= f.label :number_of_frames %>
     <%= f.number_field :number_of_frames, value: AnimationsController::DEFAULT_NUMBER_OF_FRAMES %>

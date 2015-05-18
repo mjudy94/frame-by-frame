@@ -4,7 +4,7 @@ $(document).ready ->
   $("form").change updateTotal
 
 getUnitFactor = ->
-  parseInt $("select[name=timer_units]").val()
+  if $("select[name=timer_units]").val() == "seconds" then 1 else 60
 
 formatTime = (time) ->
   numeral(time).format '0[.]0'

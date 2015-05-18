@@ -1,4 +1,8 @@
-<h1><%= @room.name %></h1>
+<div class="page-header">
+  <%= link_to 'Room', url_with_password(@room), :class => 'btn btn-default' %>
+  <h1><%= @room.name %></h1>
+</div>
+
 <% if @gallery.videos.first %>
 <table>
   <tr>

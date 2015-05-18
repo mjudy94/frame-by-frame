@@ -2,7 +2,7 @@ class AnimationsController < ApplicationController
   DEFAULT_NUMBER_OF_FRAMES = 60
   DEFAULT_TIMER_PER_FRAME = 30
   DEFAULT_VIDEO_FRAME_RATE = 15
-  TIMER_UNITS = [['seconds', '1'], ['minutes', '60']]
+  TIMER_UNITS = [['seconds'], ['minutes']]
 
   @@s3 = Aws::S3::Resource.new(
     region: 'us-east-1',
@@ -64,7 +64,7 @@ class AnimationsController < ApplicationController
       :timer_per_frame,
       :video_framerate
     )
-    p[:timer_per_frame] *= 60 if params[:timer_units] == 'minutes'
+    p[:timer_per_frame] = p[:timer_per_frame].to_i * 60 if params[:timer_units] == 'minutes'
     return p
   end
 end

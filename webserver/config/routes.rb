@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   match '/email', to: 'email#create', via: 'post'
 
-  get 'galleries/:id', to: 'galleries#index', as: 'galleries/index'
+  get 'galleries/', to: 'galleries#index', as: 'galleries/index'
   root 'landing#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
