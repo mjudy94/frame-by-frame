@@ -26,6 +26,18 @@ class AnimationsController < ApplicationController
     end
   end
 
+  def current_frame
+    animation = Room.find(params[:room_id]).animation
+    respond_to do |format|
+      format.json {
+        render :json => {
+          expiration: animation.current_frame.expiration,
+          complete: animation.complete?
+        }
+      }
+    end
+  end
+
   private
 
   def animation_params

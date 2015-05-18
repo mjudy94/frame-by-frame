@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   resources :rooms do
-    resource :animation
+    resource :animation do
+      get :current_frame, on: :member, :defaults => {format: :json}
+    end
 
     resource :gallery, except: [:new, :edit, :index] do
       resources :videos, only: [:create, :show, :destroy]

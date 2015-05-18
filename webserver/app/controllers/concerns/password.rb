@@ -9,7 +9,7 @@ module Password
   end
 
   included do
-    before_action :authenticate
+    before_action :authenticate#, only: [:index, :new, :create, :edit, :update, :show]
   end
 
   def redirect_with_password(obj, options={})
