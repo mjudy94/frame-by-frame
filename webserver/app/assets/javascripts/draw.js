@@ -17,7 +17,6 @@
   var textDialog, textForm;
 
   // Array storing sketch "items"
-
   var lastElements = new Array();
 
   // tool enums
@@ -187,6 +186,10 @@
         $(this).css("border", "2px solid black");
       });
 
+      $("#toggle-onion").click(function() {
+        $(".onion").css("opacity", $(this).is(":checked") ? 0.1 : 0);
+      });
+
       /*
       * Mouse input events
       */
@@ -335,13 +338,6 @@
   }
 
   function rect(rx, ry, x, y) {
-    if (Math.abs(x - rx) < MIN_LINE_LENGTH  &&
-          Math.abs(y - ry) < MIN_LINE_LENGTH) {
-      // Do not draw anything if the change is too insignificant. This helps
-      // conserve bandwidth and size of the svg image.
-      return;
-    }
-
     publishAction = "sketch";
 
     if(!svgElement) {
@@ -364,13 +360,6 @@
   }
 
   function circle(rx, ry, x, y) {
-    if (Math.abs(x - rx) < MIN_LINE_LENGTH  &&
-          Math.abs(y - ry) < MIN_LINE_LENGTH) {
-      // Do not draw anything if the change is too insignificant. This helps
-      // conserve bandwidth and size of the svg image.
-      return;
-    }
-
     publishAction = "sketch";
 
     if(!svgElement) {
