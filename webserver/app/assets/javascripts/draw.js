@@ -27,7 +27,8 @@
     "ERASER": 2,
     "TEXT": 3,
     "LINE": 4,
-    "RECT": 5
+    "RECT": 5,
+    "CIRCLE": 6
   };
   var currentTool = Tool.BRUSH;
 
@@ -177,6 +178,10 @@
         currentTool = Tool.RECT;
       });
 
+      $("#circle").click(function() {
+        currentTool = Tool.CIRCLE;
+      });
+
       $(".tool").click(function(){
         $(".tool").not($(this)).css("border", "none");
         $(this).css("border", "2px solid black");
@@ -197,6 +202,8 @@
           sketch(xPos, yPos, false, recentX, recentY, lineWidth, drawColor, true);
         } else if(currentTool === Tool.RECT) {
           rect(recentX, recentY, xPos, yPos);
+        } else if(currentTool === Tool.CIRCLE) {
+          circle(recentX, recentY, xPos, yPos);
         } else if(currentTool === Tool.TEXT) {
           text(xPos, yPos);
         }
@@ -214,6 +221,8 @@
           sketch(xPos, yPos, false, recentX, recentY, lineWidth, drawColor, true);
         } else if(currentTool === Tool.RECT) {
           rect(recentX, recentY, xPos, yPos);
+        } else if(currentTool === Tool.CIRCLE) {
+          circle(recentX, recentY, xPos, yPos);
         } else if(currentTool === Tool.TEXT) {
           text(xPos, yPos);
         }
@@ -229,6 +238,8 @@
             sketch(xPos, yPos, true, recentX, recentY, lineWidth, drawColor, true);
           } else if(currentTool === Tool.RECT) {
             rect(recentX, recentY, xPos, yPos);
+          } else if(currentTool === Tool.CIRCLE) {
+            circle(recentX, recentY, xPos, yPos);
           }
         }
 
@@ -246,6 +257,8 @@
             sketch(xPos, yPos, true, recentX, recentY, lineWidth, drawColor, true);
           } else if(currentTool === Tool.RECT) {
             rect(recentX, recentY, xPos, yPos);
+          } else if(currentTool === Tool.CIRCLE) {
+            circle(recentX, recentY, xPos, yPos);
           }
         }
 
@@ -347,6 +360,33 @@
       svgElement.attr("y", Math.min(svgElement.pos1Y, y));
       svgElement.attr("width", Math.abs(svgElement.pos1X - x));
       svgElement.attr("height", Math.abs(svgElement.pos1Y - y));
+    }
+  }
+
+  function circle(rx, ry, x, y) {
+    if (Math.abs(x - rx) < MIN_LINE_LENGTH  &&
+          Math.abs(y - ry) < MIN_LINE_LENGTH) {
+      // Do not draw anything if the change is too insignificant. This helps
+      // conserve bandwidth and size of the svg image.
+      return;
+    }
+
+    publishAction = "sketch";
+
+    if(!svgElement) {
+      svgElement = svg.circle(x, y, 0).attr({
+        "id": guid(),
+        "stroke": drawColor,
+        "stroke-width": lineWidth,
+        "fill": "none"
+      });
+      addSVGEvents(svgElement);
+
+      svgElement.pos1X = x;
+      svgElement.pos1Y = y;
+    } else {
+      var radius = Math.sqrt(Math.pow(x - svgElement.pos1X, 2) + Math.pow(y - svgElement.pos1Y, 2));
+      svgElement.attr("r", radius);
     }
   }
 
