@@ -52,6 +52,7 @@ class RoomsController < ApplicationController
     gon.push(
       frame_expiration: @room.animation ? @room.animation.current_frame.expiration : nil,
       animation_complete: @room.animation ? @room.animation.complete? : nil,
+      number_of_frames: @room.animation ? @room.animation.number_of_frames : nil,
       room_id: @room.id,
       password: @room.password,
       faye_url: Rails.configuration.faye_url,
