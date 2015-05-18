@@ -10,9 +10,9 @@
 if not Room.any?
   publicRoom = Room.create name: 'Public Room'
   publicRoom.create_animation(
-    number_of_frames: 10,
-    timer_per_frame: 30,
-    video_framerate: 10
+    number_of_frames: 75,
+    timer_per_frame: 60,
+    video_framerate: 15
   )
   public_gallery = publicRoom.create_gallery
   public_gallery.videos.create(
