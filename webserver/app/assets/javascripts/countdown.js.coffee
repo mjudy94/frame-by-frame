@@ -35,4 +35,4 @@ startCountdown = (frame) ->
   interval = setInterval(setTime, 1000) if expiration > Date.now()
 
 $(document).ready ->
-  fetchFrame() unless gon.animationComplete
+  fetchFrame() unless gon.animationComplete || !Snap('#canvas')
