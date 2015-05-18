@@ -4,6 +4,12 @@
   opacity: 0.1;
 }
 
+svg {
+  * {
+    @extend unselectable;
+  }
+}
+
 #canvas-header {
   text-align: center;
 }
@@ -78,7 +84,7 @@
   }
 }
 
-*.unselectable {
+.unselectable {
    -moz-user-select: -moz-none;
    -khtml-user-select: none;
    -webkit-user-select: none;
