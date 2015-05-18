@@ -306,7 +306,7 @@
   function sketch(x, y, drawing, rx, ry, lwidth, dcolor, isOwnSketch) {
     if(channel) {
       if(drawing) {
-        if (Math.abs(x - rx) < MIN_LINE_LENGTH  &&
+        if (currentTool === Tool.BRUSH && Math.abs(x - rx) < MIN_LINE_LENGTH  &&
               Math.abs(y - ry) < MIN_LINE_LENGTH) {
           // Do not draw anything if the change is too insignificant. This helps
           // conserve bandwidth and size of the svg image.
